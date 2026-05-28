@@ -32,6 +32,8 @@
       color: #f8fafc;
       font-family: Inter, "Noto Sans TC", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       margin: 0;
+      opacity: 0;
+      animation: pageReady 0.45s ease forwards;
     }
 
     a {
@@ -42,6 +44,7 @@
       display: inline-block;
       flex: 0 0 auto;
       height: 1.15em;
+      transition: transform 180ms ease;
       vertical-align: -0.18em;
       width: 1.15em;
     }
@@ -56,7 +59,19 @@
       position: relative;
     }
 
+    .hero::before {
+      animation: heroSheen 9s ease-in-out infinite;
+      background: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.08) 45%, transparent 64%);
+      content: "";
+      inset: -40% -30%;
+      opacity: 0.55;
+      pointer-events: none;
+      position: absolute;
+      transform: translateX(-30%) rotate(8deg);
+    }
+
     .hero-logo {
+      animation: logoDrift 13s ease-in-out infinite;
       bottom: -8%;
       filter: saturate(0.92) contrast(1.05);
       left: -4%;
@@ -87,6 +102,7 @@
     }
 
     .badges {
+      animation: riseIn 0.7s 0.08s cubic-bezier(0.2, 0.8, 0.2, 1) both;
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
@@ -94,6 +110,7 @@
     }
 
     .badge {
+      animation: badgeGlow 4.6s ease-in-out infinite;
       border: 1px solid rgba(103, 232, 249, 0.3);
       border-radius: 999px;
       background: rgba(103, 232, 249, 0.1);
@@ -119,6 +136,7 @@
     }
 
     .hero-title {
+      animation: riseIn 0.78s 0.18s cubic-bezier(0.2, 0.8, 0.2, 1) both;
       color: #fff;
       font-size: clamp(44px, 5vw, 72px);
       font-weight: 950;
@@ -128,6 +146,7 @@
     }
 
     .hero-copy {
+      animation: riseIn 0.78s 0.28s cubic-bezier(0.2, 0.8, 0.2, 1) both;
       color: #cbd5e1;
       font-size: 18px;
       line-height: 1.85;
@@ -135,11 +154,116 @@
       max-width: 720px;
     }
 
+    /* ── Music-service showcase row ── */
+    .services {
+      animation: riseIn 0.72s 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .service {
+      align-items: center;
+      border-radius: 10px;
+      display: inline-flex;
+      font-size: 14px;
+      font-weight: 900;
+      gap: 10px;
+      overflow: hidden;
+      padding: 10px 18px;
+      position: relative;
+      transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+    }
+
+    .service::before {
+      background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.22) 50%, transparent 70%);
+      content: "";
+      inset: 0;
+      pointer-events: none;
+      position: absolute;
+      transform: translateX(-120%);
+      transition: none;
+    }
+
+    .service:hover::before {
+      transform: translateX(120%);
+      transition: transform 620ms ease;
+    }
+
+    .service:hover {
+      transform: translateY(-3px) scale(1.03);
+    }
+
+    .service-icon {
+      display: flex;
+      flex: 0 0 auto;
+      height: 22px;
+      width: 22px;
+    }
+
+    .service-icon svg {
+      height: 100%;
+      width: 100%;
+    }
+
+    /* YouTube Music */
+    .service.yt {
+      animation: serviceGlow-yt 3.8s 0.6s ease-in-out infinite both;
+      background: rgba(255, 0, 0, 0.12);
+      border: 1px solid rgba(255, 0, 0, 0.32);
+      color: #fca5a5;
+    }
+
+    .service.yt:hover {
+      box-shadow: 0 12px 32px rgba(255, 0, 0, 0.22);
+    }
+
+    /* Spotify */
+    .service.sp {
+      animation: serviceGlow-sp 3.8s 1.0s ease-in-out infinite both;
+      background: rgba(29, 185, 84, 0.12);
+      border: 1px solid rgba(29, 185, 84, 0.32);
+      color: #86efac;
+    }
+
+    .service.sp:hover {
+      box-shadow: 0 12px 32px rgba(29, 185, 84, 0.22);
+    }
+
+    /* Apple Music */
+    .service.am {
+      animation: serviceGlow-am 3.8s 1.4s ease-in-out infinite both;
+      background: linear-gradient(135deg, rgba(252, 76, 107, 0.12), rgba(168, 85, 247, 0.12));
+      border: 1px solid rgba(252, 76, 107, 0.32);
+      color: #f9a8d4;
+    }
+
+    .service.am:hover {
+      box-shadow: 0 12px 32px rgba(252, 76, 107, 0.22);
+    }
+
+    @keyframes serviceGlow-yt {
+      0%, 100% { box-shadow: 0 0 0 rgba(255, 0, 0, 0); }
+      50% { box-shadow: 0 0 22px rgba(255, 0, 0, 0.14); }
+    }
+
+    @keyframes serviceGlow-sp {
+      0%, 100% { box-shadow: 0 0 0 rgba(29, 185, 84, 0); }
+      50% { box-shadow: 0 0 22px rgba(29, 185, 84, 0.14); }
+    }
+
+    @keyframes serviceGlow-am {
+      0%, 100% { box-shadow: 0 0 0 rgba(252, 76, 107, 0); }
+      50% { box-shadow: 0 0 22px rgba(252, 76, 107, 0.14); }
+    }
+
     .actions {
+      animation: riseIn 0.72s 0.42s cubic-bezier(0.2, 0.8, 0.2, 1) both;
       display: flex;
       flex-wrap: wrap;
       gap: 14px;
-      margin-top: 34px;
+      margin-top: 28px;
     }
 
     .button {
@@ -152,17 +276,27 @@
       min-height: 50px;
       justify-content: center;
       padding: 0 20px;
+      position: relative;
       text-decoration: none;
-      transition: background 160ms ease, transform 160ms ease, border-color 160ms ease;
+      transition: background 160ms ease, transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
     }
 
     .button:hover {
-      transform: translateY(-1px);
+      transform: translateY(-2px);
+    }
+
+    .button:hover .icon {
+      transform: translateX(2px) translateY(-1px);
     }
 
     .button.primary {
       background: var(--cyan);
+      box-shadow: 0 14px 34px rgba(34, 211, 238, 0.18);
       color: #020617;
+    }
+
+    .button.primary:hover {
+      box-shadow: 0 18px 42px rgba(34, 211, 238, 0.28);
     }
 
     .button.secondary {
@@ -172,6 +306,7 @@
     }
 
     .stats {
+      animation: riseIn 0.72s 0.48s cubic-bezier(0.2, 0.8, 0.2, 1) both;
       display: grid;
       gap: 12px;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -184,6 +319,13 @@
       border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 8px;
       padding: 14px;
+      transition: border-color 180ms ease, transform 180ms ease, background 180ms ease;
+    }
+
+    .stat:hover {
+      background: rgba(255, 255, 255, 0.075);
+      border-color: rgba(103, 232, 249, 0.34);
+      transform: translateY(-2px);
     }
 
     .stat dt {
@@ -202,6 +344,7 @@
 
     .sponsor {
       align-items: center;
+      animation: riseIn 0.72s 0.58s cubic-bezier(0.2, 0.8, 0.2, 1) both;
       background:
         radial-gradient(circle at 86% 42%, rgba(251, 191, 36, 0.16), transparent 28%),
         rgba(255, 255, 255, 0.055);
@@ -214,6 +357,13 @@
       margin-top: 26px;
       max-width: 720px;
       padding: 18px;
+      transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+    }
+
+    .sponsor:hover {
+      border-color: rgba(251, 191, 36, 0.42);
+      box-shadow: 0 22px 64px rgba(251, 191, 36, 0.11);
+      transform: translateY(-2px);
     }
 
     .eyebrow {
@@ -253,7 +403,12 @@
       height: 86px;
       object-fit: contain;
       padding: 5px;
+      transition: transform 200ms ease;
       width: 86px;
+    }
+
+    .sponsor:hover .sponsor-qr {
+      transform: rotate(1deg) scale(1.03);
     }
 
     .sponsor-button {
@@ -269,11 +424,18 @@
       justify-content: center;
       padding: 0 18px;
       text-decoration: none;
+      transition: transform 180ms ease, box-shadow 180ms ease;
       white-space: nowrap;
+    }
+
+    .sponsor-button:hover {
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.34);
+      transform: translateY(-2px);
     }
 
     .signature {
       align-items: center;
+      animation: riseIn 0.72s 0.68s cubic-bezier(0.2, 0.8, 0.2, 1) both;
       background: rgba(8, 47, 73, 0.32);
       border: 1px solid rgba(103, 232, 249, 0.28);
       border-radius: 999px;
@@ -287,11 +449,19 @@
     }
 
     .download-panel {
+      animation: panelEnter 0.85s 0.22s cubic-bezier(0.2, 0.8, 0.2, 1) both;
       background: var(--panel);
       border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 8px;
       box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
       padding: 24px;
+      transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+    }
+
+    .download-panel:hover {
+      border-color: rgba(103, 232, 249, 0.24);
+      box-shadow: 0 30px 90px rgba(8, 145, 178, 0.18);
+      transform: translateY(-3px);
     }
 
     .panel-head {
@@ -317,6 +487,7 @@
 
     .music-icon {
       align-items: center;
+      animation: musicBeat 2.8s ease-in-out infinite;
       background: var(--cyan);
       border-radius: 8px;
       color: #020617;
@@ -328,6 +499,7 @@
 
     .meta-row {
       align-items: center;
+      animation: lineIn 0.55s ease both;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       color: #cbd5e1;
       display: flex;
@@ -335,6 +507,18 @@
       gap: 16px;
       justify-content: space-between;
       padding: 12px 0;
+    }
+
+    .meta-row:nth-of-type(2) {
+      animation-delay: 0.28s;
+    }
+
+    .meta-row:nth-of-type(3) {
+      animation-delay: 0.36s;
+    }
+
+    .meta-row:nth-of-type(4) {
+      animation-delay: 0.44s;
     }
 
     .meta-row strong {
@@ -349,14 +533,23 @@
       border-radius: 8px;
       margin-top: 18px;
       padding: 16px;
+      transition: border-color 180ms ease, transform 180ms ease, background 180ms ease;
     }
 
     .download-box {
+      animation: riseIn 0.62s 0.54s ease both;
       background: rgba(0, 0, 0, 0.2);
     }
 
     .snapshot-box {
+      animation: riseIn 0.62s 0.62s ease both;
       background: rgba(255, 255, 255, 0.05);
+    }
+
+    .download-box:hover,
+    .snapshot-box:hover {
+      border-color: rgba(103, 232, 249, 0.24);
+      transform: translateY(-2px);
     }
 
     .box-label {
@@ -377,10 +570,18 @@
       word-break: break-word;
     }
 
-    .snapshot-box p:last-child {
+    .download-link:hover .icon {
+      transform: translateX(2px) translateY(-1px);
+    }
+
+    .snapshot-box p:not(.box-label) {
       color: #cbd5e1;
       font-size: 14px;
       line-height: 1.7;
+    }
+
+    .snapshot-box p:not(.box-label) + p {
+      margin-top: 8px;
     }
 
     .band {
@@ -420,12 +621,26 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 8px;
       padding: 18px;
+      transition: background 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+    }
+
+    .feature:hover {
+      background: rgba(255, 255, 255, 0.075);
+      border-color: rgba(103, 232, 249, 0.26);
+      box-shadow: 0 20px 48px rgba(8, 145, 178, 0.12);
+      transform: translateY(-3px);
     }
 
     .feature .icon {
       color: #a5f3fc;
       height: 24px;
+      transition: transform 220ms ease, color 220ms ease;
       width: 24px;
+    }
+
+    .feature:hover .icon {
+      color: #67e8f9;
+      transform: rotate(-4deg) scale(1.12);
     }
 
     .feature h3 {
@@ -472,6 +687,13 @@
       gap: 12px;
       margin-top: 16px;
       padding: 16px 18px;
+      transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+    }
+
+    .ready-note:hover {
+      border-color: rgba(14, 165, 233, 0.34);
+      box-shadow: 0 14px 38px rgba(14, 165, 233, 0.12);
+      transform: translateY(-2px);
     }
 
     .ready-note .icon {
@@ -509,12 +731,20 @@
       min-height: 128px;
       padding: 16px;
       position: relative;
+      overflow: hidden;
       transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
     }
 
-    .usage-card {
-      animation: usageFloatIn 0.7s ease both;
-      animation-delay: var(--delay);
+    .usage-card::before,
+    .install-card::before {
+      background: linear-gradient(120deg, transparent, rgba(103, 232, 249, 0.16), transparent);
+      content: "";
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+      transform: translateX(-100%);
+      transition: opacity 180ms ease, transform 540ms ease;
     }
 
     .usage-card:hover,
@@ -522,6 +752,12 @@
       border-color: rgba(14, 165, 233, 0.36);
       box-shadow: 0 22px 54px rgba(14, 165, 233, 0.12);
       transform: translateY(-2px);
+    }
+
+    .usage-card:hover::before,
+    .install-card:hover::before {
+      opacity: 1;
+      transform: translateX(100%);
     }
 
     .usage-icon,
@@ -534,7 +770,15 @@
       display: inline-flex;
       height: 52px;
       justify-content: center;
+      transition: background 180ms ease, color 180ms ease, transform 180ms ease;
       width: 52px;
+    }
+
+    .usage-card:hover .usage-icon,
+    .install-card:hover .install-icon {
+      background: #0891b2;
+      color: white;
+      transform: scale(1.04);
     }
 
     .usage-icon {
@@ -616,6 +860,12 @@
       gap: 24px;
       grid-template-columns: 180px minmax(0, 1fr);
       padding: 28px 0;
+      transition: background 180ms ease, transform 180ms ease;
+    }
+
+    .update:hover {
+      background: rgba(255, 255, 255, 0.025);
+      transform: translateX(4px);
     }
 
     .update + .update {
@@ -661,12 +911,23 @@
       display: flex;
       gap: 9px;
       margin-top: 8px;
+      transition: color 160ms ease, transform 160ms ease;
+    }
+
+    .notes li:hover {
+      color: white;
+      transform: translateX(3px);
     }
 
     .notes li::before {
       color: #a5f3fc;
       content: "✓";
       font-weight: 950;
+      transition: transform 160ms ease;
+    }
+
+    .notes li:hover::before {
+      transform: scale(1.12);
     }
 
     footer {
@@ -683,15 +944,110 @@
       justify-content: space-between;
     }
 
-    @keyframes usageFloatIn {
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.62s ease var(--reveal-delay, 0ms), transform 0.62s ease var(--reveal-delay, 0ms);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes pageReady {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes riseIn {
       from {
         opacity: 0;
-        transform: translateY(12px);
+        transform: translateY(18px);
       }
 
       to {
         opacity: 1;
         transform: translateY(0);
+      }
+    }
+
+    @keyframes panelEnter {
+      from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.98);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes lineIn {
+      from {
+        opacity: 0;
+        transform: translateX(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes heroSheen {
+      0%,
+      45% {
+        opacity: 0;
+        transform: translateX(-38%) rotate(8deg);
+      }
+
+      62% {
+        opacity: 0.55;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateX(38%) rotate(8deg);
+      }
+    }
+
+    @keyframes logoDrift {
+      0%,
+      100% {
+        transform: rotate(-6deg) translate3d(0, 0, 0);
+      }
+
+      50% {
+        transform: rotate(-4deg) translate3d(12px, -10px, 0);
+      }
+    }
+
+    @keyframes badgeGlow {
+      0%,
+      100% {
+        box-shadow: 0 0 0 rgba(103, 232, 249, 0);
+      }
+
+      50% {
+        box-shadow: 0 0 24px rgba(103, 232, 249, 0.12);
+      }
+    }
+
+    @keyframes musicBeat {
+      0%,
+      100% {
+        transform: scale(1) rotate(0deg);
+      }
+
+      12% {
+        transform: scale(1.06) rotate(-3deg);
+      }
+
+      24% {
+        transform: scale(1) rotate(0deg);
       }
     }
 
@@ -709,18 +1065,34 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+
       html {
         scroll-behavior: auto;
       }
 
-      .usage-card,
-      .usage-icon::after {
-        animation: none;
+      .button:hover,
+      .download-panel:hover,
+      .feature:hover,
+      .ready-note:hover,
+      .service:hover,
+      .sponsor:hover,
+      .stat:hover,
+      .usage-card:hover,
+      .install-card:hover,
+      .update:hover {
+        transform: none;
       }
 
-      .button:hover,
-      .usage-card:hover,
-      .install-card:hover {
+      .reveal {
+        opacity: 1;
         transform: none;
       }
     }
@@ -782,6 +1154,225 @@
         text-align: left;
       }
     }
+
+    /* ── Download modal ── */
+    .dl-backdrop {
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+      position: fixed;
+      transition: opacity 380ms ease;
+      z-index: 10000;
+    }
+
+    .dl-backdrop.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .dl-modal {
+      background:
+        radial-gradient(circle at 78% 14%, rgba(251, 191, 36, 0.10), transparent 52%),
+        radial-gradient(circle at 16% 82%, rgba(103, 232, 249, 0.06), transparent 40%),
+        rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+      box-shadow:
+        0 32px 80px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+      left: 50%;
+      max-height: calc(100dvh - 48px);
+      max-width: 460px;
+      opacity: 0;
+      overflow-y: auto;
+      padding: 36px 32px 28px;
+      pointer-events: none;
+      position: fixed;
+      top: 50%;
+      transform: translate(-50%, -46%) scale(0.94);
+      transition: opacity 380ms ease, transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      width: calc(100vw - 40px);
+      z-index: 10001;
+    }
+
+    .dl-backdrop.is-open .dl-modal {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .dl-close {
+      background: none;
+      border: none;
+      color: #64748b;
+      cursor: pointer;
+      padding: 4px;
+      position: absolute;
+      right: 16px;
+      top: 16px;
+      transition: color 160ms ease, transform 200ms ease;
+    }
+
+    .dl-close:hover {
+      color: #e2e8f0;
+      transform: rotate(90deg);
+    }
+
+    .dl-close svg {
+      display: block;
+      height: 20px;
+      width: 20px;
+    }
+
+    /* Checkmark ring */
+    .dl-check {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      margin: 0 auto 20px;
+      height: 64px;
+      width: 64px;
+    }
+
+    .dl-check svg {
+      height: 64px;
+      width: 64px;
+    }
+
+    .dl-check-circle {
+      fill: none;
+      stroke: #22c55e;
+      stroke-width: 2;
+      stroke-dasharray: 166;
+      stroke-dashoffset: 166;
+      animation: dlCircleDraw 0.6s 0.1s ease forwards;
+    }
+
+    .dl-check-tick {
+      fill: none;
+      stroke: #22c55e;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 30;
+      stroke-dashoffset: 30;
+      animation: dlTickDraw 0.35s 0.55s ease forwards;
+    }
+
+    @keyframes dlCircleDraw {
+      to { stroke-dashoffset: 0; }
+    }
+
+    @keyframes dlTickDraw {
+      to { stroke-dashoffset: 0; }
+    }
+
+    .dl-title {
+      color: #fff;
+      font-size: 22px;
+      font-weight: 950;
+      margin-top: 4px;
+      opacity: 0;
+      text-align: center;
+      animation: dlFadeUp 0.45s 0.7s ease forwards;
+    }
+
+    @keyframes dlFadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .dl-divider {
+      border: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin: 22px 0;
+      opacity: 0;
+      animation: dlFadeUp 0.35s 1.1s ease forwards;
+    }
+
+    .dl-stream {
+      color: #cbd5e1;
+      font-size: 15px;
+      line-height: 1.85;
+      min-height: 3.7em;
+      text-align: center;
+    }
+
+    .dl-cursor {
+      animation: dlBlink 0.6s steps(1) infinite;
+      background: #fbbf24;
+      border-radius: 1px;
+      display: inline-block;
+      height: 1.1em;
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      width: 2px;
+    }
+
+    @keyframes dlBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .dl-actions {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 26px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 420ms ease, transform 420ms ease;
+    }
+
+    .dl-actions.is-shown {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .dl-cta {
+      align-items: center;
+      background: linear-gradient(180deg, #fde68a, #fbbf24);
+      border-radius: 10px;
+      box-shadow: 0 10px 28px rgba(251, 191, 36, 0.22);
+      color: #78350f;
+      display: inline-flex;
+      font-size: 14px;
+      font-weight: 950;
+      gap: 8px;
+      height: 44px;
+      padding: 0 22px;
+      text-decoration: none;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .dl-cta:hover {
+      box-shadow: 0 14px 34px rgba(251, 191, 36, 0.34);
+      transform: translateY(-2px);
+    }
+
+    .dl-skip {
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      color: #94a3b8;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 800;
+      height: 44px;
+      padding: 0 20px;
+      transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .dl-skip:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.22);
+      color: #e2e8f0;
+    }
   </style>
 </head>
 <body>
@@ -792,7 +1383,7 @@
         <div>
           <div class="badges">
             <span class="badge">Windows Utility</span>
-            <span class="badge version">v2.0.0</span>
+            <span class="badge version">v2.2.0</span>
           </div>
 
           <h1 class="hero-title">Forza 音樂懸浮播放器</h1>
@@ -800,22 +1391,41 @@
             在玩 Forza 時顯示 YouTube Music、Spotify 或 Apple Music 正在播放的歌曲，並用快捷鍵、手把組合鍵控制播放、暫停、下一首、上一首與音量。
           </p>
 
+          <div class="services">
+            <span class="service yt">
+              <span class="service-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="4" stroke="currentColor" stroke-width="1.8"/><path d="M10 9.5v5l4.5-2.5L10 9.5Z" fill="currentColor"/></svg></span>
+              YouTube Music
+            </span>
+            <span class="service sp">
+              <span class="service-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><path d="M8 15.5c0-1 1.2-2 4-2s4 1 4 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M7 12.5c0-1.2 1.8-2.6 5-2.6s5 1.4 5 2.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M6.5 9.5c0-1.4 2.2-3 5.5-3s5.5 1.6 5.5 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+              Spotify
+            </span>
+            <span class="service am">
+              <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span>
+              Apple Music
+            </span>
+          </div>
+
           <div class="actions">
-            <a class="button primary" href="https://drive.google.com/file/d/1JvewwPWzbAtJiVLnLrpoQxB0Mq4S2BVz/view?usp=drive_link" target="_blank" rel="noopener noreferrer">
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
-              前往 Google Drive 下載
+            <a class="button primary" data-dl href="https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v2.2.0/ForzaMusicOverlay-v2.2.0.zip" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+              下載
             </a>
             <a class="button secondary" href="#updates">
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M3 6h12"/><path d="M3 12h9"/><path d="M3 18h12"/><path d="M18 9v6h3"/></svg>
               查看更新紀錄
             </a>
+            <a class="button secondary" href="https://github.com/scott0127/forza-horizon-6-youtube-muisc-player" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              GitHub ⭐ Star
+            </a>
           </div>
 
           <dl class="stats">
-            <div class="stat"><dt>版本</dt><dd>v2.0.0</dd></div>
+            <div class="stat"><dt>版本</dt><dd>v2.2.0</dd></div>
             <div class="stat"><dt>平台</dt><dd>Windows</dd></div>
             <div class="stat"><dt>格式</dt><dd>ZIP</dd></div>
-            <div class="stat"><dt>更新</dt><dd>2026-05-27</dd></div>
+            <div class="stat"><dt>更新</dt><dd>2026-05-28</dd></div>
           </dl>
 
           <div class="sponsor">
@@ -837,28 +1447,29 @@
           <div class="panel-head">
             <div>
               <p>最新版</p>
-              <h2>v2.0.0</h2>
+              <h2>v2.2.0</h2>
             </div>
             <div class="music-icon">
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
             </div>
           </div>
 
-          <div class="meta-row"><span>檔案</span><strong>ForzaMusicOverlay-release2.0.zip</strong></div>
-          <div class="meta-row"><span>大小</span><strong>163.21 MB</strong></div>
+          <div class="meta-row"><span>檔案</span><strong>ForzaMusicOverlay-v2.2.0.zip</strong></div>
+          <div class="meta-row"><span>來源</span><strong>GitHub Releases</strong></div>
           <div class="meta-row"><span>授權</span><strong>MIT License</strong></div>
 
           <div class="download-box">
             <p class="box-label">下載</p>
-            <a class="download-link" href="https://drive.google.com/file/d/1JvewwPWzbAtJiVLnLrpoQxB0Mq4S2BVz/view?usp=drive_link" target="_blank" rel="noopener noreferrer">
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
-              ForzaMusicOverlay-release2.0.zip
+            <a class="download-link" data-dl href="https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v2.2.0/ForzaMusicOverlay-v2.2.0.zip" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+              ForzaMusicOverlay-v2.2.0.zip
             </a>
           </div>
 
           <div class="snapshot-box">
             <p class="box-label">更新快照</p>
-            <p>2.0 新增 Apple Music、Liquid Glass / 暗黑主題、懸浮播放器大小調整、縮圖與進度顯示改善，並支援解壓後直接點 exe 使用。</p>
+            <p>2.2 重大變更：手把快捷鍵改成 L3 (左蘑菇頭按壓) + 其他按鍵，完全避免跟遊戲原有按鍵衝突。切歌過渡更加流暢。</p>
+            <p>2.1 修正 bat 檔案，並加入 logo 顯示，讓安裝與啟動時的品牌圖示更完整。</p>
           </div>
         </aside>
       </div>
@@ -888,7 +1499,7 @@
           <article class="feature">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M6 12h4"/><path d="M8 10v4"/><path d="M15 13h.01"/><path d="M18 11h.01"/><path d="M7 19c-2 0-4-1.5-4-4.2S5 7 7.8 7h8.4C19 7 21 12 21 14.8S19 19 17 19c-1.5 0-2.4-1-3-2H10c-.6 1-1.5 2-3 2Z"/></svg>
             <h3>手把組合鍵</h3>
-            <p>支援 LB + A / B / X / 上 / 下控制播放、切歌與音量。</p>
+            <p>支援 L3 (左蘑菇頭按壓) + A / B / X / 上 / 下控制播放、切歌與音量。</p>
           </article>
           <article class="feature">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M12 3l1.8 4.2L18 9l-4.2 1.8L12 15l-1.8-4.2L6 9l4.2-1.8L12 3Z"/><path d="M19 14l.8 1.8L22 17l-2.2.8L19 20l-.8-2.2L16 17l2.2-1.2L19 14Z"/></svg>
@@ -919,15 +1530,15 @@
             </article>
             <article class="usage-card" style="--delay: 220ms">
               <div class="usage-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M6 12h4"/><path d="M8 10v4"/><path d="M15 13h.01"/><path d="M18 11h.01"/><path d="M7 19c-2 0-4-1.5-4-4.2S5 7 7.8 7h8.4C19 7 21 12 21 14.8S19 19 17 19c-1.5 0-2.4-1-3-2H10c-.6 1-1.5 2-3 2Z"/></svg></div>
-              <div><p class="kbd">LB + A</p><h3>播放 / 暫停</h3><p>遊戲中按住 LB 再按 A，就能播放或暫停目前歌曲。</p></div>
+              <div><p class="kbd">L3 + A</p><h3>播放 / 暫停</h3><p>遊戲中按住 L3（左蘑菇頭按壓）再按 A，就能播放或暫停目前歌曲。</p></div>
             </article>
             <article class="usage-card" style="--delay: 330ms">
               <div class="usage-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="m5 4 10 8L5 20V4Z"/><path d="M19 5v14"/></svg></div>
-              <div><p class="kbd">LB + B / LB + X</p><h3>下一首 / 上一首</h3><p>LB + B 切到下一首，LB + X 回到上一首，不需要離開 Forza。</p></div>
+              <div><p class="kbd">L3 + B / L3 + X</p><h3>下一首 / 上一首</h3><p>L3 + B 切到下一首，L3 + X 回到上一首，不需要離開 Forza。</p></div>
             </article>
             <article class="usage-card" style="--delay: 440ms">
               <div class="usage-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M15 9.5a5 5 0 0 1 0 5"/><path d="M18 7a9 9 0 0 1 0 10"/></svg></div>
-              <div><p class="kbd">LB + ↑ / ↓</p><h3>調整音量</h3><p>LB + 上鍵調高音量，LB + 下鍵調低音量。</p></div>
+              <div><p class="kbd">L3 + ↑ / ↓</p><h3>調整音量</h3><p>L3 + 上鍵調高音量，L3 + 下鍵調低音量。</p></div>
             </article>
             <article class="usage-card" style="--delay: 550ms">
               <div class="usage-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 18v3"/><path d="M12 13V8"/><path d="m9 10 3-3 3 3"/></svg></div>
@@ -946,7 +1557,7 @@
           <div class="install-flow">
             <article class="install-card">
               <div class="install-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg></div>
-              <div><p class="step-label">STEP 1</p><h3>下載 ZIP</h3><p>從 Google Drive 下載 release2.0 壓縮檔。</p></div>
+              <div><p class="step-label">STEP 1</p><h3>下載 ZIP</h3><p>從 GitHub Releases 下載最新版壓縮檔。</p></div>
             </article>
             <article class="install-card">
               <div class="install-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M21 8H3"/><path d="M5 8v11a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8"/><path d="M7 4h10v4"/><path d="M10 13h4"/></svg></div>
@@ -979,6 +1590,35 @@
         </div>
 
         <div class="update-list">
+          <article class="update">
+            <div><p class="update-version">v2.2.0</p><p class="update-date">2026-05-28</p></div>
+            <div>
+              <h3>手把快捷鍵改為 L3 組合鍵 · 切歌過渡更流暢</h3>
+              <div class="entry-actions">
+                <a class="button primary" href="https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v2.2.0/ForzaMusicOverlay-v2.2.0.zip" target="_blank" rel="noopener noreferrer">下載 v2.2.0</a>
+                <p class="entry-file">ForzaMusicOverlay-v2.2.0.zip</p>
+              </div>
+              <ul class="notes">
+                <li>重大變更：手把快捷鍵改成 L3（左蘑菇頭按壓）+ 其他按鍵，完全避免跟遊戲原有按鍵衝突。</li>
+                <li>切歌過渡更加流暢，換曲時的視覺銜接更自然。</li>
+              </ul>
+            </div>
+          </article>
+          <article class="update">
+            <div><p class="update-version">v2.1.0</p><p class="update-date">2026-05-27</p></div>
+            <div>
+              <h3>修正安裝批次檔與 logo 顯示</h3>
+              <div class="entry-actions">
+                <a class="button primary" href="https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v2.1.0/ForzaMusicOverlay2.1.zip" target="_blank" rel="noopener noreferrer">下載 v2.1.0</a>
+                <a class="button secondary" href="https://drive.google.com/file/d/1gjPE4kmlFNPdpeRo6xrSua_uQQlN50Yt/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Google Drive</a>
+                <p class="entry-file">ForzaMusicOverlay2.1.zip</p>
+              </div>
+              <ul class="notes">
+                <li>修正 bat 檔案，讓安裝與啟動流程更穩定。</li>
+                <li>加入 logo 顯示，讓程式與捷徑圖示更完整。</li>
+              </ul>
+            </div>
+          </article>
           <article class="update">
             <div><p class="update-version">v2.0.0</p><p class="update-date">2026-05-27</p></div>
             <div>
@@ -1032,8 +1672,141 @@
   <footer>
     <div class="wrap">
       <p>Forza Music Overlay 是非官方工具，與 Microsoft、Forza、Spotify、Apple、Google 或 YouTube 無隸屬關係。</p>
-      <p>MIT License · Windows 10/11</p>
+      <p>MIT License · Windows 10/11 · <a href="https://github.com/scott0127/forza-horizon-6-youtube-muisc-player" target="_blank" rel="noopener noreferrer" style="color:#a5f3fc;text-decoration:none;">GitHub ⭐</a></p>
     </div>
   </footer>
+  <script>
+    (() => {
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const revealItems = document.querySelectorAll([
+        ".overview-grid > div",
+        ".feature",
+        ".install-grid > div",
+        ".ready-note",
+        ".usage-card",
+        ".install-card",
+        ".updates-head",
+        ".update",
+        "footer .wrap"
+      ].join(","));
+
+      revealItems.forEach((item, index) => {
+        item.classList.add("reveal");
+        item.style.setProperty("--reveal-delay", `${Math.min((index % 6) * 70, 350)}ms`);
+      });
+
+      if (reduceMotion || !("IntersectionObserver" in window)) {
+        revealItems.forEach((item) => item.classList.add("is-visible"));
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return;
+          }
+
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        });
+      }, {
+        rootMargin: "0px 0px -10% 0px",
+        threshold: 0.12
+      });
+
+      revealItems.forEach((item) => observer.observe(item));
+    })();
+  </script>
+
+  <!-- Download support modal -->
+  <div class="dl-backdrop" id="dlBackdrop">
+    <div class="dl-modal" role="dialog" aria-labelledby="dlTitle" id="dlModal">
+      <button class="dl-close" id="dlClose" type="button" aria-label="關閉">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+      <div class="dl-check">
+        <svg viewBox="0 0 52 52">
+          <circle class="dl-check-circle" cx="26" cy="26" r="25"/>
+          <path class="dl-check-tick" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        </svg>
+      </div>
+      <p class="dl-title" id="dlTitle">已經開始下載了！</p>
+      <hr class="dl-divider">
+      <p class="dl-stream" id="dlStream"></p>
+      <div class="dl-actions" id="dlActions">
+        <a class="dl-cta" href="https://buymeacoffee.com/scott5497" target="_blank" rel="noopener noreferrer">☕ Buy Me a Coffee</a>
+        <button class="dl-skip" id="dlSkip" type="button">下次再說 🙌</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const DL_KEY = "fmo_dl_modal_shown";
+      const backdrop = document.getElementById("dlBackdrop");
+      const modal = document.getElementById("dlModal");
+      const streamEl = document.getElementById("dlStream");
+      const actionsEl = document.getElementById("dlActions");
+      if (!backdrop || !streamEl) return;
+
+      const MESSAGE = "這個工具是免費的。\n如果工具有幫到你，可以請還在讀碩士的我喝杯咖啡☕或是贊助我幫我累積購買設備的錢，支持後續修正與新功能。";
+      const CHAR_DELAY = 38;
+      let streamTimeout = null;
+      let charIndex = 0;
+
+      function close() {
+        clearTimeout(streamTimeout);
+        backdrop.classList.remove("is-open");
+        sessionStorage.setItem(DL_KEY, "1");
+      }
+
+      function streamText() {
+        if (charIndex >= MESSAGE.length) {
+          // Remove cursor, show actions
+          const cursor = streamEl.querySelector(".dl-cursor");
+          if (cursor) cursor.remove();
+          actionsEl.classList.add("is-shown");
+          return;
+        }
+        const ch = MESSAGE[charIndex];
+        // Insert text before cursor
+        const cursor = streamEl.querySelector(".dl-cursor");
+        if (ch === "\n") {
+          cursor.before(document.createElement("br"));
+        } else {
+          cursor.before(document.createTextNode(ch));
+        }
+        charIndex++;
+        streamTimeout = setTimeout(streamText, CHAR_DELAY);
+      }
+
+      function open() {
+        if (sessionStorage.getItem(DL_KEY)) return;
+        // Reset state
+        charIndex = 0;
+        streamEl.textContent = "";
+        actionsEl.classList.remove("is-shown");
+        const cursor = document.createElement("span");
+        cursor.className = "dl-cursor";
+        streamEl.appendChild(cursor);
+        backdrop.classList.add("is-open");
+        // Start streaming after title + divider animations finish
+        streamTimeout = setTimeout(streamText, 1300);
+      }
+
+      document.getElementById("dlClose").addEventListener("click", close);
+      document.getElementById("dlSkip").addEventListener("click", close);
+      backdrop.addEventListener("click", (e) => {
+        if (e.target === backdrop) close();
+      });
+
+      // Listen for download clicks
+      document.querySelectorAll('[data-dl]').forEach((link) => {
+        link.addEventListener("click", () => {
+          setTimeout(open, 600);
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
