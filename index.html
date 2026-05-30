@@ -2215,11 +2215,20 @@
 
       // Listen for download clicks
       document.querySelectorAll('[data-dl]').forEach((link) => {
-        link.addEventListener("click", () => {
-          // 延遲 800 毫秒以確保新分頁下載被觸發後，再將當前網頁跳轉至斗內頁面
+        link.addEventListener("click", (e) => {
+          e.preventDefault(); // 阻擋原本預設的新分頁行為
+          const dlUrl = link.getAttribute("href");
+
+          // 1. 打開原本的「已經開始下載了！」Modal
+          setTimeout(open, 600);
+
+          // 2. 彈出斗內小視窗 (設定寬高使其成為獨立視窗，而非全螢幕分頁)
+          window.open("https://buymeacoffee.com/scott5497", "DonateWindow", "width=550,height=800,left=150,top=150");
+
+          // 3. 觸發實際下載 (因為是 zip 檔，直接跳轉即可觸發下載而不會離開當前網頁)
           setTimeout(() => {
-            window.location.href = "https://buymeacoffee.com/scott5497";
-          }, 800);
+            window.location.href = dlUrl;
+          }, 200);
         });
       });
     })();

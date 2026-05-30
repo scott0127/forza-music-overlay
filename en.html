@@ -2215,11 +2215,20 @@
 
       // Listen for download clicks
       document.querySelectorAll('[data-dl]').forEach((link) => {
-        link.addEventListener("click", () => {
-          // Delay 800ms to ensure the file download is triggered, then redirect the current page
+        link.addEventListener("click", (e) => {
+          e.preventDefault(); // Prevent default link opening
+          const dlUrl = link.getAttribute("href");
+
+          // 1. Open the original download modal
+          setTimeout(open, 600);
+
+          // 2. Pop up a small donation window (not a full-screen tab)
+          window.open("https://buymeacoffee.com/scott5497", "DonateWindow", "width=550,height=800,left=150,top=150");
+
+          // 3. Trigger the actual download
           setTimeout(() => {
-            window.location.href = "https://buymeacoffee.com/scott5497";
-          }, 800);
+            window.location.href = dlUrl;
+          }, 200);
         });
       });
     })();
