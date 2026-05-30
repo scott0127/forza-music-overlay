@@ -2216,7 +2216,10 @@
       // Listen for download clicks
       document.querySelectorAll('[data-dl]').forEach((link) => {
         link.addEventListener("click", () => {
-          setTimeout(open, 600);
+          // Delay 800ms to ensure the file download is triggered, then redirect the current page
+          setTimeout(() => {
+            window.location.href = "https://buymeacoffee.com/scott5497";
+          }, 800);
         });
       });
     })();

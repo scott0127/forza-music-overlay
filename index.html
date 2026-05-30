@@ -2216,7 +2216,10 @@
       // Listen for download clicks
       document.querySelectorAll('[data-dl]').forEach((link) => {
         link.addEventListener("click", () => {
-          setTimeout(open, 600);
+          // 延遲 800 毫秒以確保新分頁下載被觸發後，再將當前網頁跳轉至斗內頁面
+          setTimeout(() => {
+            window.location.href = "https://buymeacoffee.com/scott5497";
+          }, 800);
         });
       });
     })();
