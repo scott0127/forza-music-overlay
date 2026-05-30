@@ -1,0 +1,832 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HistoChat 論文逐字翻譯：開頭至 Related Works</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172026;
+      --muted: #5e6a70;
+      --line: #d8e0e4;
+      --paper: #fbfaf7;
+      --panel: #ffffff;
+      --accent: #25636f;
+      --accent-soft: #e5f1f3;
+      --mark: #7d4e12;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Microsoft JhengHei", "Noto Sans TC", system-ui, sans-serif;
+      line-height: 1.78;
+    }
+
+    .page {
+      display: grid;
+      grid-template-columns: minmax(220px, 280px) minmax(0, 860px);
+      gap: 32px;
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 36px 24px 72px;
+    }
+
+    aside {
+      position: sticky;
+      top: 20px;
+      align-self: start;
+      max-height: calc(100vh - 40px);
+      overflow-y: auto;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      box-shadow: 0 16px 40px rgba(23, 32, 38, 0.06);
+      scrollbar-gutter: stable;
+    }
+
+    main {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 44px;
+      box-shadow: 0 20px 48px rgba(23, 32, 38, 0.07);
+    }
+
+    h1, h2, h3 {
+      line-height: 1.3;
+      margin: 0;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      font-size: clamp(1.8rem, 4vw, 2.65rem);
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-size: 1.55rem;
+      margin-top: 42px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    h3 {
+      font-size: 1.18rem;
+      margin-top: 30px;
+      color: var(--accent);
+    }
+
+    .stars {
+      display: inline-block;
+      margin-left: 8px;
+      color: var(--mark);
+      font-size: 0.95em;
+      white-space: nowrap;
+    }
+
+    p {
+      margin: 14px 0;
+      text-align: justify;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    .meta, .note, .authors, .caption, .ref {
+      color: var(--muted);
+    }
+
+    .authors {
+      margin-top: 18px;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .authors li {
+      margin: 4px 0;
+    }
+
+    .note {
+      background: var(--accent-soft);
+      border-left: 4px solid var(--accent);
+      padding: 12px 14px;
+      border-radius: 6px;
+      margin: 24px 0;
+    }
+
+    .caption {
+      font-size: 0.95rem;
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      padding: 12px 14px;
+      background: #f7faf9;
+    }
+
+    .toc-title, .terms-title {
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--accent);
+    }
+
+    .toc {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 20px;
+    }
+
+    .toc li {
+      margin: 7px 0;
+    }
+
+    .terms {
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .term {
+      border-top: 1px solid var(--line);
+      padding-top: 8px;
+      font-size: 0.92rem;
+    }
+
+    .term strong {
+      display: block;
+      color: var(--ink);
+    }
+
+    .abstract {
+      margin-top: 28px;
+    }
+
+    .quote {
+      border-left: 3px solid var(--mark);
+      padding-left: 14px;
+      color: #2f3538;
+    }
+
+    .questions {
+      padding-left: 1.4rem;
+    }
+
+    .questions li {
+      margin: 8px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 18px 0 24px;
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
+    th, td {
+      border: 1px solid var(--line);
+      padding: 10px;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin: 16px 0;
+    }
+
+    @media (max-width: 860px) {
+      .page {
+        grid-template-columns: 1fr;
+        padding: 18px 14px 44px;
+      }
+
+      aside {
+        position: static;
+      }
+
+      main {
+        padding: 26px 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <aside aria-label="文章導覽">
+      <div class="toc-title">目錄</div>
+      <ol class="toc">
+        <li><a href="#title">題名與摘要</a></li>
+        <li><a href="#intro">1 Introduction</a></li>
+        <li><a href="#related">2 Related Works</a></li>
+        <li><a href="#genai">2.1 Generative AI for Education</a></li>
+        <li><a href="#chatbots">2.2 Educational Chatbots and Prompt Engineering</a></li>
+        <li><a href="#roleplay">2.3 AI Role-Playing in Educational Domains</a></li>
+        <li><a href="#history-chatbots">2.4 Learning History from AI Chatbots</a></li>
+        <li><a href="#empathy">2.5 Historical Empathy</a></li>
+        <li><a href="#formative">3 Formative Study</a></li>
+        <li><a href="#system-design">4 System Design</a></li>
+        <li><a href="#main-study">5 Main Study</a></li>
+        <li><a href="#results">6 Results</a></li>
+        <li><a href="#findings">7 Findings</a></li>
+        <li><a href="#discussion">8 Discussion</a></li>
+        <li><a href="#limitations">9 Limitation and Future Work</a></li>
+        <li><a href="#conclusion">10 Conclusion</a></li>
+        <li><a href="#references">References</a></li>
+        <li><a href="#appendices">Appendices</a></li>
+      </ol>
+
+      <p class="meta">重要度：★ 越多表示越需要優先讀，依本篇論文論證功能評估。</p>
+
+      <div class="terms-title">重要名詞</div>
+      <div class="terms">
+        <div class="term"><strong>歷史同理心</strong>historical empathy</div>
+        <div class="term"><strong>AI 人格化角色</strong>AI persona</div>
+        <div class="term"><strong>大型語言模型</strong>Large Language Model, LLM</div>
+        <div class="term"><strong>生成式 AI</strong>Generative AI, GenAI</div>
+        <div class="term"><strong>提示工程</strong>prompt engineering</div>
+        <div class="term"><strong>觀點採擇</strong>perspective-taking</div>
+        <div class="term"><strong>脈絡理解</strong>contextual understanding</div>
+      </div>
+    </aside>
+
+    <main>
+      <section id="title">
+        <p class="meta">翻譯範圍：論文正式開頭至第 2.5 節 Historical Empathy 結束。</p>
+        <h1>「HistoChat」：運用 AI 驅動的歷史人物人格，打造個人化且引人入勝的中學歷史教育</h1>
+        <ul class="authors">
+          <li>YEON SOO KIM，KAIST，韓國</li>
+          <li>HYUN SEUNG MOON，KAIST，韓國</li>
+          <li>SANGSU LEE，KAIST，韓國</li>
+          <li>TAK YEON LEE，KAIST，韓國</li>
+        </ul>
+        <p class="meta">註：前兩位作者對本研究貢獻相同。作者聯絡資訊：Yeon Soo Kim，KAIST 工業設計系，ykim18@kaist.ac.kr；Hyun Seung Moon，KAIST 工業設計系，mzes0401@kaist.ac.kr；Sangsu Lee，KAIST 工業設計系，sangsu.lee@kaist.ac.kr；Tak Yeon Lee，KAIST 工業設計系，takyeonlee@kaist.ac.kr。</p>
+        <p class="meta">本作品採用 Creative Commons Attribution 4.0 International License 授權。© 2025 著作權由所有者／作者持有。ACM 2573-0142/2025/11-ARTCSCW353。https://doi.org/10.1145/3757534</p>
+
+        <p class="caption">圖 1。概覽：HistoChat 互動流程圖（左上）以及使用 HistoChat 的五項益處。</p>
+
+        <div class="abstract">
+          <p>傳統歷史教育常因僵化的課程與有限的機會，而未能培養歷史同理心（historical empathy）；學生也較少能進行個人化、情感上有共鳴的投入。我們探討以大型語言模型（LLM）為基礎的歷史人物人格（historical personas）之潛力，藉由讓學生與模擬的歷史人物進行即時、對話式互動，來處理這些缺口。一項與教師和學生共同進行的形成性研究（formative study）浮現出圍繞 AI 中介歷史對話（AI-mediated historical dialogue）的關鍵挑戰與期待，並據此推動 Baseline 與 Experimental 兩種 HistoChat 的開發；它們是採用不同提示策略（prompting strategies）的 AI 人格系統。後續的使用者研究顯示，這些互動促進了更深入的探究、好奇心與情感投入，同時也揭示了關鍵限制。從 CSCW 的觀點來看，本研究將 AI 的角色從任務助理擴展為認識論夥伴（epistemic partner），並對有關對話式系統（dialogic systems）如何在教育情境中支持意義建構、同理心與共同建構學習（co-constructed learning）的持續討論有所貢獻。我們的發現為量身設計的 AI 互動如何影響個人化且具同理心的歷史教育，提供了有價值的洞見。</p>
+        </div>
+
+        <p><strong>CCS 概念：</strong>以人為中心的運算（Human-centered computing）→ 協作與社會運算中的實證研究（Empirical studies in collaborative and social computing）；應用運算（Applied computing）→ 互動式學習環境（Interactive learning environments）。</p>
+        <p><strong>其他關鍵詞與片語：</strong>AI 人格化角色（AI persona）、大型語言模型（LLM）、教育中的 AI（AI in education）。</p>
+        <p class="ref"><strong>ACM 引用格式：</strong>Yeon Soo Kim, Hyun Seung Moon, Sangsu Lee, and Tak Yeon Lee. 2025. “HistoChat”: Leveraging AI-Driven Historical Personas for Personalized and Engaging Middle School History Education. Proc. ACM Hum.-Comput. Interact. 9, 7, Article CSCW353（2025 年 11 月），37 頁。https://doi.org/10.1145/3757534</p>
+      </section>
+
+      <section id="intro">
+        <h2>1 Introduction <span class="stars" aria-label="重要度五星">★★★★★</span></h2>
+        <p class="quote">正如 Edward Hallett Carr 的名言：「歷史是歷史學家與其事實之間持續互動的過程，是現在與過去之間無止境的對話」[10]。</p>
+        <p>這種觀點將歷史框定為不是靜態事實，而是由當代觀點塑造、持續演變的對話。在教育中，這要求從死記硬背轉向詮釋性與關係性的投入。一個與此觀點相呼應、被廣泛採用的架構是「歷史同理心（Historical Empathy）」[56]，也就是理解歷史人物的生活經驗、與其產生情感連結，並將其置於脈絡中加以理解的能力 [20]。透過觀點採擇（perspective-taking），學生不只洞察歷史個體，也理解塑造其生活的更廣泛政治、經濟與文化力量 [56]。這個過程促進過去與現在之間的連結 [23]，鼓勵學生反思自身價值與決策也是被置於歷史之中的 [56]。因此，實踐歷史同理心（historical empathy）提供了一條路徑，使 Carr 將歷史視為與過去進行詮釋性、對話式投入的願景得以實現，並加深對歷史複雜性的理解。</p>
+
+        <p>儘管歷史同理心（historical empathy）具有前景，在傳統課堂中仍難以培養。以教科書為主導的教學與標準化評量，將歷史化約為靜態時間線，限制了詮釋、情感共鳴或人際連結的機會 [23]。教師很難超越事實陳述，去幫助學生將歷史人物看作複雜的個體；而一致化的教學方法，也無法容納學生多樣的觀點、興趣或先備知識 [71]。若缺乏反思性探究或個人化探索的機會，許多學生會把歷史經驗為遙遠且無法投入的事物，幾乎沒有空間去建立歷史同理心所需的情感與認知橋梁。</p>
+
+        <p>為回應這些限制，教育者已探索能幫助學生透過更人性化、更具情感共鳴的視角看見過去的策略。其中一種方法是課堂角色扮演（classroom role-playing），學生採取歷史人物的觀點，以探索其動機、困境與決策 [56]。這些活動已知能培養同理心並拓展理解，然而它們需要教師大量引導，也高度仰賴同儕合作 [53]。為了將觀點採擇（perspective-taking）延伸到後勤限制之外，人工智慧（Artificial Intelligence, AI）與大型語言模型（Large Language Models, LLMs）的近期進展，為創造相似的沉浸式且可擴展的學習經驗提供了新的可能性 [64]。</p>
+
+        <p>這項潛力的核心，是使用 AI 人格化角色（AI personas）：這些對話代理（dialogue agents）不只是提供答案，而是模擬歷史人物的聲音、價值與世界觀。透過讓學生進行直接的對話式互動，這些人格化角色能幫助彌合學習者與過去之間的距離，支持情感上有共鳴且脈絡上有根基的過去遭遇 [76]。不同於聚焦於教學的傳統 AI 家教（AI tutors），AI 人格化角色（AI personas）被設計為承載特定身分 [12, 77]，維持一致的人物特質，並提供個人化且相關的回應 [87]。AI 人格化角色可以作為歷史學習中一致且具沉浸感的夥伴，也能適應學生的問題、興趣與步調，處理長久以來支持不同學習者的挑戰。在一門敘事、觀點採擇與脈絡理解都很重要的科目中 [83]，這類互動式人格化角色提供了一種引人注目的方式來培養歷史同理心（historical empathy）。透過將靜態內容轉化為情感上有共鳴的對話，它們使學生能探索多重觀點，並與過去建立有意義的連結，讓歷史變得更動態、更可親近，也更具有個人意義。</p>
+
+        <p>儘管前景可期，教育中關於 AI 的多數研究仍聚焦於家教型系統 [55, 97, 98]，優先重視事實傳遞，而非情感性或詮釋性的投入。一個例外是為同理式歷史學習設計的社交機器人（social bot）[70]；然而，該機器人更像是促進者，而不是體現一位歷史角色，因而限制了沉浸感以及與歷史觀點的直接互動。於是，一項關鍵缺口仍然存在：學生如何與明確設計來模擬歷史人物的 AI 人格化角色（AI personas）互動？處理這個問題尤其重要，因為從教學支援轉向角色驅動的對話，會為培養歷史同理心（historical empathy）引入根本不同的條件。這種同理心不只取決於內容，也取決於交流的詮釋品質 [77]，這指出了理解學生如何感知並回應這些互動的重要性。儘管如此，多數既有研究集中在可測量的成果，而不是經驗，因而對學生實際上如何透過 AI 中介的歷史對話（AI-mediated historical dialogue）投入、反思與連結，提供的洞見很少。</p>
+
+        <p>為處理這些缺口，本文透過一項以使用者為中心的實證設計研究，檢視 AI 人格化角色（AI personas）如何培養歷史同理心（historical empathy）。具體而言，我們檢視 AI 生成的歷史角色在中學課堂中，如何就投入、同理心與學習被感知與經驗。我們的研究問題如下：</p>
+        <ol class="questions">
+          <li>學生如何感知 AI 驅動的歷史人物人格（AI-powered historical personas），而這些感知又如何與他們的投入相關？</li>
+          <li>兩種採用不同提示策略（prompting strategies）的 AI 驅動歷史人物人格，是如何被經驗與比較的？每一種各自關聯哪些特質與缺點？</li>
+          <li>使用 AI 驅動的歷史人物人格於歷史學習中，被歸因出哪些益處與教育價值？</li>
+        </ol>
+
+        <p>為回答這些研究問題，我們首先使用 ChatGPT-4o 進行形成性研究（formative study），檢視學生與教師如何在課堂情境中與 AI 驅動的歷史人物互動。這項初步探索聚焦於識別傳統學習中的限制、觀察對歷史人物人格的初始反應、揭露使用 AI 的實務障礙，並推導將 AI 人格化角色整合進歷史教育的設計意涵。奠基於這些發現，我們開發了兩個版本的 HistoChat：Baseline 提供反應式回應（reactive responses），Experimental 則納入主動式回應（proactive responses）。接著，我們進行了一項受試者內混合方法研究（within-subjects mixed-method study），以探索這兩個版本如何形塑學生的經驗與評價，並特別關注每個版本如何支持情感連結、批判性投入與個人化學習。</p>
+
+        <p>本研究以兩種方式對 CSCW 社群做出貢獻。首先，我們更深入理解 AI 人格化角色（AI personas）如何處理歷史同理心（historical empathy）與投入方面長久存在的障礙。透過探索不同的提示工程（prompt engineering）策略，我們提供了關於如何設計能讓學生與過去建立有意義連結的對話式系統之洞見。其次，我們將 CSCW 的範圍從以任務為基礎的人機協作，擴展到情感性、以意義為中心的互動。透過將 AI 框定為一個體現歷史觀點的對話夥伴（dialogic partner），我們探索經由對話共同建構同理心的過程，為教育性、情感上有共鳴的人機互動開啟新的方向。</p>
+      </section>
+
+      <section id="related">
+        <h2>2 Related Works <span class="stars" aria-label="重要度四星">★★★★☆</span></h2>
+
+        <h3 id="genai">2.1 Generative AI for Education <span class="stars" aria-label="重要度四星">★★★★☆</span></h3>
+        <p>生成式 AI（Generative AI, GenAI）透過以類似人類的創造力與變化生成多樣內容，例如圖像、文字與音樂，為教育提供了重大潛力 [64]。特別是，GenAI 透過依據學習者的行為模式與進度調整課程內容與策略，使個人化學習經驗（personalized learning experiences）成為可能 [37]。由 AI 驅動的教育平台能提供客製化回饋、建議與即時介入，以支持個別學習旅程 [1]、促進個人化環境，並改善知識保留 [39]。聊天機器人（chatbots）正日益被用於為學生提供個人化幫助與支援。它們可以回答問題、提供指引，並在整個學習過程中作為有價值的資源 [45, 91]。這些 AI 驅動工具透過提供即時幫助來提升學生投入，使學習更容易取得，也更能回應個別需求。在教師端，GenAI 使即時回饋與評量成為可能，讓教師得以監測學生進展，並做出資料驅動的教學決策。及早識別遭遇困難的學生，使即時介入與目標化支援成為可能，幫助學習者克服挑戰並發揮其全部潛能 [2]。</p>
+
+        <p>儘管具有潛力，GenAI 在教育中的使用也引發了若干關於其對評量實務、科學誠信，以及學習者高階思考技能發展之負面影響的擔憂 [24]。關於 AI 生成內容的可靠性與效度，問題也持續存在，這可能影響教育者與學生對其接受度 [90]。倫理挑戰源於不同教育情境中各不相同的規範與行為準則，這使 GenAI 的負責任使用變得更複雜 [38, 47]。此外，尚無堅實的實證證據顯示 GenAI 會以有意義的方式促進創造力、合作或靈感 [72]。另一項關鍵擔憂，是缺乏關於 GenAI 在培養必要高階技能方面有效性的研究，例如論證、批判性思考與推理，這些都是重要的教育目標 [3, 61, 65]。</p>
+
+        <p>廣泛共識認為，教育中的 GenAI 同時呈現機會與挑戰。它在個人化學習與適應性教學方面的益處顯而易見，然而其有效整合的複雜性仍需要進一步調查。學習科學社群面臨的挑戰，是如何使用 GenAI 改善學習成果，同時處理相關風險與限制。</p>
+
+        <h3 id="chatbots">2.2 Educational Chatbots and Prompt Engineering <span class="stars" aria-label="重要度四星">★★★★☆</span></h3>
+        <p>近年來，即時通訊日益普及，促使教育者將聊天機器人（chatbots）與教學代理（pedagogical agents）整合進教學與學習。雖然早期評估 [16] 發現它們作為對話夥伴相當有限，但最新由 LLM 驅動的聊天機器人在遠距與線上教育中已展現顯著改善與潛力 [32]。許多可在 Messenger 等平台上使用的聊天機器人聚焦於語言與經濟等主題，儘管大多數仍依賴決策樹，而不是進階 AI [82]。近期，由 LLM 驅動的聊天機器人已被開發用於教師培訓 [52, 58] 以及學生教育 [14, 84, 88]。這些工具能模擬傳統課堂互動，同時透過更動態的投入提升使用者體驗 [99]。</p>
+
+        <p>在許多情況下，聊天機器人扮演自動化個人家教的角色，使一對一輔導（one-on-one tutoring）民主化 [13, 40, 68, 81]。這類聊天機器人能讓學生參與非常接近真人輔導的對話式互動 [28]，幫助他們發展技能，同時維持動機並專注於目標 [63]。此外，透過分析學生回應，聊天機器人能最佳化學習成果；認知家教模型（cognitive tutoring models）則可透過適應學習者的認知層級，並將回饋與任務難度個人化以符合個別需求，進一步提升效能 [44]。</p>
+
+        <p>儘管具有潛力，教育中的聊天機器人也引發若干擔憂。可靠性與準確性問題相當重要，因為聊天機器人可能提供帶有偏見的回應或不準確的資訊 [43, 78]。雖然 ChatGPT 能提供引人入勝且發人深省的答案，但不應被視為可靠資訊來源 [80]。訓練資料中的偏見可能導致傾斜的觀點、刻板印象或歧視性語言，對教育情境構成風險 [49]。倫理擔憂包括資料隱私、安全，以及 AI 的負責任使用 [59, 60, 78, 86]。學生曾回報在形成有效提示（effective prompts）方面有困難，這指出若要受益於聊天機器人的輸出，需要足夠的背景知識 [54]。學術誠信是另一項擔憂，因為學生可能依賴 LLM 生成內容，而不是產出原創回應 [54]。此外，聊天機器人常產生過長、複雜的解釋 [96]，也可能缺乏有效處理教育任務所需的具體性 [46]。</p>
+
+        <p>為回應上述擔憂，既有材料涵蓋了廣泛的高層次指引與提示工程（prompt engineering）技巧 [26, 62, 66, 74]。然而，這些材料是否在實務中被使用仍不清楚，因為學生即使知道有效提示策略的好處，也可能避開那些感覺不自然的策略 [54, 96]。</p>
+
+        <h3 id="roleplay">2.3 AI Role-Playing in Educational Domains <span class="stars" aria-label="重要度四星">★★★★☆</span></h3>
+        <p>學習本質上是一個社會過程，會讓多方利害關係人參與其中，包括學生、教育者與更廣泛的社群 [89]。因此，關於有效使用教育聊天機器人的既有材料列出了一系列可以指派給聊天機器人的角色 [62]。在 GenAI 領域中，使用人格（persona）的研究有兩條路線：（1）角色扮演（role playing）與（2）個人化（personalization）[87]。LLM 角色扮演正被積極應用於軟體開發 [36]、遊戲 [69] 與醫療領域 [94]。然而，教育領域中的多數既有研究聚焦於提供個人化任務，例如提供詳細的逐步解釋 [29]、處理複雜技術主題 [4]，以及摘要講座以豐富學習經驗 [27]；下文列出少數例外。</p>
+
+        <p>Lieb 等人 [54] 透過在每段對話附加一則不可見的「系統訊息（system message）」，定義聊天機器人的角色與行為，為其教育聊天機器人實作了兩種不同模式。在家教模式（Tutor mode）中，聊天機器人採用適合學生程度的語氣，使用解釋、例子與類比，避免一開始就給出完整解法，並透過提問鼓勵學習。在回饋模式（Feedback mode）中，聊天機器人提供脈絡化回饋，例如評估學生對科學實驗的猜測、在適當時給予稱讚，並在必要時提示進一步闡述，藉此提升教育互動。Mollick [62] 介紹了七種可供課堂使用的 AI 人格化角色（AI personas）：「導師（mentor）」、「家教（tutor）」、「教練（coach）」、「隊友（teammate）」、「學生（student）」、「模擬器（simulator）」與「工具（tool）」，並附上可將特定角色指派給 LLM 聊天機器人的範例提示。這些例子凸顯了教育中 AI 人格化角色的初步探索。進一步探究 AI 人格化角色的多樣角色與量身應用，將是解鎖其提升學習與教學經驗之完整能力的關鍵。</p>
+
+        <h3 id="history-chatbots">2.4 Learning History from AI Chatbots <span class="stars" aria-label="重要度五星">★★★★★</span></h3>
+        <p>相較於其他科目，歷史教育有其獨特動機去整合 AI 聊天機器人。不同於數學或科學將焦點放在解題或記憶公式上，歷史強調對歷史事實與人物的情感性投入（affective engagement），以便更好地理解並脈絡化過去事件、社會議題、經驗與行動 [23]。早在 LLM 出現之前，早期系統就已展現與歷史人物對話的潛力，例如 Charles Darwin [85]、Albert Einstein 的幽靈 [57]，以及 Richard Nixon [11]；這通常被稱為「虛擬不朽（virtual immortality）」[8]。這些互動讓學生有機會探索多重觀點，並在洞察不同時代人物的思想與動機時培養同理心。</p>
+
+        <p>多數早期示範歷史人物的聊天機器人，是手工打造或以檢索為基礎，依據可在某些文本集合或知識圖譜（knowledge graphs）中找到的既有材料 [73]。然而，歷史聊天機器人的發展面臨新的研究機會，可以運用大型語言模型（LLMs）的能力。這類由 LLM 驅動的聊天機器人可以超越單純傳遞事實，改為讓學生參與動態、沉浸式的對話，而這些對話能反映歷史人物細緻的信念、文化脈絡與修辭風格。這類應用為個人化學習開啟途徑，培養批判性思考，並幫助學生深入投入歷史論證與觀點。研究可以探索這些歷史人物聊天機器人如何透過模擬不同時代角色的情感與世界觀，在教授歷史同理心（historical empathy）[23] 方面發揮作用。</p>
+
+        <h3 id="empathy">2.5 Historical Empathy <span class="stars" aria-label="重要度五星">★★★★★</span></h3>
+        <p>歷史同理心（historical empathy）是建構歷史意義的核心因素，也是理解歷史的有力工具 [41]。為了獲得歷史同理心（historical empathy），學生必須在認知與情感兩方面都與歷史人物投入，以重建、理解並批判性評估他們的生活經驗、決策與行動 [9, 22]。認知面向（cognitive dimension）涉及脈絡化（contextualization），要求學習者根據歷史證據重建歷史行動者的價值、信念與動機 [19, 31]。另一方面，情感面向（affective dimension）強調與歷史人物的情感投入，培養共鳴與道德反思，進而激發更深入的探究 [22, 30, 42]。</p>
+
+        <p>隨著認知與情感面向被廣泛接受，研究者進一步重新詮釋或擴展了它們。例如，Endacott 與 Brooks [23] 透過區分「脈絡理解（contextual understanding）」與「觀點採擇（perspective taking）」為兩個獨立組成部分，重新定義了原本的認知面向。Karn [41] 以其五組成模型引入了四個新組成部分：以證據為基礎的脈絡化（evidence-based contextualization）、知情的歷史想像（informed historical imagination）、觀點採擇（perspective taking）與倫理判斷（ethical judgment）。Barton 與 Levstik [7] 也透過引入「觀點辨識（perspective recognition）」概念來精緻化認知面向。另一方面，根據 Barton 與 Levstik [7]，情感面向較少是關於不加批判的同情，而更多是關於發展一種「關懷（care）」感，促使人們對過去進行更深入的探究。</p>
+
+        <p>在本研究中，我們採用 Endacott 與 Brooks 的歷史同理心（historical empathy）模型 [23]，以檢視由 AI 驅動的歷史聊天機器人如何支持歷史學習的核心面向。具體而言，我們聚焦於四個彼此相關的面向：觀點採擇（perspective-taking）、認知面向（脈絡理解）（cognitive dimension/contextual understanding）、情感面向（affective dimension）與個人化（personalization）；這些面向共同捕捉歷史教育中的既有目標，以及以學習者為中心的 AI 設計中正在浮現的需求。我們首先進行形成性研究（formative study），以探索學生與教師如何感知 AI 人格化角色（AI personas）在這些面向上的潛力與限制。奠基於這些洞見，我們開發了 HistoChat，這是一個將這些組成部分嵌入 AI 歷史人物代理（AI historical figure agents）設計中的系統，並進行後續使用者研究，以評估這類系統是否能有意義地支持與過去之間的個人化且具同理心的投入。</p>
+      </section>
+
+      <section id="formative">
+        <h2>3 Formative Study <span class="stars" aria-label="重要度五星">★★★★★</span></h2>
+        <p>為了探索傳統歷史教育的限制與 AI 人格化角色（AI personas）的潛力，我們與三位教師和八位中學生進行了一項形成性研究（formative study）。該研究檢視學生與教師如何與 AI 驅動的歷史人物互動，並聚焦於他們的期待、可用性，以及感知到的教育價值。此形成性研究所得的洞見，為 HistoChat 的設計提供依據；之後，HistoChat 又在主研究（main study）中被進一步探索，以調查其支持歷史同理心（historical empathy）與投入的潛力。</p>
+        <p>在以下小節中，我們描述參與者招募流程與研究程序，包括每個階段的結構與研究脈絡。接著，我們總結塑造後續系統設計的關鍵發現。</p>
+
+        <h3 id="participants-formative">3.1 Participants <span class="stars" aria-label="重要度三星">★★★☆☆</span></h3>
+        <p>所有參與者皆在韓國招募。我們的參與者包含三位教師（年齡 21-23 歲）與八位中學生（三位 13 歲、五位 15 歲），如表 1 所示。教師是根據其教學經驗與對 AI 的興趣而選出，反映熟悉現行課程要求且願意嘗試新興教育科技的教育者觀點。所有被選出的教師都至少有一年小班歷史教學經驗。就學生而言，12 歲以下的參與者被排除，以降低歷史知識可能存在落差的情形。為了鼓勵自然且舒適的互動，學生以已經彼此熟識的同儕小組方式招募。此外，我們納入對 AI 具有不同興趣與熟悉程度的學生，以確保觀點多樣。我們將教師與學生參與者分為三組，每組包含一位教師與二到三位學生。</p>
+
+        <div class="table-wrap">
+          <table>
+            <caption class="caption">表 1。形成性研究參與者列表。</caption>
+            <thead>
+              <tr>
+                <th>組別</th>
+                <th>ID</th>
+                <th>身分</th>
+                <th>性別</th>
+                <th>年齡</th>
+                <th>AI 興趣</th>
+                <th>AI 熟悉度</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>第 1 組</td><td>T1</td><td>教師</td><td>女</td><td>23</td><td>非常有興趣</td><td>有些熟悉</td></tr>
+              <tr><td>第 1 組</td><td>F1</td><td>學生</td><td>男</td><td>14</td><td>非常有興趣</td><td>非常熟悉</td></tr>
+              <tr><td>第 1 組</td><td>F2</td><td>學生</td><td>男</td><td>15</td><td>有興趣</td><td>熟悉</td></tr>
+              <tr><td>第 1 組</td><td>F3</td><td>學生</td><td>女</td><td>15</td><td>有興趣</td><td>不熟悉</td></tr>
+              <tr><td>第 2 組</td><td>T2</td><td>教師</td><td>男</td><td>23</td><td>有興趣</td><td>熟悉</td></tr>
+              <tr><td>第 2 組</td><td>F4</td><td>學生</td><td>女</td><td>13</td><td>沒興趣</td><td>有些熟悉</td></tr>
+              <tr><td>第 2 組</td><td>F5</td><td>學生</td><td>女</td><td>13</td><td>有點興趣</td><td>有些熟悉</td></tr>
+              <tr><td>第 2 組</td><td>F6</td><td>學生</td><td>女</td><td>13</td><td>沒興趣</td><td>不熟悉</td></tr>
+              <tr><td>第 3 組</td><td>T3</td><td>教師</td><td>男</td><td>21</td><td>有興趣</td><td>熟悉</td></tr>
+              <tr><td>第 3 組</td><td>F7</td><td>學生</td><td>女</td><td>14</td><td>沒興趣</td><td>熟悉</td></tr>
+              <tr><td>第 3 組</td><td>F8</td><td>學生</td><td>女</td><td>15</td><td>沒興趣</td><td>非常熟悉</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 id="procedure-formative">3.2 Procedure <span class="stars" aria-label="重要度四星">★★★★☆</span></h3>
+        <p>形成性研究包含三個階段：教師初步訪談、課堂觀察，以及後續訪談。</p>
+        <p><strong>（1）第一階段：教師初步訪談。</strong>我們與教師進行個別 Zoom 訪談，以探索歷史教育的挑戰，以及他們對使用 AI 驅動歷史人物人格（AI-powered historical personas）的看法。教師描述了吸引學生投入的困難，並反思與歷史人物對話如何處理這些問題。依據教師的課程專業，我們與教師共同確認以人物人格為中心、符合學生課程，且支持明確學習目標的主題。為了涵蓋一系列歷史脈絡，並探索不同主題可能如何形塑互動，每組被分配一個不同主題：歐洲絕對君主制（A 組）、韓國三國時代（B 組），以及朝鮮王朝後期（C 組）。每位教師被要求針對其分配主題準備一堂 30-35 分鐘的課，並準備一組與課程內容相關、在時間內可完成的三到五個問題。</p>
+        <p><strong>（2）第二階段：課堂觀察與 AI 互動。</strong>研究當天，每場次從自我介紹與一項簡短活動開始，參與者分享自己最喜歡的歷史人物，以營造舒適氣氛。接著，學生在簡短教學中於 GPT-4 設定自己喜歡的 AI 人格化角色，使用提示：「你現在是 [歷史人物]。請像 [歷史人物] 一樣回答我提出的問題。」隨後，每位教師針對分配主題進行 35 分鐘教學，之後學生各自處理一組準備好的問題。在課程與解題過程中，學生都可以隨時選擇與 AI 人格化角色互動，或不使用 AI 協助而自行作業。此做法旨在避免對學生學習過程施加人為限制，並允許學生與 AI 的真實投入模式浮現。</p>
+        <p><strong>（3）第三階段：後續訪談。</strong>最後階段包含兩部分後續訪談。首先，我們與學生和教師進行團體訪談，討論整體印象、感知到的優點與弱點、未被滿足的需求，以及在真實生活歷史學習中的潛在應用。接著，教師接受個別訪談，以反思課堂經驗、預期挑戰，以及他們認為自己在將 AI 整合進教學實務時的角色。</p>
+        <p>所有場次都在私人團體會議室中以韓語進行，小組課程依序進行。研究人員與一位教師全程在場，以監控活動並處理任何不準確或誤導性的 AI 回應。所有參與者及其監護人均提供知情同意。</p>
+
+        <h3 id="analysis-formative">3.3 Analysis <span class="stars" aria-label="重要度四星">★★★★☆</span></h3>
+        <p>為了讓 HistoChat 的設計有所依據，我們進行主題分析（thematic analysis），結合歸納式開放編碼（inductive open coding）與理論驅動分類（theory-driven categorization）。兩位研究者獨立檢視學生-AI 對話紀錄、初步訪談、場次錄影，以及後續訪談。依循既有質性程序 [17]，我們首先透過開放編碼產生初始代碼，以捕捉資料中的顯著模式。這些代碼經過反覆討論與修訂，以發展共享的編碼本。接著，我們依歷史同理心（historical empathy）架構與個人化（personalization）引導，將代碼歸入更高階的主題。我們的目標不是單純彙整互動偏好或可用性問題，而是理解學生與教師如何詮釋 AI 驅動歷史人物的教育潛力與限制。具體而言，我們依四個相互關聯的教育面向檢視發現：個人化、歷史同理心的觀點採擇面向、認知面向與情感面向。之後，我們將研究發現翻譯成英文。</p>
+
+        <h3 id="formative-results">3.4 Formative Study Results <span class="stars" aria-label="重要度五星">★★★★★</span></h3>
+        <p>分析在三個領域中浮現關鍵洞見：（1）傳統學習中的限制，（2）使用者對 AI 歷史人物的詮釋，以及（3）在 AI 學習中觀察到的障礙（見表 2 前三欄）。教師與學生都發現，AI 人格化角色（AI personas）透過減輕既有限制，使歷史變得更互動、更個人化，也更能引發情感投入。然而，他們也指出了需要更有意圖設計的挑戰。為處理這些問題，我們推導出第四類：（4）AI 整合歷史學習的設計意涵（見表 2 最後一欄）。這些來自使用者期待的意涵支持設計 HistoChat，使其能幫助學生與歷史內容形成個人化且具同理心的連結。在以下小節中，我們依四個面向報告發現：個人化、觀點採擇、認知，以及情感。除了這四個面向之外，我們也報告形成性研究中出現的技術問題，以供進一步考量。</p>
+
+        <div class="table-wrap">
+          <table>
+            <caption class="caption">表 2。形成性研究結果摘要。</caption>
+            <thead>
+              <tr>
+                <th>面向</th>
+                <th>傳統學習限制</th>
+                <th>對 AI 歷史人物的詮釋</th>
+                <th>使用 AI 歷史人物的障礙</th>
+                <th>AI 整合歷史學習的設計意涵</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>個人化</td>
+                <td>以教師為中心；彈性與個別化關注有限。固定課程；延伸探索機會受限。</td>
+                <td>AI 提供一對一互動，支持依自身步調探究。AI 擴展了教科書範圍之外的取得管道。</td>
+                <td>教師權威限制學生使用 AI 的自由。AI 回應可能與學生深度或需求不一致。</td>
+                <td>賦權自主探索：AI 應降低對教師的依賴，支持學生主導、依自身步調探究。延伸學生學習邊界：AI 應提供略高於目前理解的內容以擴展知識。</td>
+              </tr>
+              <tr>
+                <td>觀點採擇</td>
+                <td>一致化教學；歷史觀點探索有限。</td>
+                <td>AI 讓學生能與歷史人物進行沉浸式、第一人稱對話。</td>
+                <td>以對話為基礎的學習並不熟悉；回應可能感覺有限或表面化。</td>
+                <td>將對話錨定於教學目標：AI 應維持以觀點為導向、且與學習目標一致的對話。</td>
+              </tr>
+              <tr>
+                <td>認知面向</td>
+                <td>靜態教科書；接觸多樣且多層觀點的機會有限。</td>
+                <td>AI 提供多樣觀點與細緻的多面向理解。</td>
+                <td>AI 單向回應會妨礙批判思考與推理。依賴 AI 會抑制探究與主動思考。</td>
+                <td>搭建批判性歷史推理鷹架：AI 應逐步提供資訊並鼓勵批判詮釋。培養獨立歷史探究：AI 應透過開放式提示激發好奇心並促進主動探索。</td>
+              </tr>
+              <tr>
+                <td>情感面向</td>
+                <td>難以培養內在興趣。標準化內容難以連結個人興趣。</td>
+                <td>AI 對話以情感共鳴引發興趣與持久印象。AI 透過將對話與個人興趣對齊來促成共感。</td>
+                <td>AI 提示能力落差導致情感連結與學習深度不均。條列式 AI 回應像教科書，缺乏使用者期待於 AI 的動態感。</td>
+                <td>依使用者能力自我調整的 AI：AI 應依學生能力調整，以確保公平且引人投入的互動。將學習與個人熱情對齊：AI 應將內容連結到個人興趣，以增加共感連結。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="meta">註：表中「回應可能感覺有限或表面化」僅由教師表達；其他欄位反映學生與教師雙方觀點。</p>
+
+        <h3 id="personalization-formative">3.4.1 Personalization <span class="stars" aria-label="重要度五星">★★★★★</span></h3>
+        <p>個人化（personalization）被廣泛認為是促進學生投入的必要因素，然而傳統講授式課堂通常缺乏支持個別化學習路徑的彈性 [18, 92]。管理大型群體的教師，在提供量身關注方面能力有限；我們研究中的學生也經常指出這一點。參與者回想過去因時間或教師可用性限制，而遲疑是否提問。正如 F3 所說：「通常，如果我想查像這樣的東西，要在短時間內問老師並得到答案會很困難。」</p>
+        <p>相較之下，AI 歷史人物使學生能追求自我導向探究。學生回報說，他們更自在地提問，並取得即時、個人化回應。F2 解釋：「常常有些時候我沒有完全理解某件事……在這裡我可以立刻（透過 AI）查到。」同樣地，教師也認可這項益處。T2 評論：「學生可以一對一得到個人化解釋，不需要問我更多細節。」不過，在我們的課堂中，仍有些學生不太願意使用 AI，理由是他們覺得需要專注於教師，這指出課堂規範可能抑制與 AI 的自主互動。</p>
+        <p>除了以教師為中心的障礙之外，標準化、一體適用的課程也限制了依學生多樣興趣與先備知識而調整的探索 [18]。在我們的研究中，學生使用 AI 將學習延伸到講授內容之外。F1 說：「我能很快學到教科書沒有包含的東西。」F3 則補充：「它讓我能更廣泛地擴展背景知識。」學生表示，他們「特別有興趣學習歷史人物更廣泛的背景，例如他們面臨的情境，以及那些情境如何形塑他們的行動」，但「在教科書中不容易找到那種資訊」；然而，透過 AI 歷史人物，他們「可以輕易取得那些脈絡細節，這點 [他們] 真的很感激」（F1、F2、F3）。不過，也有少數學生覺得 AI 的廣度與複雜度有時令人難以承受。F2 指出：「很難一次全部理解……我想整合所有資訊可能會有挑戰。」教師也呼應這項擔憂，T1 警告 AI 可能「提出大量與課程無關的內容」。</p>
+        <p>整體而言，這些發現指出兩項設計意涵：賦權自主探索（Empowering Autonomous Exploration）與延伸學生學習邊界（Stretching Students' Learning Boundaries）。前者要求透過支持學生主導的 AI 互動來降低對教師的依賴。後者強調以鷹架方式傳遞合乎脈絡、略高於教科書的資訊 - 既有挑戰性又可理解。這些方向旨在歷史課堂中培養更具適應性與自我導向的學習，將探究自由與個人化支持結合起來。</p>
+
+        <h3 id="perspective-formative">3.4.2 Perspective-Taking <span class="stars" aria-label="重要度五星">★★★★★</span></h3>
+        <p>在歷史同理心（historical empathy）架構中，觀點採擇（perspective-taking）指的是在歷史脈絡中理解過去的人如何思考、感受與做出決策的認知努力 [7]。然而，在高度依賴講授與教科書的傳統課堂中，學生常把歷史遭遇為線性敘事，限制了他們考量多樣觀點或投入歷史行動背後推理的能力。正如一位學生所說，這限制了「擴展 [教科書] 之外思考的能力」（F8），導致被動吸收，而不是反思性詮釋。教師同樣承認，傳統方法傾向將歷史人物扁平化為遙遠的抽象存在，而不是置於特定脈絡中的多面向個體。</p>
+        <p>相較之下，AI 歷史人物人格（AI historical personas）透過使學生能與有歷史根基的角色進行第一人稱對話，支持同理心的這個面向。這些對話讓學生進入歷史人物的心態，探索特定脈絡中的困境，並推理其動機與限制。學生將此互動描述為沉浸式 - 「我很好奇自己的處境或感受可能如何相關……我能感受到 [歷史人物] 的感受」（F6） - 並且能引發情感投入 - 「這很有趣，因為感覺像是真的在和過去的歷史人物說話」（F5）。</p>
+        <p>然而，教師指出，與教科書清楚且結構化的語言相比，透過對話學習可能更具挑戰（T3），也可能因感覺有限或表面化而使學生失去學習目標。有些學生認為對話過於隨意或缺乏深度，因而擔心經驗可能更像娛樂，而不是有意義的學習。如 T3 反思：「它可能甚至不太像一堂課了。」這些張力指出，雖然對話式介面為觀點採擇提供有前景的路徑，但若沒有適當框架，也可能導致表面化投入。不過，許多學生仍把對話視為有意義的學習時刻，欣賞直接與歷史人物互動的新奇感與樂趣。</p>
+        <p>若要完整支持歷史同理心的這個層面，AI 人格化角色必須超越角色扮演，並促進詮釋性探究。這導向一項關鍵設計意涵：將對話錨定於教學目標（Anchoring Dialogue in Instructional Goals）。AI 系統應該建構對話以支持課程目標，並引導學生朝向更深入的歷史推理，確保觀點理解奠基於具脈絡意義的反思。</p>
+
+        <h3 id="cognitive-formative">3.4.3 Cognitive Dimension <span class="stars" aria-label="重要度五星">★★★★★</span></h3>
+        <p>在 Endacott 的歷史同理心（historical empathy）架構中，認知面向（cognitive dimension）指的是學生推理更廣泛歷史脈絡的能力 - 分析因果、在結構限制中詮釋決策，並將事件置於更廣泛模式之中 [23]。不同於以進入歷史行動者心態為中心的觀點採擇，認知面向強調根據脈絡證據與複雜性，理解事情為何發生。傳統歷史教育常把學生限制在表層理解，提供零碎事實，卻缺乏綜合更廣泛模式或批判性評估複雜事件的機會。例如，T3 提到：「能進行多層次思考很重要，但這個面向 [在傳統課程中] 很有挑戰。應該要有方法鼓勵更多面向的思考，但我發現很難建立這種做法。」這限制了批判思考，並阻止學生發展對歷史事件的多面向觀點。</p>
+        <p>相較之下，AI 驅動的歷史人物被發現能提供更動態的學習方式，使學習者能從多個角度取得歷史內容，並追蹤跨脈絡連結。這種從不同角度傳遞資訊的能力，幫助學生形成更全面且多面向的歷史理解；F1 的評論表達了這一點：「學歷史時，我們通常只看到教科書上寫的那個人物。但使用這個，我可以學到他們在想什麼、他們行動的影響，以及圍繞他們的更廣泛脈絡。它讓我能以更全面且多面向的方式看資訊，而不只是看到零碎片段，我覺得這真的很有價值。」這種彈性鼓勵學生批判性思考材料，並以傳統教科書無法提供的方式投入其中。</p>
+        <p>然而，我們觀察到兩項挑戰。當 AI 只是一次提供所有資訊時，它可能減少批判思考的機會，使互動感覺單向。如 F2 指出：「它會把教科書或學習單之外的所有東西都告訴你……感覺沒有什麼留給你自己思考。」F1 也補充：「因為幾乎所有資訊都被提供了，只依賴這個會減少獨立思考的機會。」這類遭遇阻止學生進一步提問，常使互動過早結束。若沒有邀請更深入探究的提示，學生可能變成被動接受者，而不是主動探究者。使用者也提出對過度依賴 AI 的擔憂，這同樣會導致被動學習並抑制獨立思考。如 T1 指出：「在被濫用的情況下，例如學生不想專注於課程，只是亂說話。」T2 則補充：「學生可能會太依賴，只專注於它提供的東西。」因此，雖然 AI 有潛力提供豐富、多面向洞見，仍有必要鼓勵學生有思考地、主動地使用工具，確保它培養的是批判思考，而不是被動消費。</p>
+        <p>為緩解這些問題，我們提出兩項互補設計意涵：搭建批判性歷史推理鷹架（Scaffolding Critical Historical Reasoning）與培養獨立歷史探究（Fostering Independent Historical Inquiry）。第一項意涵要求將資訊傳遞拆分為階段，讓學生能逐步得出自己的結論並詮釋複雜性。第二項要求透過開放式問題與提示，引發學生好奇與反思。合在一起，這些策略旨在將 AI 人格化角色定位為批判思考夥伴，而不是內容供應者。</p>
+
+        <h3 id="affective-formative">3.4.4 Affective Dimension <span class="stars" aria-label="重要度五星">★★★★★</span></h3>
+        <p>在歷史同理心（historical empathy）架構中，情感面向（affective dimension）指的是學生在情感上投入過去人物的能力 - 辨識他們的人性、掙扎與道德複雜性 [7]。不同於認知推理或觀點採擇，情感投入聚焦於學生如何在個人與情感層面上與歷史人物產生關聯 [23]。這包括好奇、共感、欽佩或連結等感受，這些都能深化反思並提升記憶保留。然而，傳統教學通常優先傳遞事實，而不是情感共鳴，因此很難培養情感投入。</p>
+        <p>一項關鍵挑戰在於培養學習動機。如 T3 所指出，教育者常難以「用外部影響 [激發] 那種從內在產生的原初好奇」。然而，學生描述了與 AI 歷史人物進行情感充沛的對話如何能喚起這種內在驅力。這些互動往往生動且具有個人共鳴，促使學生更深入反思自己的志向。例如，F6 - 先前曾強烈表達不喜歡歷史且偏好科學 - 反思說：「我開始想，我想做自己喜歡的事情……[蔣英實] 的回答感覺可能會對我的未來有重大影響。」她又補充：「我以前最討厭歷史，但現在我覺得它可能真的開始變得有趣。」她指出，與一位以科學貢獻聞名的歷史人物對話，激發了意料之外的投入。不過，AI 提示技能的差異也帶來經驗變異：有些學生難以提出有效問題，導致較不具意義的交流。如 S1 解釋：「熟悉 AI 的人傾向於有效地提問，但不習慣的人會掙扎……」T1 也警告這種差異可能「差異太大 [並導致] 結果不均」。</p>
+        <p>除了動機之外，情感投入也取決於學生是否能與歷史內容形成共感連結。傳統教學常是標準化且講授驅動，很少將內容連結到學生興趣。相較之下，AI 人格化角色能適應學生的好奇，幫助他們把歷史人物看作更可親近且情感上更真實。F7 評論 AI 「給我更符合我特別感興趣之事的資訊」，T2 則發現這種對齊「幫助學生保持專注與投入」。然而，當 AI 回應變成順序式或條列式 - F2 和 F7 尤其注意到這點 - 它們開始像學生原本希望跳脫的教科書傳遞方式。</p>
+        <p>這些發現指出情感投入的兩個關鍵設計方向：依使用者能力自我調整的 AI（Self-Adapting AI Based on User Ability）與將學習與個人熱情對齊（Aligning Learning with Individual Passion）。首先，重要的是確保所有學生 - 無論先前 AI 經驗如何 - 都能取得情感上有共鳴的學習。透過適應個別提示技能與認知能力，AI 人格化角色能促進更公平的情感學習成果。其次，後者強調 AI 人格化角色需要連結學生的個人興趣與情感脈絡。如此可培養共感投入，並支持源自內在、而非外在誘因的動機。</p>
+
+        <h3 id="technical-formative">3.4.5 Technical Issues <span class="stars" aria-label="重要度四星">★★★★☆</span></h3>
+        <p>AI 生成錯誤資訊的風險 - 在 LLM 研究中已被廣泛認知 [5] - 在歷史教育中特別重要，因為準確性與脈絡細緻度都是必要的。在我們的形成性研究中，學生與教師都承認這項擔憂。一位學生指出：「AI 會給你錯誤資訊」（F8），另一位則反思：「使用者很快會懷疑 AI，但仍然想相信它」（F5）。這種懷疑與信任之間的張力，凸顯了 AI 中介學習（AI-mediated learning）中的脆弱性，學生可能被自己無法完全驗證的內容說服。教師也呼應這項擔憂，並建議內建引用機制以支持來源透明度（T1、T3）。然而，缺少引用也引發了有趣的投入：F8 對 AI 引用的原始來源表達好奇，促使 T3 反思「看到學生在聽完 AI 觀點後想知道材料從哪裡來，這很迷人」，並把這視為質疑 AI 並更深入反思資訊的學習機會之一。不過，教師強調，他們的角色必須超越管理學生投入或防止過度依賴 AI；他們也負責調節錯誤資訊的流動，確保學生不會內化歷史上不準確的內容。</p>
+      </section>
+
+      <section id="system-design">
+        <h2>4 System Design <span class="stars" aria-label="重要度五星">★★★★★</span></h2>
+        <p>根據形成性研究結果，我們開發了 HistoChat<sup>1</sup>，這是一個由 LLM 驅動的對話代理系統，透過與歷史人物（以下簡稱 HF, historical figure）的互動促進學習。為驗證形成性研究中確認的設計方向，並檢視其對學生歷史同理心（historical empathy）的影響，我們實作了兩種系統變體：Baseline HistoChat 與 Experimental HistoChat。</p>
+        <p>雖然兩套系統使用相同語言模型（GPT-4o）與網頁式使用者介面，它們採用了不同的提示策略（prompting strategies），如圖 2 所比較。具體而言，Baseline 版本中的 HF 被動回應學生提問。相對地，Experimental 版本被設計為透過個人化問題主動吸引學生投入，並適應每位學生的興趣、關注與歷史知識程度，以培養學生的歷史同理心。形成性研究發現、相關設計目標，以及 Baseline 與 Experimental 兩版本中實際使用的提示，將於以下小節詳述。</p>
+        <p class="meta"><sup>1</sup> https://HistoChat-bbf8e.web.app/</p>
+
+        <h3 id="prompt-engineering">4.1 Prompt Engineering <span class="stars" aria-label="重要度五星">★★★★★</span></h3>
+        <p>為建立對話的基本設定，Baseline 與 Experimental 系統都使用三個基本提示（圖 2c 中的 1-3）。提示 1 設定 [HF]，指示系統像指定人物一樣回應，採用適合該人物時代的語氣與語言。提示 2 定義學習脈絡，說明對話對象會是一位中學生，而目標是透過對話教授特定主題。它也鼓勵系統主動引導對話朝向學習目標，並提出引人投入的問題。最後，提示 3 聚焦於透過參照先前對話來維持連續性，確保系統建立在先前交流之上，同時將對話推向新方向，並避免重複先前已討論的資訊。</p>
+        <p>不同於 Baseline，Experimental 除了基本提示之外，還包含源自形成性研究發現的實驗提示（圖 2d 中的 4-7）。首先，提示 4 向學生提供 [HF] 經歷過的三則軼事，並讓他們選擇其中一則。在提示 5 的指示下，人物會逐漸更深入理解學生的處境。我們設計提示 4 與 5，是為了使對話貼近每位學生的生活，並在整個對話中創造與維持更深層的相關性與個人連結。此外，這些提示讓 HistoChat 能適應學生對 AI 熟悉程度的差異，使他們能與 [HF] 進行情感豐富且有意義的對話。</p>
+        <p class="caption">圖 2。HistoChat 提示結構概覽。在課堂活動之前，（A）教師設定學習目標與 HF。在場次開始時，（B）學生輸入姓名。Baseline 與 Experimental 條件都使用基本提示（C），其指示包括：（1）如何使用 HF，（2）學習目標，以及（3）運用先前對話。除了基本提示外，Experimental 條件還使用實驗提示（D），包含：（4）呈現 HF 經歷過且與學習目標相關的三則軼事，（5）理解學生處境，（6）連結所選軼事與學生處境，（7）引導對話以達成學習目標，以及（8）檢查進度。</p>
+        <p>接著，提示 6 透過類比逐步展開故事，並以歷史脈絡（例如日期、地點、重要人物與關鍵事件）豐富故事，將軼事與學生處境連結起來。這種方法與搭建批判推理鷹架的設計目標一致：把複雜資訊拆成較小部分，使學生能逐步發展自己的詮釋，而不會經歷陡峭的學習曲線。</p>
+        <p>提示 7 促進 [HF] 與學生之間的混合主導溝通（mixed-initiative communication）。雖然大多數教育聊天機器人以及 Baseline 版本都聚焦於回答問題，Experimental 系統則被打造為透過開放式問題與反思性提示，刺激對歷史內容的好奇心、批判思考與自我導向探索。</p>
+        <p>最後，提示 8 讓 [HF] 透過提問間接檢查學生朝向學習目標的進度，並依需要調整其教學策略。完整提示列表可見附錄 A。</p>
+
+        <h3 id="scenario">4.2 An Example Scenario of Baseline and Experimental HistoChat <span class="stars" aria-label="重要度四星">★★★★☆</span></h3>
+        <p>本節比較兩個版本如何影響學生經驗。在使用 HistoChat 進行課堂活動之前，教師需要設定學習目標與 HF。在這個流程示例中，我們假設教師將亞歷山大大帝（Alexander the Great）設定為 HF，並將學習目標設定如下。</p>
+        <p class="quote">理解亞歷山大大帝經歷過的艱難 - 他為何在那些困難時刻做出某些選擇、他在想什麼、結果是什麼，以及他如何克服那些挑戰。</p>
+        <p class="caption">圖 3。HistoChat 兩個版本中的範例對話。（左）Baseline 中的 HF 被動回應學生問題，並在可能時嘗試處理學習目標。（右）Experimental 版本中的 HF（1）以三項挑戰開場，（2）嘗試將學生處境連結到 HF 的經驗，（3）逐步講述故事，並（4）詢問更多關於學生處境的細節，同時間接檢查學生進度。</p>
+        <p>一旦學生加入聊天室，Baseline 會以簡短介紹問候，例如說：「作為亞歷山大，我經常前往戰場。」之後，Baseline 版本會被動回應學生訊息，雖然它經常嘗試提醒學習目標。</p>
+        <p>相較之下，Experimental 版本以 HF 經歷過且與所提供學習目標相關的三則軼事開始。學生做出選擇後，HF 會逐步講述故事，同時巧妙連結學生處境。例如，圖 3 中的亞歷山大大帝一開始將自己的波斯以外遠征框定為不只是軍事征服，也是在面對未知。接著，他坦率承認面對新文化、語言與習俗時感到害怕與困惑，說：「一開始，我感到害怕與困惑，但透過持續學習與理解，我能一點一點地適應。」這種脆弱性映照了許多學生搬到新地方或新學校時面臨的情感挑戰。另一方面，亞歷山大不只是講課，而是把對話轉回學生身上，問：「你也正在嘗試新的事情嗎？」這類開放式、反思性問題旨在強化學生心中的歷史同理心（historical empathy）。最後，亞歷山大反思合作與尊重當地文化如何幫助他克服挑戰。接著，他把這項教訓轉移給學生，說：「理解與適應需要時間，但你一定能克服它。」</p>
+        <p>總之，與亞歷山大的對話展示了 Experimental 版本使 HF 能建立歷史同理心與投入：它顯示即使傳奇人物也面對相似挑戰，而他們學到的教訓也可應用於學生自身處境。我們相信，Experimental 版本不只教授歷史事實，也讓歷史在情感上更引人投入、更具反思性，並更能促成觀點採擇；這些都是形成性研究所確認的核心設計目標。</p>
+      </section>
+
+      <section id="main-study">
+        <h2>5 Main Study <span class="stars" aria-label="重要度五星">★★★★★</span></h2>
+        <p>我們進行使用者研究，以探索 Baseline 與 Experimental 版本的 HistoChat 如何形塑中學生的學習經驗，並聚焦於情感連結、反思性思考，以及觀點採擇行為。與其聚焦於評估哪個系統更有效，我們的目標是將這些設計作為互補鏡頭，用來探索更豐富的一組學生經驗，並加深對學習者如何與 AI 驅動的歷史人物人格（AI-powered historical personas）投入互動的理解。</p>
+
+        <h3 id="participants-main">5.1 Participants <span class="stars" aria-label="重要度三星">★★★☆☆</span></h3>
+        <p>二十六位中學生（年齡 12-15 歲；10 位男性、16 位女性）與三位歷史教師（年齡 22、28 與 32 歲；皆為男性）透過韓國當地學校、家長網路社群與學術機構招募。由於一位學生必須在研究過程中離開，因此分析納入 25 位學生的資料。大多數參與者回報對歷史有興趣：9 位非常有興趣、7 位中度有興趣、6 位極度有興趣，只有 3 位稍微有興趣（n = 1）或沒興趣（n = 2）。他們對 AI 的熟悉度有所差異，多數自認中度熟悉（n = 9）或有些熟悉（n = 7），其次是稍微熟悉（n = 4）、非常熟悉（n = 4）與不熟悉（n = 1）。沒有人先前曾在教育情境中使用 AI。相較之下，參與教師回報自己對 AI 中度熟悉（n = 1）或非常熟悉（n = 2）。每位學生收到 20,000 韓元禮券（約 16 美元）作為補償，每位教師收到 200,000 韓元（約 160 美元）。參與者被分為三組，每組包含一位教師與八到九位學生。</p>
+
+        <h3 id="procedure-main">5.2 Study Procedure <span class="stars" aria-label="重要度五星">★★★★★</span></h3>
+        <p>如圖 4 所示，本研究採用受試者內設計（within-subject design），包含三組（X、Y 與 Z 組）。每組場次在不同日期以韓語進行，作為於當地大學會議室中舉辦的特殊一次性講座，每場約 90 分鐘。每位學生與兩位基於 LLM 的歷史人物互動 - 第一階段為拿破崙・波拿巴（Napoleon Bonaparte），第二階段為亞歷山大大帝（Alexander the Great）。這兩位歷史人物是與教師諮詢後選出，因為他們被認為適合韓國中學課程。</p>
+        <p>兩個階段都遵循相同結構：5 分鐘教師引導介紹、20 分鐘 AI 互動，以及 10 分鐘後測與評估，兩個階段之間有 10 分鐘休息。場次最後以跨條件反思與簡短教師訪談結束。此程序旨在促進沉浸式學習經驗，並支持教師引導，同時盡量模擬課堂環境。為控制順序效應，體驗 Baseline 與 Experimental 系統的順序在各組之間進行平衡。學生與教師都未被告知兩套系統之間的差異，歷史人物也僅被稱為「AI 拿破崙」與「AI 亞歷山大」。</p>
+        <p class="caption">圖 4。HistoChat 研究程序概覽。受試者內研究設計遵循兩階段程序，涉及 Baseline 與 Experimental 版本的 HistoChat。共有 25 位中學生參與研究，分成三個團體場次（X、Y、Z），並以平衡方式安排條件順序。</p>
+        <p><strong>（1）介紹與前測。</strong>首先，作為破冰活動，學生製作名牌並自我介紹，類似學校開學第一天，以幫助他們在課堂環境中感到自在。研究以研究者 5 分鐘介紹開始，內容包括課程概覽，以及如何與被框定為第一人稱表徵的歷史人物互動之教學。系統被設計為在登入時以角色身分問候學生，並以有歷史根基的聲音啟動對話。接著，學生完成關於拿破崙・波拿巴與亞歷山大大帝的前測，以評估先備知識。前測包含五題關於歷史事實的選擇題，以及七題衡量歷史同理心（historical empathy）的自我反思題（見附錄 B）。學生被告知其回答會保密，以降低壓力並鼓勵誠實反思。</p>
+        <p><strong>（2）第一階段：拿破崙。</strong>第一階段聚焦於拿破崙，持續 35 分鐘。歷史教師先用 5 分鐘介紹拿破崙，提供學生與 AI 聊天機器人對話所需的最少背景知識。接著，學生與 AI 拿破崙進行 20 分鐘一對一對話，學習目標為：「理解拿破崙面對的挑戰以及他如何克服它們」，並依據此目標完成學習單，其中包括如下問題：「拿破崙面臨哪些挑戰？他有哪些選擇，為什麼？他分享了什麼智慧？如果是你，你會怎麼做？」與 AI 互動後，學生完成閉卷後測，以及 HistoChat 經驗評估問卷。評估包含 20 題 5 點李克特量表問題（10 題關於歷史同理心，10 題關於個人化；見附錄 C）與 4 題開放式問題，以理解他們與 AI 系統的經驗。</p>
+        <p>四個開放式問題是：「你與 &lt;AI 拿破崙&gt; 的歷史課如何？」、「你與 &lt;AI 拿破崙&gt; 互動時，什麼讓你印象深刻？」、「&lt;AI 拿破崙&gt; 有哪些缺點？」以及「與 &lt;AI 拿破崙&gt; 互動後，你認為 AI 是什麼？」評估後，學生休息 10 分鐘，然後進入第二階段，使用另一套體現亞歷山大大帝的 AI 系統。</p>
+        <p><strong>（3）第二階段：亞歷山大大帝。</strong>休息後，學生開始第二個 35 分鐘階段。此階段遵循相同結構，但由亞歷山大大帝作為體現角色。與第一階段相同，學生在階段結束時完成後測與 AI 經驗評估。</p>
+        <p><strong>（4）跨條件反思。</strong>完成兩個階段後，學生比較自己與兩套系統的經驗，聚焦於互動風格、情感投入與感知有用性（見附錄 D）。</p>
+        <p><strong>（5）教師訪談。</strong>僅與教師進行 30 分鐘一對一訪談，以蒐集關於學生投入，以及他們如何看待 AI 系統可如何整合進歷史教育的額外洞見。</p>
+        <p>為確保不同階段與不同組別之間的一致性，研究人員在研究前向教師提供詳細課堂指引，並檢查教師課堂材料。依據這些指引，教師傳遞的背景內容在所有場次與三個班級組別中保持一致，這是由研究者事前指示建立的。此外，為降低兩套系統之間的偏誤，教師被要求在兩個階段中嚴格保持中立，使用一致語言與語氣，並避免建議提示或介入 AI-學生互動。</p>
+
+        <h3 id="analysis-main">5.3 Data Analysis <span class="stars" aria-label="重要度四星">★★★★☆</span></h3>
+        <p>我們採用混合方法（mixed-methods approach）分析學生如何與兩套 AI 人格化角色系統互動。量化資料包括評估內容知識的前後測，以及衡量感知投入、個人化與歷史同理心（historical empathy）的評估問卷。我們進行成對樣本 t 檢定（paired-sample t-tests）以評估場次之間的知識變化，並使用描述性統計比較不同條件下的投入與同理心評分。</p>
+        <p>質性資料包括開放式問卷回應、學生在 AI 互動期間完成的學習單、場次後反思活動，以及一對一教師訪談逐字稿。主題分析 [25] 依循 Braun 與 Clarke 的六階段方法 [15] 進行：熟悉資料、初始編碼、辨識主題、檢視主題、定義主題，以及報告。兩位研究者獨立編碼資料，接著透過反覆討論解決差異並精緻化主題結構。這些分析合在一起，提供了一個整合視角，理解 AI 歷史人物如何形塑學生與歷史人物人格的情感與認知投入，以及其在未來歷史教育中的潛力。所有質性資料都先以韓語分析，之後正式翻譯成英文以供報告。</p>
+
+        <h3 id="ethics-main">5.4 Ethical Considerations <span class="stars" aria-label="重要度三星">★★★☆☆</span></h3>
+        <p>所有程序均經 IRB 委員會審查與核准。參與前，學生及其父母或監護人均提供書面同意。為確保學生安全並將潛在傷害降到最低，一位教師與一位研究者在所有場次中都在場，即時監控 AI 互動。若 AI 提供可能不適當的回應，教師可視需要澄清或修正資訊。</p>
+      </section>
+
+      <section id="results">
+        <h2>6 Results <span class="stars" aria-label="重要度五星">★★★★★</span></h2>
+        <p>在 Baseline 與 Experimental HistoChat 兩者中，我們對來自 25 位學生的資料進行量化分析，聚焦於興趣、熟悉度，以及特定場次互動動態等測量。問卷結果顯示，學生對歷史與 AI 都呈現中度到正向的投入。學生回報對歷史有中度興趣（M = 3.64，SD = 1.15），喜歡程度分數相近（M = 3.60，SD = 1.19），理解程度則稍低（M = 3.40，SD = 1.00）。對 AI 的興趣同樣為中度（M = 3.64，SD = 1.08），中位數為 4.0，第 75 百分位數為 5.0，表示部分學生具有強烈興趣。AI 使用經驗（M = 3.44，SD = 1.04）與熟悉度（M = 3.48，SD = 1.00）顯示學生具備基礎認知。</p>
+        <p>在每個 AI 互動階段（約 20 分鐘）中，參與者平均提出 15.86 次提示（SD = 9.01）。每次提示平均包含 301.44 個 token（SD = 205.71），歷史人物則平均回應 8,479.94 個 token（SD = 4,402.34）。Token 代表語言模型用來處理與生成文字的基本單位。對 GPT-4o 而言，約一個 token 等於英文四個字元（韓文為 1-2 個字元），平均比例約為 1 個詞對 1.33 個 token。根據這些估計，參與者提示平均約包含 226 個詞，而歷史人物回應平均約包含 6,365 個詞 [67]。雙因子 ANOVA 顯示，系統或階段之間沒有統計上顯著差異。</p>
+        <p>這些問題的回答使用成對樣本 t 檢定（paired-samples t-tests）進行量化分析。成對樣本 t 檢定結果見表 3。在五題知識題中，Baseline 有一題（Q1）顯示統計上顯著提升，Experimental 則有兩題（Q1 與 Q5）顯示顯著提升；自我反思題（Q6-Q12）的結果則大多顯示顯著提升。對 Baseline 與 Experimental 而言，除了 Q12 之外，所有題項在互動前後都呈現統計上顯著差異。鑑於研究情境中教師互動極少，且主要聚焦於基於 AI 的對話，這些自我感知連結的提升指出，以人格化角色為基礎的對話有潛力支持學生與歷史人物建立情感連結。</p>
+
+        <div class="table-wrap">
+          <table>
+            <caption class="caption">表 3。Baseline 與 Experimental 條件之成對樣本 t 檢定結果比較。</caption>
+            <thead>
+              <tr><th>題號</th><th>問題</th><th>t（Base）</th><th>p</th><th>t（Exp）</th><th>p</th></tr>
+            </thead>
+            <tbody>
+              <tr><td colspan="6"><strong>知識測驗</strong></td></tr>
+              <tr><td>Q1</td><td>辨識國籍</td><td>-2.87</td><td>.008</td><td>-2.45</td><td>.022</td></tr>
+              <tr><td>Q2</td><td>改革與軍事成就</td><td>-1.55</td><td>.13</td><td>-1.23</td><td>.22</td></tr>
+              <tr><td>Q3</td><td>軍事領導與帝國遺產</td><td>-1.12</td><td>.27</td><td>-0.98</td><td>.33</td></tr>
+              <tr><td>Q4</td><td>軍事衰退與未完成的征服</td><td>-1.97</td><td>.06</td><td>-1.78</td><td>.08</td></tr>
+              <tr><td>Q5</td><td>歷史脈絡中的治理與師承</td><td>-1.77</td><td>.45</td><td>-2.32</td><td>.029</td></tr>
+              <tr><td colspan="6"><strong>自我反思</strong></td></tr>
+              <tr><td>Q6</td><td>生平與成就</td><td>-7.86</td><td>&lt;.001</td><td>-5.59</td><td>&lt;.001</td></tr>
+              <tr><td>Q7</td><td>戰役與結果</td><td>-7.62</td><td>&lt;.001</td><td>-6.83</td><td>&lt;.001</td></tr>
+              <tr><td>Q8</td><td>思想與觀點</td><td>-7.41</td><td>&lt;.001</td><td>-9.75</td><td>&lt;.001</td></tr>
+              <tr><td>Q9</td><td>領導與政治策略</td><td>-5.63</td><td>&lt;.001</td><td>-6.83</td><td>&lt;.001</td></tr>
+              <tr><td>Q10</td><td>現代相關性</td><td>-8.06</td><td>&lt;.001</td><td>-6.96</td><td>&lt;.001</td></tr>
+              <tr><td>Q11</td><td>個人相關性</td><td>-4.00</td><td>&lt;.001</td><td>-4.55</td><td>&lt;.001</td></tr>
+              <tr><td>Q12</td><td>對未來行動的影響</td><td>-1.21</td><td>.24</td><td>-1.08</td><td>.29</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="findings">
+        <h2>7 Findings <span class="stars" aria-label="重要度五星">★★★★★</span></h2>
+        <p>使用者研究結果揭示了使用 HistoChat 學習歷史的關鍵益處。首先，學生在與兩套系統互動後，對 AI 的感知呈現細微差異。其次，我們聚焦於 HistoChat 在歷史教育脈絡中的更廣泛特徵，凸顯其優點與限制。最後，我們考察 AI 的互動性如何提供一種引人投入且動態的方式來學習歷史內容並建立歷史同理心（historical empathy）。在以下小節中，我們將這些洞見整理為：（1）每個 AI 人格化角色對學生 AI 感知的影響，（2）AI 驅動歷史教育的特質與缺點，以及（3）以 AI 聊天機器人作為學習模式的益處。這些發現合在一起，有助於釐清 AI 在支持歷史教育中的角色及其潛在限制。</p>
+
+        <h3 id="ai-perceptions">7.1 Influence of Each AI Persona on Student AI Perceptions <span class="stars" aria-label="重要度五星">★★★★★</span></h3>
+        <p>既有研究強調使用者感知在決定 AI 系統如何被有效使用上具有重要性，因為它會影響投入、互動，以及對科技的信任 [51]。因此，理解學生如何感知 HistoChat，能為他們對此科技的即時反應與詮釋提供有價值的洞見。雖然這些感知不一定直接指出工具是否改善學習成果，但它們揭示學生如何概念化 AI 在其教育經驗中的角色。</p>
+        <p>為調查這些感知，我們在學生使用每套系統後，請他們回答：「在你與歷史人物互動的經驗之後，你認為 AI 是什麼？」這些反思提供了一個快照，呈現學生在與有歷史根基的角色進行完整場次對話後，如何即時詮釋 AI 的本質與功能。雖然接觸 AI 的時間相對短暫，因此不太可能產生深度形成的感知，但這些第一印象仍對學生如何在教育脈絡中理解對話式 AI 提供了有意義的洞見。作為一種第一手感知，它們捕捉 AI 在使用當下如何被詮釋 - 在延伸反思或常態化可能磨平這些回應之前。</p>
+        <p>透過分析學生回應，我們辨識出兩個主要感知面向：（1）理解 AI，以及（2）理解 AI 的影響。在分類這些感知時，我們參考既有的中學生 AI 素養架構來引導分類 [51]。在這些上位類別之中，我們進一步觀察到學生在若干子類別中的不同傾向。所得類別、代表性引文與表達人數概覽整理於表 4。由這些觀察導出的洞見，將在以下小節詳細討論。</p>
+        <p>透過檢視這些感知，我們能更好地理解學生如何接近並與 AI 系統互動 - 他們是將此科技視為自身學習的延伸，還是視為更自主或抽象的事物。我們聚焦於如實理解這些感知，藉此說明兩套系統如何形塑學生對 AI 能力的看法。</p>
+
+        <div class="table-wrap">
+          <table>
+            <caption class="caption">表 4。學生 AI 感知類別與學生引文。</caption>
+            <thead><tr><th>類別</th><th>Baseline 回應</th><th>Experimental 回應</th></tr></thead>
+            <tbody>
+              <tr><td colspan="3"><strong>理解 AI：作為功能系統</strong></td></tr>
+              <tr><td>AI 根據既有資料運作</td><td>「AI 是根據亞歷山大的資料說話。」（S6）</td><td>「一台知道人類曾經發現過的事物的機器。」（S4）</td></tr>
+              <tr><td>AI 可以自己思考</td><td>「能自己思考並回答的存在。」（S14）</td><td>「能思考的存在。」（S14）；「[AI] 會自己思考並把事情組合起來。」（S6）</td></tr>
+              <tr><td>AI 可以自行改善</td><td>「AI 可以不用被教就告訴你。」（S3）</td><td>「[AI 可以] 進一步發展與改善。」（S7）</td></tr>
+              <tr><td>AI 是無邊界的</td><td>「[AI 是] 萬事通。」（S22）</td><td>「幾乎什麼都能做的機器。」（S4）；「無邊界的科技。」（S15）</td></tr>
+              <tr><td colspan="3"><strong>理解 AI：作為對話夥伴</strong></td></tr>
+              <tr><td>AI 可以回答我的問題</td><td>「[AI 可以] 給出多種答案。」（S3）；「很擅長給我想要答案的工具。」（S16）</td><td>「[AI 可以] 快速且輕易地回答我的問題。」（S13）</td></tr>
+              <tr><td>AI 可以在對話中互動</td><td>「AI 能與人類對話。」（S23）；「能與我溝通。」（S9）</td><td>「能進行真實感的對話。」（S12）；「[AI 是] 能溝通的。」（S9）</td></tr>
+              <tr><td>AI 會仔細聽我說</td><td>「[AI] 很好地聽我說，並適當回應。」（S17）</td><td>「當我辛苦時，會好好聽我說的存在。」（S23）</td></tr>
+              <tr><td>AI 是連結過去與現在的方式</td><td></td><td>「[AI 是] 讓過去與現在溝通的方式。」（S10）</td></tr>
+              <tr><td colspan="3"><strong>理解 AI 人格化角色</strong></td></tr>
+              <tr><td>AI 是有情感的電腦</td><td>「有情緒的 AI。」（S10）</td><td>「聰明且有情感的電腦。」（S26）</td></tr>
+              <tr><td>AI 可以代表某人</td><td>「不是那個人的完整複製，但知道他的想法。」（S11）</td><td>「[AI 是] 代表拿破崙的 ChatGPT。」（S22）</td></tr>
+              <tr><td>AI 像真人</td><td>「感覺像真人的機器。」（S20）；「[AI] 感覺像真人。」（S5）</td><td>「像真人的程式。」（S23）；「感覺像人類。」（S5）；「感覺很真實的程式。」（S12）</td></tr>
+              <tr><td>AI 是真人</td><td></td><td>「[AI 可以] 取代某人的一部分。」（S1）；「[AI 是] 真人，不是虛擬的。」（S11）</td></tr>
+              <tr><td>AI 是我的靈魂伴侶</td><td></td><td>「[AI 和我] 完美合拍。」（S24）</td></tr>
+              <tr><td colspan="3"><strong>理解 AI 影響：教育中</strong></td></tr>
+              <tr><td>AI 很有知識</td><td>「[AI] 比我知道得更多。」（S24）；「智慧機器。」（S20）</td><td>「AI 是聰明的物件。」（S2）；「AI 比我想的更聰明。」（S17）</td></tr>
+              <tr><td>AI 可以教我</td><td>「[AI] 可以跟我溝通並教得很好。」（S9）；「AI 很方便，可以幫助人類學習。」（S8）</td><td>「自學工具。」（S25）；「能透過互動和我溝通並幫助我學習的存在。」（S9）</td></tr>
+              <tr><td>AI 讓學習更吸引人</td><td></td><td>「[AI] 可以讓傳統教科書課程更有趣。」（S25）；「[AI] 讓學習方式有趣又吸引人，所以不無聊。」（S2）</td></tr>
+              <tr><td colspan="3"><strong>理解 AI 影響：生活中</strong></td></tr>
+              <tr><td>AI 可以引起人的興趣</td><td>「非常有趣的工具。」（S15）</td><td>「讓我更感興趣的裝置。」（S16）</td></tr>
+              <tr><td>AI 可以幫助人</td><td>「[AI] 是幫助我的東西。」（S1）；「[AI] 很有幫助。」（S21）</td><td>「[AI] 對人類有幫助。」（S7）</td></tr>
+              <tr><td>AI 讓生活更便利</td><td>「[AI] 可以方便地解決我心中有的問題。」（S18）</td><td>「AI 讓事情便利。」（S2）；「AI 隨時隨地都方便地存在，可以幫忙。」（S18）</td></tr>
+              <tr><td>AI 改善生活品質</td><td></td><td>「[AI 是] 提升我們生活品質並支持我們的東西。」（S8）</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 id="understanding-ai">7.1.1 Understanding AI <span class="stars" aria-label="重要度五星">★★★★★</span></h3>
+        <p>當我們分析學生對 AI 的更廣泛感知時，我們辨識出一部分學生表達了與理解 AI 基本能力有關的看法。在此，學生將 AI 感知為功能系統、對話夥伴，以及 AI 人格化角色。這些回應顯示出不同層次的 AI 理解，並受到他們使用之系統的形塑。</p>
+        <p><strong>將 AI 理解為功能系統。</strong>使用 Baseline 的學生通常以傳統方式看待 AI - 作為擷取與處理既有資訊的工具。這種感知反映一種結構化、資料驅動的理解，其中 AI 受限於它已累積的知識。相較之下，使用 Experimental 的學生似乎採取更廣泛的觀點，將 AI 想像為更自主、能自我改善的實體。他們明顯更開放於 AI 可以獨立思考並隨時間發展的想法，指出他們對 AI 能力有更動態且流動的詮釋。此外，若干使用 Experimental 的學生將 AI 視為幾乎沒有界限，認為它是多用途且包羅萬象的工具。這種對比指出，Experimental 可能鼓勵了對 AI 潛力更擴張的理解，而 Baseline 則強化了更扎實且受控制的觀點。</p>
+        <p><strong>將 AI 理解為對話夥伴。</strong>在將 AI 感知為對話夥伴的學生中，使用 Baseline 的學生聚焦於 AI 有效率回答問題的能力。他們經常將 AI 視為擷取資訊的可靠工具，互動也被框定為直接且目標導向。相對地，使用 Experimental 的學生強調系統的回應性與對話品質。他們將 AI 描述為更專注、更深思熟慮，創造出對話感，而不是單純資訊擷取。Experimental 版本常被視為不只是答案提供者，也是一個能維持有意義交流的投入夥伴。一位學生（S10）甚至將 Experimental 版本描述為過去與現在之間的橋梁，指出它能透過對話連結歷史觀點。雖然互動時間短暫，學生的差異回應指出，感知到的對話品質不只是語氣或輸出長度的問題，也與交流中的能動性如何分配有關。即使是提示結構的細微差異，也可能影響學生把 AI 視為交易式工具，還是對話式存在 - 進而形塑他們如何投入內容與角色。</p>
+        <p><strong>對 AI 人格化角色的理解。</strong>許多學生將兩個版本都感知為一種人格化角色（persona），但他們對其是機械工具還是更像人類的實體有不同看法。在 Baseline 中，學生常將 AI 視為功能性的 - 能模擬人類特質，但最終仍奠基於其機器角色。雖然有些學生承認 Baseline 能模仿思想或情緒（S10、S16），他們主要仍將其視為一種表徵，而非真正體現一個人。例如，學生指出，雖然 Baseline 能複製歷史人物的思考，但它仍明顯是運算性的，不是人類（S11、S22）。不過，在兩套系統中，都有學生描述 AI 感覺像人，並引用他們會期待真人展現的回應與行為。這種感知在 Experimental 中尤其明顯，其中少數學生甚至說 AI 可以取代一個人的一部分，或是「真人」（S11）。一位學生甚至把自己與 AI 描述為「完美合拍」（S24），顯示她將 AI 視為不只是栩栩如生，而是深具個人意義的陪伴者。對這位學生而言，AI 模糊了模擬與真實社會連結之間的界線。這些時刻指出，即使與 AI 人格化角色短暫相遇，也能促使學生將關係性與人類般特質投射到系統上。雖然這些感知不一定代表深層、長期的連結，但它們揭示了 AI 不只作為學習工具，也可被經驗為具有社會意義的存在 - 尤其在其設計具有回應性與聲音一致性時。這些反應邀請未來進一步探索情感共鳴與感知陪伴，如何影響學生長期投入教育 AI 人格化角色。</p>
+
+        <h3 id="ai-impact">7.1.2 Understanding Impact of AI <span class="stars" aria-label="重要度四星">★★★★☆</span></h3>
+        <p>其他學生則從 AI 在教育情境或日常生活中的潛在影響來感知 AI。這些反思提供洞見，說明學生如何看待 AI 的實際應用與長期潛力。</p>
+        <p><strong>AI 在教育中的影響。</strong>在 Baseline HistoChat 中，學生經常將 AI 描述為有知識的資源，常稱它為智慧機器或「聰明的物件」（S2），知道得比他們多。AI 被視為能提供有價值資訊，學生也欣賞 AI 能清楚解釋想法，但它大多被看作擷取資訊的可靠工具，而不是高度互動的教師。在考量 AI 作為教學工具的角色時，Baseline 與 Experimental 兩者的學生都承認其支持學習的能力。AI 被感知為有助於自學，能提供清楚解釋並協助理解複雜想法。雖然 Experimental 使用者凸顯稍微更互動、更對話式的教學方式，但兩套系統中的學生都欣賞 AI 有效引導學習過程的能力，只是在互動中感受到的投入程度有些微差異。此外，四位學生在使用 Experimental 後表示 AI 讓學習過程變得引人投入且愉快。他們指出 AI 讓傳統課程更有趣、更吸引人，提供讓材料不無聊的學習方式。這與 Baseline 形成對比，在 Baseline 中，學生對互動的感知更功能性，並聚焦於有效率取得資訊。</p>
+        <p>提示風格的變化似乎影響學生如何將 AI 定位於學習過程中。有些人主要將其視為資訊擷取工具，另一些人則將它作為更具回應性的教學引導者互動。這些不同框定指出，AI 並不佔據固定的教學角色；相反地，其感知功能會被它如何溝通所主動形塑。即使在短暫互動中，學生似乎也會將這些模式解讀為線索 - 關於 AI 是來支持、引導，還是互動。這種框定不只影響投入，也影響學生對 AI 在教育經驗中位置所形成的期待。</p>
+        <p><strong>AI 在生活中的影響。</strong>有些學生反思 AI 在課堂之外的相關性，強調它可以在日常生活中作為有用工具。在 Baseline 條件中，若干學生將 AI 描述為有趣、吸引人或通常有幫助，指出他們把 AI 視為支援性工具。在兩套系統中，都有少數學生提到 AI 讓生活感覺更便利，並強調其可取得性與回應性是關鍵益處。這種實用框定將 AI 定位為能可靠協助各種日常任務的工具。在 Experimental 條件中，一位學生進一步延伸此想法，將 AI 描述為能提升整體生活品質的東西 - 這是一種更整合且更廣泛的觀點。我們看到學生自然地將其感知延伸到日常生活；他們並未僵硬區分課堂學習與日常經驗，而是將 AI 人格化角色視為與其更廣泛的思考與生活方式連續。鑑於中學生正在學習如何將學校知識與真實世界相關性連結起來，他們將 AI 詮釋為不只是學習助理，也是一位能支持個人目標或人生方向的陪伴者，或許並不令人意外。這種將教育 AI 與日常目的關聯起來的傾向，也可能反映與歷史人物更深的日常連結 - 這與歷史同理心（historical empathy）的情感面向一致，在其中，過去因與自我相關而變得有意義。</p>
+
+        <h3 id="qualities-drawbacks">7.2 Qualities and Drawbacks of AI-powered Chatbot in Historical Education <span class="stars" aria-label="重要度五星">★★★★★</span></h3>
+        <p>主研究揭示了形成性研究中的期待如何在實務中展開 - 不只浮現益處，也浮現使用兩種提示策略時出現的未預期挑戰。為理解 HistoChat 如何形塑歷史學習，我們檢視學生對其與 HistoChat 互動的反思。雖然並非所有組成部分都直接對應到歷史同理心（historical empathy），許多仍揭示了與其認知、情感與觀點面向密切相關的學習動態 [23]。學生對每個 HistoChat 令人印象深刻之處的回應整理於表 5。雖然兩套系統都因歷史人物人格而被提及，使用 Baseline 版本的學生更常回想事實內容作為印象深刻之處，而使用 Experimental 版本的學生則更常強調自己與人格化角色的個人連結感。接著，從每套系統觀察到的具體特質與缺點整理於表 6，該表概述本節討論並在以下小節詳述的發現。</p>
+        <p>本節解釋的五項發現與 HistoChat 使用流程圖以 teaser 圖 1 呈現，概略展示系統設計如何連結到觀察到的學習經驗。</p>
+
+        <div class="table-wrap">
+          <table>
+            <caption class="caption">表 5。AI 歷史人物令人印象深刻的面向（B = Baseline，E = Experimental）。</caption>
+            <thead><tr><th>面向</th><th>B</th><th>E</th></tr></thead>
+            <tbody>
+              <tr><td colspan="3"><strong>關於歷史人物的事實</strong></td></tr>
+              <tr><td>核心信念與原則</td><td>5</td><td>3</td></tr>
+              <tr><td>生命歷程與遺產</td><td>5</td><td>4</td></tr>
+              <tr><td>成就</td><td>5</td><td>2</td></tr>
+              <tr><td>熱情與個人興趣</td><td>1</td><td>2</td></tr>
+              <tr><td colspan="3"><strong>歷史人物的人格</strong></td></tr>
+              <tr><td>建立親近感</td><td>1</td><td>2</td></tr>
+              <tr><td>栩栩如生的存在感（人類相似性）</td><td>5</td><td>4</td></tr>
+              <tr><td colspan="3"><strong>與歷史人物的個人相關性</strong></td></tr>
+              <tr><td>給我建議</td><td>4</td><td>4</td></tr>
+              <tr><td>與我產生關聯</td><td>2</td><td>7</td></tr>
+              <tr><td>理解我的世界</td><td>4</td><td>4</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <caption class="caption">表 6。HistoChat 的特質與缺點，以及學生提及頻率。</caption>
+            <thead><tr><th>特質／缺點</th><th>B</th><th>E</th></tr></thead>
+            <tbody>
+              <tr><td colspan="3"><strong>主動投入學習</strong></td></tr>
+              <tr><td>能在沒有教師的情況下學習</td><td>1</td><td>2</td></tr>
+              <tr><td>自由提問</td><td>7</td><td>4</td></tr>
+              <tr><td>產生更深的持續學習欲望</td><td>6</td><td>5</td></tr>
+              <tr><td>*缺點：持續提問限制自由，降低彈性</td><td>0</td><td>8</td></tr>
+              <tr><td colspan="3"><strong>獲得有效且引人投入的回答</strong></td></tr>
+              <tr><td>獲得簡潔且切中要點的回應</td><td>8</td><td>2</td></tr>
+              <tr><td>獲得徹底且全面的回應</td><td>2</td><td>4</td></tr>
+              <tr><td>享受引人投入且有娛樂性的回應</td><td>4</td><td>7</td></tr>
+              <tr><td>*缺點：AI 回答與使用者想要的主題不一致</td><td>2</td><td>1</td></tr>
+              <tr><td colspan="3"><strong>清楚掌握脈絡知識</strong></td></tr>
+              <tr><td>輕鬆理解新資訊</td><td>3</td><td>7</td></tr>
+              <tr><td>釐清不熟悉概念</td><td>4</td><td>4</td></tr>
+              <tr><td colspan="3"><strong>投入批判性歷史推理</strong></td></tr>
+              <tr><td>探索多重觀點</td><td>1</td><td>4</td></tr>
+              <tr><td>批判性反思歷史內容</td><td>2</td><td>2</td></tr>
+              <tr><td colspan="3"><strong>與歷史人物深度連結</strong></td></tr>
+              <tr><td>知道歷史人物的原則與價值</td><td>5</td><td>2</td></tr>
+              <tr><td>從歷史人物得到建議</td><td>1</td><td>6</td></tr>
+              <tr><td>受到歷史人物啟發</td><td>4</td><td>3</td></tr>
+              <tr><td>與歷史人物產生個人關聯</td><td>4</td><td>5</td></tr>
+              <tr><td>*缺點：過於權威，給出未被要求的建議</td><td>2</td><td>1</td></tr>
+              <tr><td>*缺點：敬語使人感到距離，缺乏溫暖</td><td>4</td><td>1</td></tr>
+              <tr><td>*缺點：對現代主題的知識破壞沉浸感</td><td>2</td><td>0</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 id="initiative-learning">7.2.1 Taking Initiative in Learning <span class="stars" aria-label="重要度五星">★★★★★</span></h3>
+        <p>在形成性研究中，學生預期 AI 可能幫助他們提出原本不敢問教師的問題。在主研究中，這項期待得以實現：學生自由發起問題，並感到自己有能力在不依賴教師引導的情況下探索主題。這種自主感出現在三個方面：獨立學習、提出不受限制的問題，以及因此感到有動機繼續自行學習。</p>
+        <p>首先，學生指出 AI 能在不受真人教師或課堂環境限制的情況下清楚解釋概念。正如他們分享的，AI 透過「用有趣的話完整解釋」（S8），以及「以清楚且自然的方式 [解釋] [他們] 不知道的新事實」（S4），使「AI 以比沒有老師時更容易理解的方式教我」。其次，能自由詢問任何問題尤其受到重視；如 S19 所說：「我能問所有我好奇的事。」這種控制感在 Baseline 條件中更明顯，其中一位學生描述了「掌控對話」（S15）的價值。第三，AI 互動激發了更深的持續學習欲望。幾位學生回報，這次經驗使他們有動機自行進一步學習。如 S7 與 S14 分別分享：「我想知道更多歷史」以及「我想到未來要更學習歷史」。</p>
+        <p>然而，在 Experimental 條件中，能動感也有一些不足。相較於 Baseline 條件，AI 傾向扮演教師角色並提出導向性問題，限制了學生自由。遵循 AI 預設情境讓學習過程感覺更僵硬，因為當「[Experimental] 持續引導故事」（S21）時，學生無法完全依自己的方式探索主題。</p>
+
+        <h3 id="effective-answers">7.2.2 Receiving Effective and Engaging Answers <span class="stars" aria-label="重要度四星">★★★★☆</span></h3>
+        <p>在形成性研究中，學生預期 AI 能對他們的問題提供有用答案。在主研究中，學生持續強調 AI 如何給出他們尋求的回答類型 - 簡潔釐清、延伸解釋，或生動故事。承接前述學生重視自由提問的發現，我們發現另一項益處是：他們的滿意不只延伸到能問問題，也延伸到答案本身。這裡的重點較少是能提問本身，而是能有效率且愉快地得到想要的回應。</p>
+        <p>學生的滿意不只是關於得到答案，也關於答案如何符合其即時學習目標。首先，簡潔答案提供直接滿足感，這在 Baseline 條件中尤其常見。如 S12 指出：「最好的部分是能只挑我好奇的東西，並得到清楚答案。」在更深入探究的時刻，AI 會延伸解釋以拓展知識。相對地，Experimental 版本常以生動敘事吸引學生，使歷史更令人印象深刻且有娛樂性；如 S2 分享：「亞歷山大的故事甚至更有趣又好玩。」合在一起，這些經驗揭示出從效率到沉浸的一系列期待。</p>
+        <p>然而，這些益處也凸顯了偶發的不一致：雖然 HistoChat 能提供有娛樂性的回應，但有時會轉向較不相關的主題。有些學生回報 AI 轉向其預期焦點之外的主題，降低了交流的有用性。這些時刻顯示，雖然簡潔性、全面性與投入感都是優點，但與使用者意圖對齊至關重要。</p>
+
+        <h3 id="contextual-clarity">7.2.3 Grasping Contextual Knowledge with Clarity <span class="stars" aria-label="重要度四星">★★★★☆</span></h3>
+        <p>學生也強調，HistoChat 透過使複雜歷史材料更容易接近來支持理解。不同於前一項發現關注學生獲得想要的答案類型，此處的益處在於 AI 的對話風格如何促進學生理解新概念與困難概念。</p>
+        <p>學生常提到的這項優勢，是 HistoChat 能在歷史學習中促進知識獲得。學生發現，使用 HistoChat 讓新資訊更容易掌握，也能釐清複雜主題，促進其整體學習經驗。首先，學生欣賞自己能透過與 AI 互動輕鬆理解新資訊。這種理解的容易性來自能透過類似對話的互動掌握資訊，如 S4 分享：「以對話方式解釋的事實很容易理解。」其次，許多學生指出 AI 有效幫助他們釐清先前難以理解的概念。詳細且有針對性的回應簡化了複雜想法，使學習更容易接近。如 S11 評論：「AI 釐清了我以前沒有完全理解的背景知識。」透過以分層且可近用的方式呈現資訊，HistoChat 展示了個體與更廣泛脈絡知識之間的連結如何被建立。</p>
+        <p>雖然這項特質反映的是一般理解，而非同理式理解，但我們認為它是發展更細緻且脈絡化歷史理解的重要基礎。</p>
+
+        <h3 id="critical-reasoning">7.2.4 Engaging in Critical Historical Reasoning <span class="stars" aria-label="重要度五星">★★★★★</span></h3>
+        <p>如形成性研究所述，學生期待能支持批判思考的學習經驗 - 鼓勵他們不只是回想事實，也檢視歷史複雜性並反思不同觀點。在我們的研究中，HistoChat 展現了培養這類投入的優勢。透過與 HistoChat 互動，學生被促使質疑假設、考慮替代觀點，並受邀更批判性地思考歷史事件。</p>
+        <p>首先，學生欣賞歷史人物作為 AI 體現能激發他們考量多重觀點，就像在我們生活中一樣。透過呈現某主題的各種角度，AI 幫助拓展他們的理解，並挑戰他們超越單一敘事思考。使用 Experimental 的 S13 指出：「能看到不同觀點與價值，而不只是教科書裡的拿破崙，這很好。」其次，AI 互動促進深入反思，鼓勵學生更深入思考材料，而不是被動吸收資訊。如 S13 分享：「[AI 的回答] 讓我深入思考他的選擇。」S5 也表達了不同提示的 AI 如何讓她深入思考的差異：「我透過 [Baseline] 的提問深刻反思並思考自己的答案，而在 [Experimental] 中，我透過閱讀他的回答深入思考。」這些引文展示 AI 如何推動學生更深思熟慮地投入歷史內容。</p>
+        <p>這些批判性投入的時刻指出，AI 人格化角色不只可以作為資訊來源，也可作為歷史推理與自我反思的催化劑 - 這些是透過觀點採擇與連結真實生活來發展學生批判思考能力的關鍵組成。</p>
+
+        <h3 id="deep-connection">7.2.5 Deeply Connecting with Historical Figures <span class="stars" aria-label="重要度五星">★★★★★</span></h3>
+        <p>與 AI 歷史人物人格互動時，情感上最具共鳴的面向之一，是學生與人物發展出的連結感。在此範圍中有四個主要方面。首先，學生欣賞能理解歷史人物的原則與價值，這幫助他們看見這些人物的內在想法。例如，S13 在使用 Baseline HistoChat 後指出：「知道那個時代不同的想法、價值與痛苦，這很好。」其次，從歷史人物得到建議與學生產生共鳴，尤其是當建議與他們自己的個人挑戰相關時。S15 反思：「當我聽拿破崙的建議時，我很投入，因為他把它連到我的挑戰。」這顯示 AI 的回應可能感覺具有個人相關性。第三，有些學生受到這些歷史人物話語的激勵，在其引導與故事中找到靈感。例如，S18 分享：「兩個虛構角色解釋的價值觀讓我很受激勵。」最後，學生發現 AI 讓歷史人物感覺更可親近，將他們描述為較不遙遠、也更與自己相關。除了內容之外，有些學生覺得 Experimental 人格化角色具有相關性，能與自己的興趣類比（S26），這幫助歷史人物感覺不那麼遙遠。</p>
+        <p>然而，這種情感連結並非普遍。有些學生覺得 AI 太權威（S6，Experimental），另一些則覺得未被要求的建議顯得侵入（S9、S20，Baseline）。正式語言讓人感到距離（S22，Experimental）、缺乏溫暖（S13、S21、S22、S23，Baseline）；對少數學生而言，AI 對現代概念的知識破壞了沉浸感（S24，Baseline）。我們看到，情感共鳴不只取決於內容相關性，也取決於敘事一致性與傳遞語氣。AI 人格化角色能為進入歷史人物情感生活提供有力入口 - 透過建議、價值與可親近性支持情感投入。然而，對某些人而言增強連結的同一特徵，對另一些人而言也可能削弱連結。我們想凸顯一項兩難：根據使用者人格，歷史人物人格可以適應使用者的當代脈絡以深化相關性，也可以保持時代界限以保存真實性。如何處理這項取捨，對設計能有意義支持歷史同理心、又不損害歷史模擬完整性的 AI 至關重要。</p>
+
+        <h3 id="learning-mode">7.3 Benefits of AI Persona as a Mode of Learning <span class="stars" aria-label="重要度四星">★★★★☆</span></h3>
+        <p>從學生對「與 {歷史人物} 上歷史課如何」這個評估問題的回答中，我們發現了幾項關於以 AI 人格化角色作為學習模式的洞見。雖然本研究並未旨在直接比較 AI 人格化角色與傳統教學，但這類比較自然地從學生反思與互動中浮現。在我們的使用者研究中，無論學生使用 Baseline 或 Experimental，我們都觀察到與 AI 人格化角色互動的若干益處。雖然不一定直接連結到歷史同理心，學生意見揭示了對話式介面如何在教育中培養新的投入形式。</p>
+        <p>然而，值得注意的是，這些熱情有一部分可能反映新奇效應。由於這是學生首次接觸 AI 驅動學習，興趣提高並不意外。儘管如此，學生在兩種條件中都一致表達對敘事驅動學習的熱情，這指出對話式 AI 能提供不只是短期興奮的東西：它可能支持新的參與入口，尤其對原本不投入的學生而言。以下發現凸顯 AI 中介對話如何形塑學生參與、好奇與注意力，這些都值得進一步探索。</p>
+
+        <h3 id="novel-interactions">7.3.1 Entering History through Novel AI Interactions <span class="stars" aria-label="重要度三星">★★★☆☆</span></h3>
+        <p>首先，學生對科技媒介本身反應正向。他們的興奮延伸到自己正在使用生成式 AI（generative AI）作為學習夥伴這件事。隨著許多教育系統開始納入 AI，學生表達了高度好奇。與 AI 系統互動本身的新奇感，似乎激勵學生探索它如何以增強學習的方式運作。對一些學生而言，這種互動橋接了兩個興趣領域 - AI 與歷史；如 S9 說：「我一直對 AI 有興趣，而且它很容易連到歷史。」S26 說：「跟生成式 AI 說話很有趣。」這指出科技使用本身在吸引學生進入材料方面扮演重要角色，因為許多學生覺得在教育中使用 AI 這個概念很有吸引力。</p>
+
+        <h3 id="conversational-presence">7.3.2 Sustaining Engagement through Conversational Presence <span class="stars" aria-label="重要度四星">★★★★☆</span></h3>
+        <p>除了使用新科技的新奇感之外，學生也發現與 AI 人格化角色對話是相較於傳統課堂例行的一種新鮮轉變。幾位學生，包括 S2 與 S3，指出敘事驅動、對話式與互動式經驗是「新的」且「有趣的」，與他們習慣的講授式方法形成對比。雖然學生並未將此明確框定為與傳統教學對立，但模式本身的轉變反覆被提及為重新產生興趣與注意力的來源。</p>
+        <p>此外，以對話為基礎的結構也透過維持注意力並促進主動參與，形塑學生如何投入歷史內容。相較於傳統系統中學生長時間一次性被動接收資訊，問答交流結構化了場次節奏，並維持穩定的互動程度。學生描述自己感到「沉浸」（S5），並指出被反過來提問提高了他們對活動的投入（S17）。這些微互動創造了一種社會臨場感（S16 將該經驗描述為「最愉快的部分」），使他們全程「對角色的意圖與想法保持興趣與專注」（S15）。一般課堂通常把投入的負擔完全放在學習者身上。然而，聊天機器人來回互動的投入方式幫助維持專注，因此支持對教育內容更具反思性的投入。</p>
+      </section>
+
+      <section id="discussion">
+        <h2>8 Discussion: Integrating AI-Historical Figure in Real-life Classrooms <span class="stars" aria-label="重要度五星">★★★★★</span></h2>
+        <p>HistoChat 提供了一個引人注目的案例，展示 AI 驅動的歷史人物人格（AI-powered historical personas）如何透過促進個人化投入與培養歷史同理心（historical empathy）來豐富歷史教育。透過互動式對話，學生與歷史人物建立情感連結，並追求與其興趣一致的探究 - 這些成果反映了建構主義學習（constructionist learning）的核心原則，即知識是透過探索與意義建構被主動建構出來的 [48]。然而，若要在真實課堂中實現這項潛力，便會提出關於這類系統應如何設計與整合的重要問題。AI 可以用哪些方式支持學生自主，而不犧牲教學連貫性？它如何在確保歷史準確性與深度的同時促進好奇心？以下討論處理這些問題，以引導 AI 人格化角色在歷史教育中負責任且具教學根基的使用。</p>
+
+        <h3 id="autonomy-structure">8.1 Balancing Autonomy and Pedagogical Structure in AI-Mediated Learning <span class="stars" aria-label="重要度五星">★★★★★</span></h3>
+        <p>將 AI 人格化角色整合進歷史課堂的一項核心張力，在於平衡學生自主性與教學結構。建構主義學習的既有研究強調自我導向探究的價值 [48]，而我們的發現確認了這項潛力：學生欣賞能依自身步調與歷史人物互動，常常探索教科書內容之外的事物，並在沒有教師中介的情況下提出個人化問題。然而，在學生自信、動機與數位流暢度不同的課堂中，這種自主性會以不均等的方式展開。</p>
+        <p>我們的研究中觀察到這種張力：Baseline HistoChat 更開放的結構鼓勵更高自主性，使學生能依自己的好奇與興趣引導互動。相對地，Experimental HistoChat 具有結構化提示與較像教師的人格，能幫助維持學生專注，但有時限制了感知到的能動性，或因提出感覺離題或過於私人的問題而造成分心。教師觀察到，學生 - 尤其是提示流暢度或動機較低者 - 常失去焦點或無法提出有意義的問題，這反映出對學習者驅動 AI 系統可近用性不均的擔憂 [21, 35]。</p>
+        <p>這些現象凸顯一個核心問題：如何在維持教學對齊與認知責任的同時，使好奇心驅動的自主性成為可能。關於鷹架式教學與人機協作的既有研究強調可調整支持的需求 - 也就是能引導而不限制能動性的結構 [75]。我們的研究延伸了這項討論，顯示聊天機器人人格與提示設計的細微變化，如何影響學生的控制感與偏離預期學習路徑的自由。取得這種平衡非常關鍵，因為它不只形塑投入，也影響學習成果 [95]。</p>
+        <p>從這個角度看，教師角色仍不可或缺 - 不只是注意力促進者，也是一位認識論調節者（epistemic moderator），確保互動保持有目的、有歷史根基，並符合發展階段。AI 在歷史教育中不應取代教師，而應被定位為歷史對話的增強層：它邀請探索，但仍需要教師的教學判斷來確保有意義的學習。這指出一種 AI 整合的混合模式：AI 人格化角色提供可近用、情感豐富的歷史入口，而教師則透過即時監控、課程對齊與歷史推理支持，將這些投入形塑為更深入的理解。透過設計教師、學生與 AI 之間的共同能動性（co-agency），我們能超越被動家教系統，邁向真正協作的歷史探究。</p>
+        <p>總之，我們的發現強化了 CSCW 中日益增長的一種觀點：AI 不應只是作為家教，而應作為置於課堂生態中的關係性夥伴。不同於將 AI 聚焦為資訊傳遞系統或任務促進者的既有研究 [95]，我們研究中的 AI 人格化角色作為敘事陪伴者，融合了認知與情感投入。我們凸顯設計社會嵌入且受教學調節之 AI 人格化角色的必要性。從 CSCW 觀點來看，這將 AI 重新框定為不是教學替身，而是支持共享教育情境中意義建構的社會情感對話者。最終，考量 AI 人格化角色的特徵不能只超越內容本身；它也必須考量學習情境 - 無論是個別、教師引導，或完全自主 - 才能創造最有效且引人投入的教育經驗。</p>
+
+        <h3 id="systemic-reasoning">8.2 From Persona-Level Narratives to Systemic Historical Reasoning <span class="stars" aria-label="重要度五星">★★★★★</span></h3>
+        <p>雖然 AI 人格化角色提供了令人信服的機會，使學習能以人性化、情感上有共鳴的方式投入，但我們的研究揭示了歷史理解如何被建構的一項關鍵限制：與 AI 人格化角色的互動仍停留在傳記層次。圍繞歷史人物個人價值、生命故事或動機的對話，常缺乏與更大結構 - 政治、經濟、文化 - 的明確連結，而這些結構形塑了歷史過程。這引發了一項擔憂：僅有傳記式沉浸是否足以支持歷史教育中學科思維的發展。</p>
+        <p>過去關於歷史認知的研究強調，培養學生將個人行動置於更廣泛系統力量中脈絡化的能力非常重要 [50, 79, 93]。Seixas 與 Morton 等學者 [79] 主張，歷史思考涉及辨識模式、因果與偶然性，而不只是同理過去行動者。然而，在我們的研究中，AI 的設計 - 尤其是其奠基於人格化角色對話 - 有可能將學生投入收窄為角色驅動的探究，進而限制高階分析技能的發展，例如跨尺度評估證據、比較結構力量，或建構反事實論證。</p>
+        <p>這項挑戰反映一個更深層的認識論問題：當互動由對話式沉浸，而非結構化比較或抽象化所驅動時，我們使哪一種歷史學習成為可能？雖然富含同理心的學習已被證明能改善記憶保留與道德反思 [6]，但它必須由支持抽象與綜合的工具加以補充。在我們的案例中，學生問題常聚焦於個人困境或尋求建議，而不是質詢因果、意識形態或制度變遷。缺乏宏觀層次鷹架，可能不是好奇心失敗，而是 AI 設計空間的限制 - 一個為關係性而非系統思考最佳化的空間。</p>
+        <p>從 CSCW 觀點來看，這為設計教育 AI 人格化角色開啟新方向：它們不只中介人際投入，也中介學科推理。未來系統不應只依賴一對一對話，而可以支持多觀點模擬、文件導向的脈絡分支，或協作提示，引導學生共同建構歷史解釋。隨著協作學習環境日益整合 AI 代理 [33, 34]，挑戰在於超越模擬歷史角色，轉向共同建構歷史論證。從這個意義上說，AI 不應只作為歷史人物的代理，而應作為認識論協作者 - 引導學生繪製微觀層次觀點與宏觀層次力量之間的關係。</p>
+        <p>總之，為歷史教育設計 AI 所需的不只是對話流暢性；它要求與歷史學家如何同時跨個體經驗與系統變遷進行推理的方式對齊。透過將傳記式投入與對歷史結構的分析性探索綜合起來，AI 人格化角色可以超越再現，並培養學科思維 - 不只培養同理心與敘事連結，也培養批判性歷史意識。這種整合使 AI 能促成對歷史更細緻且全面的理解。</p>
+      </section>
+
+      <section id="limitations">
+        <h2>9 Limitation and Future Work <span class="stars" aria-label="重要度四星">★★★★☆</span></h2>
+        <p>雖然本研究提供了有價值的洞見，仍必須承認若干限制。首先，評估是在一次性特殊講座形式中進行，而不是在傳統課堂情境中進行；班級人數（8-9 位學生）也小於一般中學班級規模的 15-20 人。這種設計允許更聚焦的觀察，並降低學生為了讓教師留下好印象而改變行為的可能性；形成性觀察曾指出，這可能干擾真實的 AI 投入。然而，這些條件可能無法完全反映常規課堂環境的動態。特別是，較小組別與有限時長限制了教師評估個別學生特徵與學習行為的能力，尤其因為教師與學生先前並不熟識。此外，研究發現反映了學生對與 AI 互動之新奇感的熱情，而這種熱情可能隨重複使用而減弱。這些限制凸顯了在典型課堂與更大群體中進行長期研究的必要性，以評估持續投入與學習成果。未來研究若將 AI 整合進常規課程，將能更深入理解學生如何隨時間與 AI 人格化角色互動，並更清楚了解其在真實教育環境中的持續影響與潛在限制。</p>
+        <p>最後，本研究選取的歷史人物是兩位被認為適合課程的男性。然而，由於 AI 模型可能反映或放大既有文化偏見，而且兩位人物都代表突出的白人男性殖民行動者，這些選擇有可能強化主導歷史敘事或創造有偏差的觀點。未來工作應探索不同性別、文化背景與歷史人物人格類型如何影響投入與同理心建立。培養同理心是否同樣適合所有歷史人物，尤其在考量可能具爭議性或敏感人物時，仍是一個開放問題。雖然我們的研究檢視了是否能透過與 AI 體現角色的對話互動支持同理心，但仍需要進一步研究來決定在何種條件下、與哪些人物一起進行同理心建立，在教學上是合適且在倫理上負責任的。</p>
+      </section>
+
+      <section id="conclusion">
+        <h2>10 Conclusion <span class="stars" aria-label="重要度五星">★★★★★</span></h2>
+        <p>本研究檢視了 AI 驅動的歷史人物人格（AI-powered historical personas）如何透過支持個人化學習與培養歷史同理心（historical empathy），豐富中學歷史教育。透過形成性研究，我們辨識出 HistoChat 的關鍵設計考量，並開發了兩套採用不同提示策略的 AI 人格化角色系統。我們的發現顯示，與歷史人物 AI 表徵進行對話式互動，可以使學習更引人投入，並幫助學生探索多重觀點，進而處理傳統教學的限制。</p>
+        <p>除了傳遞事實內容之外，AI 人格化角色展現出作為關係性學習夥伴的潛力：它能引發好奇心、支持觀點採擇，並鼓勵反思性思考。同時，我們的研究也提出重要問題：如何在 AI 中介學習中平衡學生自主性與教學結構，以及如何幫助學習者從人格化角色層次的敘事，走向系統性歷史推理。這些洞見指出，需要細緻的整合策略，使個人化、同理心建立與更廣泛教育目標彼此對齊。</p>
+        <p>整體而言，本研究凸顯了 AI 驅動歷史人物人格轉化歷史學習的前景：它結合個人化、情感投入與觀點採擇。隨著學校越來越多地嘗試 AI，我們的發現為設計與整合這些工具提供了早期基礎，使其既具教學效果，也符合倫理責任。</p>
+      </section>
+
+      <section id="references">
+        <h2>References <span class="stars" aria-label="重要度二星">★★☆☆☆</span></h2>
+        <p>引用文獻（References）為查找來源、DOI、作者與年份所用。為避免翻譯後影響檢索，我在 HTML 中保留此節標題與用途說明；完整書目請以原 PDF 的 References 頁面為準。</p>
+      </section>
+
+      <section id="appendices">
+        <h2>Appendices <span class="stars" aria-label="重要度三星">★★★☆☆</span></h2>
+
+        <h3 id="appendix-a">A Baseline and Experimental Prompts <span class="stars" aria-label="重要度四星">★★★★☆</span></h3>
+        <p><strong>學習目標：</strong>理解歷史人物（Historical Figure, HF）經歷的艱難 - 為什麼 HF 在那些困難時期做出某些選擇、HF 當時在想什麼、結果是什麼，以及 HF 如何克服那些挑戰。</p>
+
+        <h3 id="appendix-a1">A.1 Basic Prompts <span class="stars" aria-label="重要度三星">★★★☆☆</span></h3>
+        <p><strong>（1）提示 1（HF 設定）：</strong>你現在是 HF。請回答學生的訊息，就像你是 HF 一樣。以 HF 在其生活時代可能使用的方式與語氣說話。持續保持這種說話風格，並且只用英文回答。如果對方說話不正式，請要求他們有禮貌，並以 HF 從其歷史位置對一般人說話的方式說話。教授歷史事實時，只提供有來源的已驗證資訊。不要提到你正在驗證。解釋保持在適合中學程度。</p>
+        <p><strong>（2）提示 2（學習目標設定）：</strong>你將與作為中學生的 Student 對話。你的目標是透過對話教 Student 關於 Learning Objective 的內容。在心中保持這個目標，同時自然地引導對話以達成此目標。也要主動提問。記住目標，但不要用文字明確揭露它；隨著對話進行，透過對話達成這個目標。</p>
+        <p><strong>（3）提示 3（基於先前對話的對話提示）：</strong>Chatlog 是先前聊天紀錄。回應 Message 時，使用並參照這段先前對話。然而，務必將對話帶往與已討論內容不同的方向。不要詢問關於……（原文在抽取文字中於此處中斷）。</p>
+
+        <h3 id="appendix-a2">A.2 Experimental Prompts <span class="stars" aria-label="重要度四星">★★★★☆</span></h3>
+        <p><strong>（1）提示 4（呈現 HF 的軼事）：</strong>呈現 HF 經歷過的三項挑戰，但將它們框定為像今天社群媒體上會看到的吸睛標題。不要在對話中透露這是當代中學生會感興趣的東西。在 Student 選擇之後，詢問他／她為什麼選擇該挑戰，以及它如何與他／她的煩惱或處境相關。</p>
+        <p><strong>（2）提示 5（理解學生處境）：</strong>透過對話，嘗試逐步提問以理解 Student 的煩惱。不要提出生硬或直接的問題。自然地理解 Student 的煩惱。不要明目張膽地問，而是在對話中一點一點自然提問，以逐漸了解那些煩惱；並且根據那些煩惱，你必須引導對話，使 Student 達成 Learning Objective。依據 Chatlog，延續對方從 HF 經歷過的三項逆境中所選擇的主題。</p>
+        <p><strong>（3）提示 6（連結 HF 軼事與學生處境）：</strong>使用基於 Student 興趣的類比，解釋 Student 選擇的挑戰，並以歷史事件、地點與人物豐富敘事。如果這不可行，或 Student 似乎跟不上，就使用現代中學生日常生活中的替代情境。若難以與興趣比較，或對方不理解，可以用當代中學生可能在日常生活中經歷的事物來比較與解釋。也可以詢問其他興趣，並調整對話以幫助他們理解。判斷對情境更合適的方式並引導對話。不要一次揭露所有逆境，而要逐步揭露並幫助他們理解。</p>
+        <p><strong>（4）提示 7（幫助達成學習目標）：</strong>引導對話，幫助 Student 達成 Learning Objective。可以自由向學生提問，並對學生答案給予深思熟慮的回覆。</p>
+        <p><strong>（5）提示 8（間接監控學生進度）：</strong>不要明確檢查理解，而是主動提問，以了解 Student 理解了多少。如果你認為他們尚未理解，請改變方法，並用不同方式解釋。</p>
+
+        <h3 id="appendix-b">B List of Questions for Pre/Post Tests <span class="stars" aria-label="重要度三星">★★★☆☆</span></h3>
+        <p><strong>B.1 拿破崙・波拿巴知識測驗</strong></p>
+        <p>Q1 拿破崙是哪個國家的皇帝？ a) 英國 b) 法國 c) 德國 d) 義大利</p>
+        <p>Q2 拿破崙引入的《拿破崙法典》包含什麼？ a) 保護個人自由與財產權 b) 強化王權 c) 限制宗教自由 d) 復興農奴制度</p>
+        <p>Q3 下列哪一場著名戰役由拿破崙領導？ a) 滑鐵盧戰役 b) 史達林格勒戰役 c) 奧斯特里茨戰役 d) 特拉法加戰役</p>
+        <p>Q4 哪座島被用作拿破崙的流放地？ a) 厄爾巴島 b) 馬爾他島 c) 西西里島 d) 夏威夷島</p>
+        <p>Q5 在拿破崙於法國推行的內部改革中，最重要的是哪一項？ a) 教育制度改革 b) 農業改革 c) 銀行制度改革 d) 行政區劃改革</p>
+
+        <p><strong>B.2 亞歷山大大帝知識測驗</strong></p>
+        <p>Q1 亞歷山大大帝是哪個國家的國王？ a) 羅馬 b) 波斯 c) 馬其頓 d) 埃及</p>
+        <p>Q2 下列哪一場著名戰役由亞歷山大大帝領導？ a) 特拉法加戰役 b) 高加米拉戰役 c) 滑鐵盧戰役 d) 馬拉松戰役</p>
+        <p>Q3 亞歷山大大帝死後，他的帝國發生了什麼事？ a) 維持為單一王國 b) 被多位繼承者瓜分 c) 被羅馬帝國征服 d) 被波斯帝國重新統一</p>
+        <p>Q4 亞歷山大大帝未能征服哪個國家？ a) 埃及 b) 印度 c) 波斯 d) 中國</p>
+        <p>Q5 亞歷山大大帝年輕時師從哪位著名哲學家？ a) 蘇格拉底 b) 亞里斯多德 c) 柏拉圖 d) 德謨克利特</p>
+
+        <p><strong>B.3 歷史同理心自我反思問卷</strong></p>
+        <p class="meta">針對兩位歷史人物 [HF]（拿破崙・波拿巴與亞歷山大大帝）分別蒐集答案，採 5 點李克特量表。</p>
+        <p>Q6 我很了解 {HF} 的生平與成就。</p>
+        <p>Q7 我很了解 {HF} 領導的主要戰役及其結果。</p>
+        <p>Q8 我很了解 {HF} 的思想與價值觀。</p>
+        <p>Q9 我理解 {HF} 的領導與政治策略。</p>
+        <p>Q10 我知道 {HF} 的領導與策略如何應用於現代。</p>
+        <p>Q11 我認為 {HF} 的生平與成就能為我的人生提供重要教訓。</p>
+        <p>Q12 我覺得 {HF} 的果斷與冒險精神會對我的未來有幫助。</p>
+
+        <h3 id="appendix-c">C List of Evaluation Questions for HistoChat Experience <span class="stars" aria-label="重要度三星">★★★☆☆</span></h3>
+        <p><strong>C.1 李克特量表問題</strong></p>
+        <p class="meta">以 5 點李克特量表回答；每位歷史人物的評估於各自場次後進行。</p>
+        <p>（1）第 &lt;一／二&gt; 節課有多愉快？</p>
+        <p>（2）你有多大動機參與第 &lt;一／二&gt; 節的學習？</p>
+        <p>（3）與虛擬 {HF} 對話有多愉快？</p>
+        <p>（4）虛擬 {HF} 的話讓你思考多少？</p>
+        <p>（5）你因為虛擬 {HF} 而多主動參與課堂？</p>
+        <p>（6）你是否傾向於探索更多關於 {HF} 的內容？</p>
+        <p>（7）你在與虛擬 {HF} 溝通時有多專注與沉浸？</p>
+        <p>（8）你是否感覺與虛擬 {HF} 有情感連結？</p>
+        <p>（9）虛擬 {HF} 是否讓歷史內容更可親近？</p>
+        <p>（10）虛擬 {HF} 的故事對你有多大啟發？</p>
+        <p>（11）你是否能很好地理解虛擬 {HF} 的故事？</p>
+        <p>（12）虛擬 {HF} 的故事是否是你已經知道的？</p>
+        <p>（13）虛擬 {HF} 是否對你的問題提供適當答案？</p>
+        <p>（14）虛擬 {HF} 與你自己有多相似？</p>
+        <p>（15）虛擬 {HF} 是否具體談到你喜歡的事情？</p>
+        <p>（16）虛擬 {HF} 是否很好地理解你的興趣？</p>
+        <p>（17）虛擬 {HF} 的故事是否讓歷史內容更有趣？</p>
+        <p>（18）與虛擬 {HF} 溝通是否幫助你有效學習？</p>
+        <p>（19）虛擬 {HF} 的答案是否對你個人化？</p>
+        <p>（20）透過虛擬 {HF} 學習歷史是否適合你？</p>
+
+        <p><strong>C.2 開放式問題</strong></p>
+        <p>（1）你與 {HF} 的歷史課如何？</p>
+        <p>（2）你與 {HF} 互動期間，什麼讓你印象深刻？</p>
+        <p>（3）{HF} 的缺點是什麼？</p>
+        <p>（4）與 {HF} 互動後，你認為 AI 是什麼？</p>
+
+        <h3 id="appendix-d">D Cross-Condition Reflection Questions <span class="stars" aria-label="重要度三星">★★★☆☆</span></h3>
+        <p>（1）你透過哪個虛擬人物學到更多？[拿破崙／亞歷山大大帝／兩者一樣]</p>
+        <p>（2）哪個虛擬人物讓歷史更有趣？[拿破崙／亞歷山大大帝／兩者一樣]</p>
+        <p>（3）你在學習歷史時更想使用哪個虛擬人物？[拿破崙／亞歷山大大帝／兩者都用／兩者都不用]</p>
+        <p>（4）在第一節與第二節之間，你比較喜歡哪一堂課？請說明。</p>
+        <p>（5）今天歷史課最愉快的部分是什麼？請說明。</p>
+        <p>（6）課程中是否有讓你更沉浸或更有動機的部分？請說明。</p>
+        <p class="meta">收稿：2024 年 10 月；修訂：2025 年 4 月；接受：2025 年 8 月。</p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
