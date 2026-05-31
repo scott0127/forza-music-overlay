@@ -47,8 +47,7 @@
       const actionsEl = document.getElementById("dlActions");
       if (!backdrop || !streamEl) return;
 
-      const MESSAGE = document.getElementById("dlStream").dataset.message.replace(/\n/g, "
-");
+      const MESSAGE = document.getElementById("dlStream").dataset.message.replace(/\\n/g, "\n");
       const CHAR_DELAY = 38;
       let streamTimeout = null;
       let charIndex = 0;
