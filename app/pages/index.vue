@@ -273,7 +273,7 @@ onUnmounted(() => {
       class="motion-hero relative overflow-hidden min-h-[85vh] py-16 flex items-center bg-cover" 
       style="background-image: linear-gradient(to right, #090a0f 0%, rgba(9, 10, 15, 0.97) 38%, rgba(9, 10, 15, 0.6) 72%, rgba(9, 10, 15, 0.97) 100%), url('/forza-music-overlay/downloads/forza-music-overlay/hero-bg.jpg'); background-position: 40% center;"
     >
-      <div class="motion-signal-layer" aria-hidden="true">
+      <div class="motion-signal-layer absolute inset-0 pointer-events-none z-0" aria-hidden="true">
         <svg><path class="motion-signal-path" /></svg>
         <span class="motion-signal-dot" />
       </div>
@@ -380,8 +380,8 @@ onUnmounted(() => {
           <div class="motion-hero-actions grid grid-cols-1 sm:grid-cols-[1.3fr_1fr] gap-3.5 mt-8 max-w-xl">
             <a
               class="motion-download-cta flex items-center gap-3 bg-cyan-400 hover:bg-cyan-300 text-slate-950 rounded-xl p-4 text-left shadow-lg shadow-cyan-400/15 hover:scale-[1.01] active:scale-[0.98] transition-all cursor-pointer select-none"
-              href="https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.1.1/ForzaMusicOverlay-release3.1.0_final.zip"
-              @click="handleDownloadClick($event, 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.1.1/ForzaMusicOverlay-release3.1.0_final.zip')"
+              href="https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.1.0/ForzaMusicOverlay-release3.1.0_final.zip"
+              @click="handleDownloadClick($event, 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.1.0/ForzaMusicOverlay-release3.1.0_final.zip')"
             >
               <span class="bg-slate-950/10 p-2.5 rounded-lg text-slate-950 flex items-center justify-center">
                 <svg class="w-5 h-5 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 3v12m-5-5l5 5 5-5M5 21h14"/></svg>
@@ -619,8 +619,8 @@ onUnmounted(() => {
             <p class="box-label">最新版下載</p>
             <a
               class="download-link"
-              href="https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.1.1/ForzaMusicOverlay-release3.1.0_final.zip"
-              @click="handleDownloadClick($event, 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.1.1/ForzaMusicOverlay-release3.1.0_final.zip')"
+              href="https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.1.0/ForzaMusicOverlay-release3.1.0_final.zip"
+              @click="handleDownloadClick($event, 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.1.0/ForzaMusicOverlay-release3.1.0_final.zip')"
             >
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
                 <path d="M12 3v12" />
@@ -1188,8 +1188,8 @@ onUnmounted(() => {
               <div class="entry-actions flex items-center gap-3 flex-wrap mt-3">
                 <a
                   class="button primary cursor-pointer"
-                  href="https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.1.1/ForzaMusicOverlay-release3.1.0_final.zip"
-                  @click="handleDownloadClick($event, 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.1.1/ForzaMusicOverlay-release3.1.0_final.zip')"
+                  href="https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.1.0/ForzaMusicOverlay-release3.1.0_final.zip"
+                  @click="handleDownloadClick($event, 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.1.0/ForzaMusicOverlay-release3.1.0_final.zip')"
                 >
                   下載 v3.1.1
                 </a>
