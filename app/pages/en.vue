@@ -240,29 +240,31 @@ onUnmounted(() => {
 <template>
   <main ref="pageRoot" class="gsap-page">
     <!-- HEADER NAVBAR -->
-    <header class="motion-header sticky top-0 z-50 bg-[#090a0f]/80 backdrop-blur-xl border-b border-slate-900/80 px-6 sm:px-10 py-4 flex items-center justify-between">
-      <div class="flex items-center gap-2.5">
-        <img src="/brand/gmo-mark.svg" alt="" class="w-14 h-9 object-contain" aria-hidden="true">
-        <div class="flex flex-col">
-          <span class="text-white font-black tracking-[0.32em] text-lg uppercase leading-none">GMO</span>
-          <span class="text-[9px] text-slate-400 font-bold tracking-wider mt-0.5">GamingMusicOverlay</span>
+    <header class="motion-header sticky top-0 z-50 bg-[#090a0f]/80 backdrop-blur-xl border-b border-slate-900/80 py-4">
+      <div class="wrap w-full flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <img src="/brand/gmo-mark.svg" alt="" class="w-14 h-9 object-contain" aria-hidden="true">
+          <div class="flex flex-col">
+            <span class="text-white font-black tracking-[0.32em] text-lg uppercase leading-none">GMO</span>
+            <span class="text-[9px] text-slate-400 font-bold tracking-wider mt-0.5">GamingMusicOverlay</span>
+          </div>
         </div>
-      </div>
 
-      <!-- Navigation Menu -->
-      <nav class="hidden lg:flex items-center gap-8">
-        <a href="#features" class="text-slate-300 hover:text-cyan-400 font-bold text-sm tracking-wide transition-colors">Features</a>
-        <a href="#updates" class="text-slate-300 hover:text-cyan-400 font-bold text-sm tracking-wide transition-colors">Changelog</a>
-        <a href="#faq" class="text-slate-300 hover:text-cyan-400 font-bold text-sm tracking-wide transition-colors">FAQ</a>
-        <a href="#sponsor" class="text-slate-300 hover:text-cyan-400 font-bold text-sm tracking-wide transition-colors">Sponsor</a>
-      </nav>
+        <!-- Navigation Menu -->
+        <nav class="hidden lg:flex items-center gap-8">
+          <a href="#features" class="text-slate-300 hover:text-cyan-400 font-bold text-sm tracking-wide transition-colors">Features</a>
+          <a href="#updates" class="text-slate-300 hover:text-cyan-400 font-bold text-sm tracking-wide transition-colors">Changelog</a>
+          <a href="#faq" class="text-slate-300 hover:text-cyan-400 font-bold text-sm tracking-wide transition-colors">FAQ</a>
+          <a href="#sponsor" class="text-slate-300 hover:text-cyan-400 font-bold text-sm tracking-wide transition-colors">Sponsor</a>
+        </nav>
 
-      <!-- CTA Controls -->
-      <div class="flex items-center gap-3">
-        <a href="https://github.com/scott0127/forza-horizon-6-youtube-muisc-player" target="_blank" rel="noopener noreferrer" class="border border-slate-700 bg-slate-950/50 hover:bg-slate-900/60 text-slate-300 hover:text-white rounded-lg px-4 py-2 text-sm flex items-center gap-2 transition-colors font-bold">
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" /></svg>
-          GitHub
-        </a>
+        <!-- CTA Controls -->
+        <div class="flex items-center gap-3">
+          <a href="https://github.com/scott0127/forza-horizon-6-youtube-muisc-player" target="_blank" rel="noopener noreferrer" class="border border-slate-700 bg-slate-950/50 hover:bg-slate-900/60 text-slate-300 hover:text-white rounded-lg px-4 py-2 text-sm flex items-center gap-2 transition-colors font-bold">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" /></svg>
+            GitHub
+          </a>
+        </div>
       </div>
     </header>
 
