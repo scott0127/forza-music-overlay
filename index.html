@@ -7,7 +7,7 @@
   <title>Forza 音樂懸浮播放器</title>
   <meta name="description" content="Forza Music Overlay 下載頁、專案更新紀錄與 Windows 安裝說明。">
   <meta property="og:title" content="Forza 音樂懸浮播放器">
-  <meta property="og:description" content="在玩 Forza 時顯示 YouTube Music、Spotify 或 Apple Music 正在播放的歌曲。">
+  <meta property="og:description" content="在玩 Forza 時顯示歌曲資訊與動態歌詞，並以快捷鍵或手把控制 App / System 音量。">
   <meta property="og:type" content="website">
   <style>
     :root {
@@ -699,6 +699,15 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
+    .install-grid>div,
+    .carousel-track,
+    .carousel-slide,
+    .usage-card>div,
+    .install-card>div,
+    .demo-file span {
+      min-width: 0;
+    }
+
     .ready-note {
       align-items: center;
       background: linear-gradient(135deg, rgba(8, 145, 178, 0.1), rgba(255, 255, 255, 0.8));
@@ -733,9 +742,6 @@
 
     .usage-grid,
     .install-flow {
-      display: grid;
-      gap: 14px;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
       margin-top: 16px;
     }
 
@@ -857,6 +863,400 @@
       color: #0e7490;
       font-size: 12px;
       font-weight: 950;
+    }
+
+    .guide-carousel {
+      min-width: 0;
+    }
+
+    .carousel-shell {
+      position: relative;
+    }
+
+    .carousel-viewport {
+      border-radius: 8px;
+      min-width: 0;
+      overflow: hidden;
+      touch-action: pan-y;
+    }
+
+    .carousel-track {
+      align-items: stretch;
+      display: flex;
+      transition: transform 460ms cubic-bezier(0.22, 0.78, 0.2, 1);
+      will-change: transform;
+    }
+
+    .carousel-slide {
+      flex: 0 0 100%;
+      min-width: 0;
+      width: 100%;
+    }
+
+    .guide-carousel .usage-card,
+    .guide-carousel .install-card {
+      align-content: start;
+      gap: 18px;
+      grid-template-columns: 52px minmax(0, 1fr);
+      min-height: 410px;
+      padding: 28px 74px;
+    }
+
+    .carousel-arrow {
+      align-items: center;
+      background: #0f172a;
+      border: 1px solid rgba(14, 165, 233, 0.24);
+      border-radius: 8px;
+      color: var(--cyan);
+      cursor: pointer;
+      display: inline-flex;
+      height: 42px;
+      justify-content: center;
+      position: absolute;
+      top: 50%;
+      transition: background 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+      transform: translateY(-50%);
+      width: 42px;
+      z-index: 4;
+    }
+
+    .carousel-arrow:hover,
+    .carousel-arrow:focus-visible {
+      background: #0891b2;
+      border-color: rgba(8, 145, 178, 0.72);
+      box-shadow: 0 12px 28px rgba(8, 145, 178, 0.2);
+      color: white;
+      transform: translateY(calc(-50% - 2px));
+    }
+
+    .carousel-prev {
+      left: 16px;
+    }
+
+    .carousel-next {
+      right: 16px;
+    }
+
+    .carousel-arrow:focus-visible,
+    .carousel-dot:focus-visible {
+      outline: 3px solid rgba(14, 165, 233, 0.28);
+      outline-offset: 3px;
+    }
+
+    .carousel-arrow .icon {
+      height: 18px;
+      width: 18px;
+    }
+
+    .carousel-footer {
+      align-items: center;
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      margin-top: 16px;
+    }
+
+    .carousel-count {
+      color: #64748b;
+      font-family: "Cascadia Code", Consolas, monospace;
+      font-size: 12px;
+      font-weight: 900;
+      min-width: 46px;
+    }
+
+    .carousel-dots {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      justify-content: center;
+    }
+
+    .carousel-dot {
+      background: rgba(148, 163, 184, 0.56);
+      border: 0;
+      border-radius: 999px;
+      cursor: pointer;
+      height: 7px;
+      padding: 0;
+      transition: background 180ms ease, transform 180ms ease, width 180ms ease;
+      width: 7px;
+    }
+
+    .carousel-dot.is-active {
+      background: #0891b2;
+      width: 22px;
+    }
+
+    .guide-copy {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.75;
+      margin-top: 8px;
+    }
+
+    .guide-points {
+      color: #475569;
+      font-size: 13px;
+      line-height: 1.65;
+      margin: 14px 0 0 18px;
+    }
+
+    .guide-points li+li {
+      margin-top: 5px;
+    }
+
+    .guide-services {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .guide-service {
+      appearance: none;
+      align-items: center;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      font-size: 12px;
+      font-weight: 900;
+      gap: 7px;
+      padding: 7px 9px;
+      transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+    }
+
+    .guide-service:hover,
+    .guide-service:focus-visible,
+    .guide-service.is-selected {
+      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .guide-service:focus-visible,
+    .demo-action:focus-visible,
+    .demo-segment:focus-visible {
+      outline: 3px solid rgba(14, 165, 233, 0.22);
+      outline-offset: 2px;
+    }
+
+    .guide-service .service-icon {
+      height: 17px;
+      width: 17px;
+    }
+
+    .guide-service.yt {
+      background: rgba(255, 0, 0, 0.07);
+      border-color: rgba(255, 0, 0, 0.18);
+      color: #dc2626;
+    }
+
+    .guide-service.sp {
+      background: rgba(29, 185, 84, 0.08);
+      border-color: rgba(29, 185, 84, 0.2);
+      color: #15803d;
+    }
+
+    .guide-service.am {
+      background: rgba(236, 72, 153, 0.07);
+      border-color: rgba(236, 72, 153, 0.18);
+      color: #db2777;
+    }
+
+    .demo-panel {
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(148, 163, 184, 0.28);
+      border-radius: 8px;
+      grid-column: 1 / -1;
+      margin-top: 4px;
+      padding: 14px;
+    }
+
+    .demo-toolbar,
+    .demo-actions,
+    .demo-row {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      justify-content: space-between;
+    }
+
+    .demo-label,
+    .demo-feedback {
+      color: #64748b;
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.5;
+    }
+
+    .demo-feedback {
+      color: #0e7490;
+      margin-top: 10px;
+    }
+
+    .demo-badge {
+      background: rgba(8, 145, 178, 0.1);
+      border: 1px solid rgba(8, 145, 178, 0.18);
+      border-radius: 999px;
+      color: #0e7490;
+      font-size: 11px;
+      font-weight: 950;
+      padding: 4px 8px;
+    }
+
+    .demo-segments {
+      background: #e2e8f0;
+      border-radius: 8px;
+      display: inline-flex;
+      gap: 3px;
+      padding: 3px;
+    }
+
+    .demo-segment,
+    .demo-action {
+      appearance: none;
+      background: transparent;
+      border: 0;
+      border-radius: 6px;
+      color: #475569;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 900;
+      min-height: 32px;
+      padding: 0 10px;
+      transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+    }
+
+    .demo-segment.is-selected,
+    .demo-action {
+      background: #0f172a;
+      color: var(--cyan);
+    }
+
+    .demo-action:hover {
+      background: #0891b2;
+      color: white;
+      transform: translateY(-1px);
+    }
+
+    .demo-switch {
+      align-items: center;
+      color: #475569;
+      cursor: pointer;
+      display: inline-flex;
+      font-size: 12px;
+      font-weight: 900;
+      gap: 7px;
+    }
+
+    .demo-switch input {
+      accent-color: #0891b2;
+      height: 17px;
+      width: 17px;
+    }
+
+    .demo-range {
+      accent-color: #0891b2;
+      width: 100%;
+    }
+
+    .demo-meter {
+      background: #e2e8f0;
+      border-radius: 999px;
+      height: 8px;
+      margin-top: 12px;
+      overflow: hidden;
+    }
+
+    .demo-meter span {
+      background: linear-gradient(90deg, #0891b2, #22d3ee);
+      display: block;
+      height: 100%;
+      transition: width 180ms ease;
+    }
+
+    .demo-stage {
+      background: #0f172a;
+      border-radius: 8px;
+      height: 92px;
+      margin-top: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .demo-overlay {
+      align-items: center;
+      background: rgba(8, 145, 178, 0.9);
+      border: 1px solid rgba(103, 232, 249, 0.72);
+      border-radius: 6px;
+      color: white;
+      cursor: grab;
+      display: flex;
+      font-size: 11px;
+      font-weight: 900;
+      height: 38px;
+      justify-content: center;
+      left: 12px;
+      position: absolute;
+      top: 12px;
+      transition: opacity 180ms ease, transform 180ms ease;
+      user-select: none;
+      width: 116px;
+    }
+
+    .demo-overlay.is-hidden {
+      opacity: 0.18;
+      transform: scale(0.94);
+    }
+
+    .demo-track {
+      color: #0f172a;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .demo-file {
+      align-items: center;
+      background: #f8fafc;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      border-radius: 7px;
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      padding: 10px;
+    }
+
+    .demo-file strong,
+    .demo-file small {
+      display: block;
+      overflow-wrap: anywhere;
+    }
+
+    .demo-file strong {
+      color: #0f172a;
+      font-size: 12px;
+    }
+
+    .demo-file small {
+      color: #64748b;
+      font-size: 11px;
+      margin-top: 3px;
+    }
+
+    .demo-file-icon {
+      align-items: center;
+      background: #0f172a;
+      border-radius: 6px;
+      color: var(--cyan);
+      display: flex;
+      flex: 0 0 auto;
+      font-size: 11px;
+      font-weight: 950;
+      height: 36px;
+      justify-content: center;
+      width: 36px;
     }
 
     .updates {
@@ -1123,6 +1523,10 @@
         opacity: 1;
         transform: none;
       }
+
+      .carousel-track {
+        transition-duration: 0.01ms;
+      }
     }
 
     @media (max-width: 1024px) {
@@ -1156,10 +1560,37 @@
 
       .stats,
       .feature-grid,
-      .usage-grid,
-      .install-flow,
       .update {
         grid-template-columns: 1fr;
+      }
+
+      .carousel-shell {
+        min-width: 0;
+      }
+
+      .carousel-arrow {
+        height: 36px;
+        width: 36px;
+      }
+
+      .guide-carousel .usage-card,
+      .guide-carousel .install-card {
+        gap: 12px;
+        grid-template-columns: minmax(0, 1fr);
+        min-height: 500px;
+        padding: 18px 48px;
+      }
+
+      .carousel-prev {
+        left: 8px;
+      }
+
+      .carousel-next {
+        right: 8px;
+      }
+
+      .guide-carousel .install-card {
+        min-height: 430px;
       }
 
       .sponsor {
@@ -1431,13 +1862,13 @@
         <div>
           <div class="badges">
             <span class="badge">Windows Utility</span>
-            <span class="badge version">v2.3.2</span>
+            <span class="badge version">v3.1.1</span>
             <a href="en.html" class="badge" style="text-decoration:none;border-color:rgba(251,191,36,0.4);background:rgba(251,191,36,0.1);color:#fde68a;">English</a>
           </div>
 
           <h1 class="hero-title">Forza 音樂懸浮播放器</h1>
           <p class="hero-copy">
-            在玩 Forza 時顯示 YouTube Music、Spotify 或 Apple Music 正在播放的歌曲，並用快捷鍵、手把組合鍵控制播放、暫停、下一首、上一首與音量。
+            在玩 Forza 時顯示 YouTube Music、Spotify 或 Apple Music 正在播放的歌曲與動態歌詞，並用快捷鍵或手把控制播放、切歌，以及 App / System 音量。
           </p>
 
           <div class="services">
@@ -1472,7 +1903,7 @@
 
           <div class="actions">
             <a class="button primary" data-dl
-              href="https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v2.3.2/ForzaMusicOverlay-release2.3.2.zip"
+              href="https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.1.1/ForzaMusicOverlay-release3.1.0_final.zip"
               target="_blank" rel="noopener noreferrer">
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
                 <path d="M12 3v12" />
@@ -1503,7 +1934,7 @@
           <dl class="stats">
             <div class="stat">
               <dt>版本</dt>
-              <dd>v2.3.2</dd>
+              <dd>v3.1.1</dd>
             </div>
             <div class="stat">
               <dt>平台</dt>
@@ -1515,7 +1946,7 @@
             </div>
             <div class="stat">
               <dt>更新</dt>
-              <dd>2026-05-29</dd>
+              <dd>2026-06-01</dd>
             </div>
           </dl>
 
@@ -1523,7 +1954,7 @@
             <div>
               <p class="eyebrow">Sponsor</p>
               <h2>支持 Forza Music 持續更新</h2>
-              <p>這個工具是免費的。如果工有幫到你，可以請還在讀碩士的我喝杯咖啡，支持後續修正與新功能。</p>
+              <p>這個工具是免費的。如果工具有幫到你，可以請還在讀碩士的我喝杯咖啡，支持後續修正與新功能。</p>
             </div>
             <div class="sponsor-actions">
               <img class="sponsor-qr" src="downloads/forza-music-overlay/bmc_qr.png" alt="Buy Me a Coffee 贊助 QR Code">
@@ -1539,7 +1970,7 @@
           <div class="panel-head">
             <div>
               <p>最新版</p>
-              <h2>v2.3.2</h2>
+              <h2>v3.1.1</h2>
             </div>
             <div class="music-icon">
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
@@ -1550,29 +1981,29 @@
             </div>
           </div>
 
-          <div class="meta-row"><span>檔案</span><strong>ForzaMusicOverlay-release2.3.2.zip</strong></div>
+          <div class="meta-row"><span>檔案</span><strong>ForzaMusicOverlay-release3.1.0_final.zip</strong></div>
           <div class="meta-row"><span>來源</span><strong>GitHub Releases</strong></div>
           <div class="meta-row"><span>授權</span><strong>MIT License</strong></div>
 
           <div class="download-box">
             <p class="box-label">下載</p>
             <a class="download-link" data-dl
-              href="https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v2.3.2/ForzaMusicOverlay-release2.3.2.zip"
+              href="https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.1.1/ForzaMusicOverlay-release3.1.0_final.zip"
               target="_blank" rel="noopener noreferrer">
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
                 <path d="M12 3v12" />
                 <path d="m7 10 5 5 5-5" />
                 <path d="M5 21h14" />
               </svg>
-              ForzaMusicOverlay-release2.3.2.zip
+              ForzaMusicOverlay-release3.1.0_final.zip
             </a>
           </div>
 
           <div class="snapshot-box">
             <p class="box-label">更新快照</p>
-            <p>2.3.2 新增支援最小化至系統工作列 (System Tray)，程式可在背景靜態運行，避免佔用工作列空間。</p>
-            <p>2.3.1 新增 PlayStation 手把按鈕圖示，手把類型偵測更精準，完美解決控制器圖示衝突。</p>
-            <p>2.3 新增無邊框懸浮電台，更沉浸的遊戲聽歌體驗，霓虹燈管與光暈效果。</p>
+            <p>3.0+ 新增獨立音量控制切換，可自由選擇只調整瀏覽器 (App) 音量，或整台電腦 (System) 音量。</p>
+            <p>3.0+ 新增遊戲內沉浸式閃電音量條與高壓數字儀表板，調整音量時不用跳出遊戲。</p>
+            <p>3.0+ 新增即時滾動歌詞，並以 GPU 加速 SVG 濾鏡呈現高能白熱核心與霓虹閃電光暈。</p>
           </div>
         </aside>
       </div>
@@ -1584,7 +2015,7 @@
           <p class="eyebrow">Overview</p>
           <h2 class="section-title">這個工具做什麼</h2>
           <p class="overview-copy">
-            程式透過 Windows 目前媒體工作階段讀取歌曲資訊。登入 YouTube Music、Spotify 或 Apple Music 都在官方服務中完成，工具本身不會要求、保存或讀取帳號密碼。
+            程式透過 Windows 目前媒體工作階段讀取歌曲資訊。啟動後可從控制台開啟 YouTube Music、Spotify 或 Apple Music，選擇 App / System 音量控制、動態歌詞與三種懸浮播放器主題。登入都在官方服務中完成，工具本身不會要求、保存或讀取帳號密碼。
           </p>
         </div>
 
@@ -1595,16 +2026,16 @@
               <path d="M12 8h.01" />
               <path d="M11 12h1v4h1" />
             </svg>
-            <h3>播放資訊懸浮顯示</h3>
-            <p>在遊戲中顯示目前歌曲、縮圖、播放狀態、進度與服務來源。</p>
+            <h3>歌曲資訊與動態歌詞</h3>
+            <p>在遊戲中顯示歌曲、縮圖、進度、服務來源，以及即時滾動歌詞。</p>
           </article>
           <article class="feature">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
               <rect x="3" y="5" width="18" height="14" rx="2" />
               <path d="M7 9h.01M11 9h.01M15 9h.01M7 13h10" />
             </svg>
-            <h3>全域快捷鍵</h3>
-            <p>支援播放、暫停、下一首、上一首、音量與顯示切換。</p>
+            <h3>App / System 音量切換</h3>
+            <p>自由選擇只調整音樂 App，或同步調整 Windows 系統主音量。</p>
           </article>
           <article class="feature">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
@@ -1616,15 +2047,15 @@
                 d="M7 19c-2 0-4-1.5-4-4.2S5 7 7.8 7h8.4C19 7 21 12 21 14.8S19 19 17 19c-1.5 0-2.4-1-3-2H10c-.6 1-1.5 2-3 2Z" />
             </svg>
             <h3>手把組合鍵</h3>
-            <p>支援 L3 (左蘑菇頭按壓) + A / B / X / 上 / 下控制播放、切歌與音量。</p>
+            <p>支援 L3 (左蘑菇頭按壓) + A / B / X / 左 / 右控制播放、切歌與音量。</p>
           </article>
           <article class="feature">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
               <path d="M12 3l1.8 4.2L18 9l-4.2 1.8L12 15l-1.8-4.2L6 9l4.2-1.8L12 3Z" />
               <path d="M19 14l.8 1.8L22 17l-2.2.8L19 20l-.8-2.2L16 17l2.2-1.2L19 14Z" />
             </svg>
-            <h3>雙主題介面</h3>
-            <p>支援暗黑模式與 Liquid Glass，並可調整左上角懸浮播放器大小。</p>
+            <h3>三種播放器主題</h3>
+            <p>支援暗黑、Liquid Glass 與無邊框電台，並可調整播放器大小與位置。</p>
           </article>
         </div>
       </div>
@@ -1640,9 +2071,67 @@
               <path d="M4 12h16" />
               <path d="M14 6l6 6-6 6" />
             </svg>
-            <p>啟動後先選擇音樂服務，進入 Forza 後可用鍵盤或手把控制，不需要切出遊戲。</p>
+            <p>啟動後先選擇音樂服務，再設定音量控制目標與動態歌詞；進入 Forza 後就能用鍵盤或手把操作。</p>
           </div>
-          <div class="usage-grid">
+          <div class="usage-grid" data-carousel data-carousel-label="簡易操作教學" data-prev-label="上一個操作教學"
+            data-next-label="下一個操作教學" data-dot-label="切換到操作教學">
+            <article class="usage-card" style="--delay: 0ms">
+              <div class="usage-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2.3">
+                  <path d="M9 18V5l12-2v13" />
+                  <circle cx="6" cy="18" r="3" />
+                  <circle cx="18" cy="16" r="3" />
+                </svg></div>
+              <div>
+                <p class="kbd">STEP 1 · MUSIC SOURCE</p>
+                <h3>開啟音樂服務</h3>
+                <p class="guide-copy">先在控制台的「選擇音樂來源」區塊按下服務按鈕。程式會開啟對應官方網站，並自動替播放器套用符合服務的顏色主題。</p>
+                <div class="guide-services" aria-label="支援的音樂服務">
+                  <button class="guide-service yt is-selected" type="button" data-demo-service="YouTube Music">
+                    <span class="service-icon"><svg viewBox="0 0 24 24" fill="none">
+                        <rect x="2" y="4" width="20" height="16" rx="4" stroke="currentColor" stroke-width="1.8" />
+                        <path d="M10 9.5v5l4.5-2.5L10 9.5Z" fill="currentColor" />
+                      </svg></span>
+                    YouTube Music
+                  </button>
+                  <button class="guide-service sp" type="button" data-demo-service="Spotify">
+                    <span class="service-icon"><svg viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8" />
+                        <path d="M8 15.5c0-1 1.2-2 4-2s4 1 4 2M7 12.5c0-1.2 1.8-2.6 5-2.6s5 1.4 5 2.6M6.5 9.5c0-1.4 2.2-3 5.5-3s5.5 1.6 5.5 3"
+                          stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                      </svg></span>
+                    Spotify
+                  </button>
+                  <button class="guide-service am" type="button" data-demo-service="Apple Music">
+                    <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.8">
+                        <path d="M9 18V5l12-2v13" />
+                        <circle cx="6" cy="18" r="3" />
+                        <circle cx="18" cy="16" r="3" />
+                      </svg></span>
+                    Apple Music
+                  </button>
+                </div>
+              </div>
+            </article>
+            <article class="usage-card" style="--delay: 110ms">
+              <div class="usage-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2.3">
+                  <path d="M11 5 6 9H2v6h4l5 4V5Z" />
+                  <path d="M15 9.5a5 5 0 0 1 0 5" />
+                  <path d="M18 7a9 9 0 0 1 0 10" />
+                </svg></div>
+              <div>
+                <p class="kbd">APP / SYSTEM</p>
+                <h3>選擇音量目標與歌詞</h3>
+                <p class="guide-copy">依照遊玩習慣選擇音量控制目標，也能決定是否在懸浮播放器顯示即時滾動歌詞。</p>
+                <ul class="guide-points">
+                  <li>App：只改變目前音樂網頁或應用程式的音量。</li>
+                  <li>System：調整整台電腦的 Windows 系統主音量。</li>
+                  <li>動態歌詞可隨時開關，不需要重新啟動程式。</li>
+                </ul>
+              </div>
+            </article>
             <article class="usage-card" style="--delay: 0ms">
               <div class="usage-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                   stroke-width="2.3">
@@ -1654,7 +2143,7 @@
               <div>
                 <p class="kbd">60% - 100%</p>
                 <h3>調整懸浮大小</h3>
-                <p>在主介面的大小滑桿調整左上角懸浮播放器比例，畫面太擋或太小都能微調。</p>
+                <p class="guide-copy">在控制台使用「懸浮播放器大小」滑桿調整比例，變更會立即套用並自動記住。畫面太擋或太小時都能細部微調。</p>
               </div>
             </article>
             <article class="usage-card" style="--delay: 110ms">
@@ -1667,7 +2156,7 @@
               <div>
                 <p class="kbd">Ctrl + Alt + P</p>
                 <h3>拖曳調整位置</h3>
-                <p>按下調整懸浮位置後拖曳播放器，放到順眼的位置再回到遊戲。</p>
+                <p class="guide-copy">按下控制台的「調整懸浮位置」，或使用 Ctrl + Alt + P 進入定位模式。直接拖曳播放器，放到順眼的位置後再次按下即可保存。</p>
               </div>
             </article>
             <article class="usage-card" style="--delay: 220ms">
@@ -1683,7 +2172,7 @@
               <div>
                 <p class="kbd">L3 + A</p>
                 <h3>播放 / 暫停</h3>
-                <p>遊戲中按住 L3（左蘑菇頭按壓）再按 A，就能播放或暫停目前歌曲。</p>
+                <p class="guide-copy">遊戲中按住 L3（左蘑菇頭按壓）再按 A，就能播放或暫停目前歌曲。使用鍵盤時則按 Ctrl + Alt + Space。</p>
               </div>
             </article>
             <article class="usage-card" style="--delay: 330ms">
@@ -1695,7 +2184,7 @@
               <div>
                 <p class="kbd">L3 + B / L3 + X</p>
                 <h3>下一首 / 上一首</h3>
-                <p>L3 + B 切到下一首，L3 + X 回到上一首，不需要離開 Forza。</p>
+                <p class="guide-copy">L3 + B 切到下一首，L3 + X 回到上一首，不需要離開 Forza。鍵盤可使用 Ctrl + Alt + 右 / 左方向鍵。</p>
               </div>
             </article>
             <article class="usage-card" style="--delay: 440ms">
@@ -1706,9 +2195,9 @@
                   <path d="M18 7a9 9 0 0 1 0 10" />
                 </svg></div>
               <div>
-                <p class="kbd">L3 + ↑ / ↓</p>
+                <p class="kbd">L3 + ← / →</p>
                 <h3>調整音量</h3>
-                <p>L3 + 上鍵調高音量，L3 + 下鍵調低音量。</p>
+                <p class="guide-copy">L3 + 右鍵調高音量，L3 + 左鍵調低音量；鍵盤則使用 Ctrl + Alt + 上 / 下。調整時會在遊戲畫面中顯示音量視覺提示。</p>
               </div>
             </article>
             <article class="usage-card" style="--delay: 550ms">
@@ -1723,7 +2212,20 @@
               <div>
                 <p class="kbd">Ctrl + Alt + Home</p>
                 <h3>顯示 / 隱藏播放器</h3>
-                <p>想暫時收起左上角懸浮播放器時，可以用快捷鍵快速切換。</p>
+                <p class="guide-copy">想暫時收起左上角懸浮播放器時，可以用 Ctrl + Alt + Home 快速切換。音樂仍會繼續播放。</p>
+              </div>
+            </article>
+            <article class="usage-card" style="--delay: 660ms">
+              <div class="usage-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2.3">
+                  <path d="M4 12h16" />
+                  <path d="M14 6l6 6-6 6" />
+                  <path d="M6 5v14" />
+                </svg></div>
+              <div>
+                <p class="kbd">Ctrl + Alt + H / Q</p>
+                <h3>叫回控制台 / 退出</h3>
+                <p class="guide-copy">關閉控制台後程式仍會留在系統匣。按 Ctrl + Alt + H 叫回控制台，按 Ctrl + Alt + Q 才會完整退出程式。</p>
               </div>
             </article>
           </div>
@@ -1740,9 +2242,10 @@
               <path d="M16 17h4" />
               <path d="M12 7a4 4 0 0 1 4 4v2a4 4 0 0 0 4 4" />
             </svg>
-            <p>解壓後可直接點 exe 使用；需要桌面與開始功能表捷徑時，再執行 Install-App.bat。</p>
+            <p>解壓後可直接點 exe 使用；需要桌面、開始功能表與「只顯示播放器」捷徑時，再執行 Install-App.bat。</p>
           </div>
-          <div class="install-flow">
+          <div class="install-flow" data-carousel data-carousel-label="安裝流程圖像說明" data-prev-label="上一個安裝步驟"
+            data-next-label="下一個安裝步驟" data-dot-label="切換到安裝步驟">
             <article class="install-card">
               <div class="install-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                   stroke-width="2.3">
@@ -1753,7 +2256,7 @@
               <div>
                 <p class="step-label">STEP 1</p>
                 <h3>下載 ZIP</h3>
-                <p>從 GitHub Releases 下載最新版壓縮檔。</p>
+                <p class="guide-copy">從頁面上方的下載按鈕或 GitHub Releases 取得最新版 ZIP 壓縮檔。下載開始後，瀏覽器通常會將檔案放在預設下載資料夾。</p>
               </div>
             </article>
             <article class="install-card">
@@ -1767,7 +2270,7 @@
               <div>
                 <p class="step-label">STEP 2</p>
                 <h3>解壓縮</h3>
-                <p>完整解壓縮資料夾，不要直接在壓縮檔內執行。</p>
+                <p class="guide-copy">對 ZIP 檔按右鍵並選擇全部解壓縮。請保留完整資料夾結構，不要只把 exe 單獨移出，也不要直接在壓縮檔內執行。</p>
               </div>
             </article>
             <article class="install-card">
@@ -1779,7 +2282,7 @@
               <div>
                 <p class="step-label">STEP 3</p>
                 <h3>直接點 exe</h3>
-                <p>雙擊 ForzaMusicOverlay.exe 就能開始使用。</p>
+                <p class="guide-copy">雙擊 ForzaMusicOverlay.exe 即可開啟控制台。啟動後先挑選音樂服務，再依需求設定播放器大小、位置、音量目標與動態歌詞。</p>
               </div>
             </article>
             <article class="install-card">
@@ -1792,7 +2295,7 @@
               <div>
                 <p class="step-label">OPTION</p>
                 <h3>建立捷徑</h3>
-                <p>需要桌面捷徑時再執行 Install-App.bat。</p>
+                <p class="guide-copy">需要快速啟動時，再執行 Install-App.bat。它會建立桌面捷徑、開始功能表捷徑，以及略過控制台的「只顯示播放器」啟動入口。</p>
               </div>
             </article>
           </div>
@@ -1829,6 +2332,44 @@
         </div>
 
         <div class="update-list">
+          <article class="update">
+            <div>
+              <p class="update-version">v3.1.1</p>
+              <p class="update-date">2026-06-01</p>
+            </div>
+            <div>
+              <h3>獨立音量控制 · 遊戲內音量儀表 · 動態歌詞</h3>
+              <div class="entry-actions">
+                <a class="button primary" data-dl
+                  href="https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.1.1/ForzaMusicOverlay-release3.1.0_final.zip"
+                  target="_blank" rel="noopener noreferrer">下載 v3.1.1</a>
+                <p class="entry-file">ForzaMusicOverlay-release3.1.0_final.zip</p>
+              </div>
+              <ul class="notes">
+                <li><strong>獨立音量控制切換</strong>：調整音量時，可以自由選擇只調整「瀏覽器 (App) 音量」，或整台「電腦 (System) 音量」，不再互相干擾。</li>
+                <li><strong>遊戲內音量視覺提示</strong>：新增沉浸式閃電音量條與高壓數字儀表板，調整音量時直接在遊戲畫面上顯示。</li>
+                <li><strong>動態歌詞支援 (Lyrics Support)</strong>：現在可以即時顯示滾動歌詞，沉浸感大幅提升。</li>
+              </ul>
+            </div>
+          </article>
+          <article class="update">
+            <div>
+              <p class="update-version">v2.4.0</p>
+              <p class="update-date">2026-06-01</p>
+            </div>
+            <div>
+              <h3>v2.4.0 版本下載</h3>
+              <div class="entry-actions">
+                <a class="button primary" data-dl
+                  href="https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v2.4.0/ForzaMusicOverlay-release2.4.0.zip"
+                  target="_blank" rel="noopener noreferrer">下載 v2.4.0</a>
+                <p class="entry-file">ForzaMusicOverlay-release2.4.0.zip</p>
+              </div>
+              <ul class="notes">
+                <li>提供 v2.4.0 版本下載。</li>
+              </ul>
+            </div>
+          </article>
           <article class="update">
             <div>
               <p class="update-version">v2.3.2</p>
@@ -2007,8 +2548,8 @@
         ".feature",
         ".install-grid > div",
         ".ready-note",
-        ".usage-card",
-        ".install-card",
+        ".usage-grid",
+        ".install-flow",
         ".updates-head",
         ".update",
         "footer .wrap"
@@ -2042,6 +2583,364 @@
     })();
   </script>
 
+  <script>
+    (() => {
+      const arrowSvg = (direction) => `
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="${direction === "prev" ? "m15 18-6-6 6-6" : "m9 18 6-6-6-6"}" />
+        </svg>`;
+
+      document.querySelectorAll("[data-carousel]").forEach((carousel) => {
+        const slides = Array.from(carousel.children);
+        if (slides.length < 2) return;
+
+        carousel.classList.add("guide-carousel");
+        carousel.setAttribute("role", "region");
+        carousel.setAttribute("aria-roledescription", "carousel");
+        carousel.setAttribute("aria-label", carousel.dataset.carouselLabel);
+        carousel.tabIndex = 0;
+
+        const shell = document.createElement("div");
+        shell.className = "carousel-shell";
+        const viewport = document.createElement("div");
+        viewport.className = "carousel-viewport";
+        const track = document.createElement("div");
+        track.className = "carousel-track";
+        const footer = document.createElement("div");
+        footer.className = "carousel-footer";
+        const count = document.createElement("p");
+        count.className = "carousel-count";
+        const dots = document.createElement("div");
+        dots.className = "carousel-dots";
+
+        const makeArrow = (direction, label) => {
+          const button = document.createElement("button");
+          button.className = `carousel-arrow carousel-${direction}`;
+          button.type = "button";
+          button.setAttribute("aria-label", label);
+          button.title = label;
+          button.innerHTML = arrowSvg(direction);
+          return button;
+        };
+
+        const prev = makeArrow("prev", carousel.dataset.prevLabel);
+        const next = makeArrow("next", carousel.dataset.nextLabel);
+        const dotButtons = slides.map((slide, index) => {
+          slide.classList.add("carousel-slide");
+          slide.setAttribute("role", "group");
+          slide.setAttribute("aria-roledescription", "slide");
+          slide.setAttribute("aria-label", `${index + 1} / ${slides.length}`);
+          track.appendChild(slide);
+
+          const dot = document.createElement("button");
+          dot.className = "carousel-dot";
+          dot.type = "button";
+          dot.setAttribute("aria-label", `${carousel.dataset.dotLabel} ${index + 1}`);
+          dot.title = `${carousel.dataset.dotLabel} ${index + 1}`;
+          dots.appendChild(dot);
+          return dot;
+        });
+
+        viewport.appendChild(track);
+        shell.append(prev, viewport, next);
+        footer.append(count, dots);
+        carousel.replaceChildren(shell, footer);
+
+        let current = 0;
+        let pointerStart = null;
+        let pointerInput = false;
+
+        const show = (index) => {
+          current = (index + slides.length) % slides.length;
+          track.style.transform = `translate3d(${-current * 100}%, 0, 0)`;
+          count.textContent = `${String(current + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
+          slides.forEach((slide, slideIndex) => {
+            slide.classList.toggle("is-active", slideIndex === current);
+            slide.setAttribute("aria-hidden", String(slideIndex !== current));
+          });
+          dotButtons.forEach((dot, dotIndex) => {
+            dot.classList.toggle("is-active", dotIndex === current);
+            dot.setAttribute("aria-current", dotIndex === current ? "true" : "false");
+          });
+        };
+
+        prev.addEventListener("click", () => show(current - 1));
+        next.addEventListener("click", () => show(current + 1));
+        dotButtons.forEach((dot, index) => dot.addEventListener("click", () => show(index)));
+        carousel.addEventListener("keydown", (event) => {
+          if (event.key === "ArrowLeft") {
+            event.preventDefault();
+            show(current - 1);
+          }
+          if (event.key === "ArrowRight") {
+            event.preventDefault();
+            show(current + 1);
+          }
+        });
+        viewport.addEventListener("pointerdown", (event) => {
+          if (event.target.closest("button, input, label")) return;
+          pointerInput = true;
+          pointerStart = event.clientX;
+        });
+        viewport.addEventListener("pointerup", (event) => {
+          if (pointerStart === null) return;
+          const distance = event.clientX - pointerStart;
+          pointerStart = null;
+          if (Math.abs(distance) > 48) show(current + (distance < 0 ? 1 : -1));
+          window.setTimeout(() => {
+            pointerInput = false;
+          }, 0);
+        });
+        viewport.addEventListener("pointercancel", () => {
+          pointerStart = null;
+          pointerInput = false;
+        });
+        viewport.addEventListener("mousedown", (event) => {
+          if (event.target.closest("button, input, label")) return;
+          if (!pointerInput) pointerStart = event.clientX;
+        });
+        viewport.addEventListener("mouseup", (event) => {
+          if (pointerInput || pointerStart === null) return;
+          const distance = event.clientX - pointerStart;
+          pointerStart = null;
+          if (Math.abs(distance) > 48) show(current + (distance < 0 ? 1 : -1));
+        });
+
+        show(0);
+      });
+    })();
+  </script>
+
+  <script>
+    (() => {
+      const zh = document.documentElement.lang === "zh-Hant";
+      const t = zh ? {
+        preview: "互動預覽",
+        source: "已選擇",
+        theme: "主題已套用",
+        lyrics: "動態歌詞",
+        lyricsOn: "已開啟動態歌詞",
+        lyricsOff: "已關閉動態歌詞",
+        volumeApp: "目前只會調整音樂 App 音量。",
+        volumeSystem: "目前會調整 Windows 系統主音量。",
+        scale: "拖曳滑桿預覽播放器大小",
+        overlay: "播放器預覽",
+        drag: "拖曳播放器預覽，感受定位方式",
+        dragDone: "位置已更新，正式程式會自動記住。",
+        track: "目前播放：Forza Horizon Radio",
+        playing: "播放中",
+        paused: "已暫停",
+        next: "已切換歌曲",
+        volume: "遊戲內音量 HUD",
+        hidden: "播放器已隱藏，音樂仍會繼續播放。",
+        shown: "播放器已顯示。",
+        tray: "控制台已縮到系統匣。",
+        restored: "控制台已叫回桌面。",
+        download: "最新版 ZIP 已準備好。",
+        extract: "資料夾結構完整，現在可以執行 exe。",
+        launch: "控制台已啟動，接著選擇音樂來源。",
+        shortcuts: "捷徑建立完成：桌面、開始功能表、只顯示播放器。"
+      } : {
+        preview: "Interactive preview",
+        source: "Selected",
+        theme: "theme applied",
+        lyrics: "Dynamic lyrics",
+        lyricsOn: "Dynamic lyrics are on.",
+        lyricsOff: "Dynamic lyrics are off.",
+        volumeApp: "Volume controls now affect only the music app.",
+        volumeSystem: "Volume controls now affect Windows master volume.",
+        scale: "Drag the slider to preview the overlay size",
+        overlay: "Overlay preview",
+        drag: "Drag the overlay preview to try positioning",
+        dragDone: "Position updated. The real app remembers it automatically.",
+        track: "Now playing: Forza Horizon Radio",
+        playing: "Playing",
+        paused: "Paused",
+        next: "Track changed",
+        volume: "In-game volume HUD",
+        hidden: "Overlay hidden. Music keeps playing.",
+        shown: "Overlay visible.",
+        tray: "Console minimized to the system tray.",
+        restored: "Console restored to the desktop.",
+        download: "Latest ZIP is ready.",
+        extract: "Folder structure is complete. You can now run the exe.",
+        launch: "Console launched. Choose a music source next.",
+        shortcuts: "Shortcuts created: desktop, Start Menu, and overlay-only."
+      };
+
+      const quickCards = document.querySelectorAll(".usage-grid .usage-card");
+      const installCards = document.querySelectorAll(".install-flow .install-card");
+      const quickDemos = [
+        `<div class="demo-panel">
+          <div class="demo-toolbar"><span class="demo-label">${t.preview}</span><span class="demo-badge" data-demo-source-status>YouTube Music · ${t.theme}</span></div>
+          <p class="demo-feedback">${t.source}: YouTube Music</p>
+        </div>`,
+        `<div class="demo-panel">
+          <div class="demo-row">
+            <div class="demo-segments"><button class="demo-segment is-selected" type="button" data-demo-volume-target="app">App</button><button class="demo-segment" type="button" data-demo-volume-target="system">System</button></div>
+            <label class="demo-switch"><input type="checkbox" data-demo-lyrics checked>${t.lyrics}</label>
+          </div>
+          <p class="demo-feedback" data-demo-feedback>${t.volumeApp} ${t.lyricsOn}</p>
+        </div>`,
+        `<div class="demo-panel">
+          <div class="demo-toolbar"><span class="demo-label">${t.scale}</span><span class="demo-badge" data-demo-scale-value>80%</span></div>
+          <input class="demo-range" type="range" min="60" max="100" value="80" data-demo-scale>
+          <div class="demo-stage"><div class="demo-overlay" data-demo-scale-preview>${t.overlay}</div></div>
+        </div>`,
+        `<div class="demo-panel">
+          <div class="demo-toolbar"><span class="demo-label">${t.drag}</span><span class="demo-badge">Ctrl + Alt + P</span></div>
+          <div class="demo-stage"><div class="demo-overlay" data-demo-drag>${t.overlay}</div></div>
+          <p class="demo-feedback" data-demo-feedback>${t.drag}</p>
+        </div>`,
+        `<div class="demo-panel">
+          <div class="demo-row"><span class="demo-track">${t.track}</span><button class="demo-action" type="button" data-demo-action="play" aria-label="${zh ? "播放或暫停" : "Play or pause"}">▶</button></div>
+          <p class="demo-feedback" data-demo-feedback>${t.paused}</p>
+        </div>`,
+        `<div class="demo-panel">
+          <div class="demo-row"><span class="demo-track" data-demo-track>Night Drive</span><div class="demo-actions"><button class="demo-action" type="button" data-demo-action="previous" aria-label="${zh ? "上一首" : "Previous track"}">‹</button><button class="demo-action" type="button" data-demo-action="next" aria-label="${zh ? "下一首" : "Next track"}">›</button></div></div>
+          <p class="demo-feedback" data-demo-feedback>${t.next}</p>
+        </div>`,
+        `<div class="demo-panel">
+          <div class="demo-row"><span class="demo-track">${t.volume}</span><div class="demo-actions"><button class="demo-action" type="button" data-demo-action="volume-down" aria-label="${zh ? "降低音量" : "Volume down"}">−</button><span class="demo-badge" data-demo-volume-value>72%</span><button class="demo-action" type="button" data-demo-action="volume-up" aria-label="${zh ? "提高音量" : "Volume up"}">+</button></div></div>
+          <div class="demo-meter"><span data-demo-volume-meter style="width:72%"></span></div>
+        </div>`,
+        `<div class="demo-panel">
+          <div class="demo-row"><span class="demo-track">${t.overlay}</span><button class="demo-action" type="button" data-demo-action="overlay">${zh ? "切換顯示" : "Toggle"}</button></div>
+          <div class="demo-stage"><div class="demo-overlay" data-demo-overlay-preview>${t.overlay}</div></div>
+          <p class="demo-feedback" data-demo-feedback>${t.shown}</p>
+        </div>`,
+        `<div class="demo-panel">
+          <div class="demo-row"><span class="demo-track">${zh ? "控制台狀態" : "Console status"}</span><div class="demo-actions"><button class="demo-action" type="button" data-demo-action="tray">${zh ? "縮到系統匣" : "Minimize"}</button><button class="demo-action" type="button" data-demo-action="restore">${zh ? "叫回控制台" : "Restore"}</button></div></div>
+          <p class="demo-feedback" data-demo-feedback>${t.restored}</p>
+        </div>`
+      ];
+      const installDemos = [
+        `<div class="demo-panel"><div class="demo-toolbar"><span class="demo-label">${t.preview}</span><button class="demo-action" type="button" data-demo-action="download-ready">${zh ? "準備檔案" : "Prepare file"}</button></div><div class="demo-file"><span class="demo-file-icon">ZIP</span><span><strong>ForzaMusicOverlay-release3.1.0_final.zip</strong><small>GitHub Releases</small></span></div><p class="demo-feedback" data-demo-feedback>${t.download}</p></div>`,
+        `<div class="demo-panel"><div class="demo-toolbar"><span class="demo-label">${zh ? "完整解壓縮" : "Extract all files"}</span><button class="demo-action" type="button" data-demo-action="extract">${zh ? "檢查資料夾" : "Check folder"}</button></div><div class="demo-file"><span class="demo-file-icon">DIR</span><span><strong>ForzaMusicOverlay-release</strong><small>AppFiles / Install-App.bat / ForzaMusicOverlay.exe</small></span></div><p class="demo-feedback" data-demo-feedback>${t.extract}</p></div>`,
+        `<div class="demo-panel"><div class="demo-toolbar"><span class="demo-label">ForzaMusicOverlay.exe</span><button class="demo-action" type="button" data-demo-action="launch">${zh ? "模擬啟動" : "Simulate launch"}</button></div><p class="demo-feedback" data-demo-feedback>${t.launch}</p></div>`,
+        `<div class="demo-panel"><div class="demo-toolbar"><span class="demo-label">Install-App.bat</span><button class="demo-action" type="button" data-demo-action="shortcuts">${zh ? "建立捷徑" : "Create shortcuts"}</button></div><div class="demo-file"><span class="demo-file-icon">BAT</span><span><strong>${zh ? "桌面 / 開始功能表 / 只顯示播放器" : "Desktop / Start Menu / Overlay-only"}</strong><small>${zh ? "依需求選用，不執行也能直接開啟 exe" : "Optional: the exe works without running the installer"}</small></span></div><p class="demo-feedback" data-demo-feedback>${t.shortcuts}</p></div>`
+      ];
+
+      quickCards.forEach((card, index) => card.insertAdjacentHTML("beforeend", quickDemos[index]));
+      installCards.forEach((card, index) => card.insertAdjacentHTML("beforeend", installDemos[index]));
+
+      const setFeedback = (control, text) => {
+        const feedback = control.closest(".demo-panel")?.querySelector("[data-demo-feedback]");
+        if (feedback) feedback.textContent = text;
+      };
+
+      document.addEventListener("click", (event) => {
+        const service = event.target.closest("[data-demo-service]");
+        if (service) {
+          const card = service.closest(".usage-card");
+          card.querySelectorAll("[data-demo-service]").forEach((button) => button.classList.toggle("is-selected", button === service));
+          card.querySelector("[data-demo-source-status]").textContent = `${service.dataset.demoService} · ${t.theme}`;
+          return;
+        }
+
+        const target = event.target.closest("[data-demo-volume-target]");
+        if (target) {
+          const panel = target.closest(".demo-panel");
+          panel.querySelectorAll("[data-demo-volume-target]").forEach((button) => button.classList.toggle("is-selected", button === target));
+          const lyrics = panel.querySelector("[data-demo-lyrics]").checked ? ` ${t.lyricsOn}` : "";
+          setFeedback(target, `${target.dataset.demoVolumeTarget === "app" ? t.volumeApp : t.volumeSystem}${lyrics}`);
+          return;
+        }
+
+        const action = event.target.closest("[data-demo-action]");
+        if (!action) return;
+        const panel = action.closest(".demo-panel");
+        switch (action.dataset.demoAction) {
+          case "play": {
+            const playing = action.dataset.playing !== "true";
+            action.dataset.playing = String(playing);
+            action.textContent = playing ? "Ⅱ" : "▶";
+            setFeedback(action, playing ? t.playing : t.paused);
+            break;
+          }
+          case "previous":
+          case "next": {
+            const tracks = ["Night Drive", "Horizon Pulse", "Neon Highway"];
+            const track = panel.querySelector("[data-demo-track]");
+            let index = tracks.indexOf(track.textContent);
+            index = (index + (action.dataset.demoAction === "next" ? 1 : -1) + tracks.length) % tracks.length;
+            track.textContent = tracks[index];
+            setFeedback(action, `${t.next}: ${tracks[index]}`);
+            break;
+          }
+          case "volume-down":
+          case "volume-up": {
+            const value = panel.querySelector("[data-demo-volume-value]");
+            const nextVolume = Math.max(0, Math.min(100, Number.parseInt(value.textContent, 10) + (action.dataset.demoAction === "volume-up" ? 8 : -8)));
+            value.textContent = `${nextVolume}%`;
+            panel.querySelector("[data-demo-volume-meter]").style.width = `${nextVolume}%`;
+            break;
+          }
+          case "overlay": {
+            const preview = panel.querySelector("[data-demo-overlay-preview]");
+            preview.classList.toggle("is-hidden");
+            setFeedback(action, preview.classList.contains("is-hidden") ? t.hidden : t.shown);
+            break;
+          }
+          case "tray":
+            setFeedback(action, t.tray);
+            break;
+          case "restore":
+            setFeedback(action, t.restored);
+            break;
+          case "download-ready":
+            setFeedback(action, t.download);
+            break;
+          case "extract":
+            setFeedback(action, t.extract);
+            break;
+          case "launch":
+            setFeedback(action, t.launch);
+            break;
+          case "shortcuts":
+            setFeedback(action, t.shortcuts);
+            break;
+        }
+      });
+
+      document.addEventListener("change", (event) => {
+        if (!event.target.matches("[data-demo-lyrics]")) return;
+        const panel = event.target.closest(".demo-panel");
+        const target = panel.querySelector("[data-demo-volume-target].is-selected");
+        setFeedback(event.target, `${target.dataset.demoVolumeTarget === "app" ? t.volumeApp : t.volumeSystem} ${event.target.checked ? t.lyricsOn : t.lyricsOff}`);
+      });
+
+      document.addEventListener("input", (event) => {
+        if (!event.target.matches("[data-demo-scale]")) return;
+        const panel = event.target.closest(".demo-panel");
+        panel.querySelector("[data-demo-scale-value]").textContent = `${event.target.value}%`;
+        panel.querySelector("[data-demo-scale-preview]").style.transform = `scale(${event.target.value / 100})`;
+      });
+
+      document.querySelectorAll("[data-demo-drag]").forEach((overlay) => {
+        let start = null;
+        overlay.addEventListener("pointerdown", (event) => {
+          event.stopPropagation();
+          start = { x: event.clientX, y: event.clientY, left: overlay.offsetLeft, top: overlay.offsetTop };
+          overlay.setPointerCapture(event.pointerId);
+        });
+        overlay.addEventListener("pointermove", (event) => {
+          if (!start) return;
+          const stage = overlay.parentElement;
+          overlay.style.left = `${Math.max(0, Math.min(stage.clientWidth - overlay.offsetWidth, start.left + event.clientX - start.x))}px`;
+          overlay.style.top = `${Math.max(0, Math.min(stage.clientHeight - overlay.offsetHeight, start.top + event.clientY - start.y))}px`;
+        });
+        overlay.addEventListener("pointerup", (event) => {
+          if (!start) return;
+          event.stopPropagation();
+          start = null;
+          setFeedback(overlay, t.dragDone);
+        });
+      });
+    })();
+  </script>
+
   <!-- Download support modal -->
   <div class="dl-backdrop" id="dlBackdrop">
     <div class="dl-modal" role="dialog" aria-labelledby="dlTitle" id="dlModal">
@@ -2063,16 +2962,14 @@
       <div class="dl-actions" id="dlActions">
         <a class="dl-cta" href="https://buymeacoffee.com/scott5497" target="_blank" rel="noopener noreferrer">☕ Buy Me a
           Coffee</a>
-        <button class="dl-skip" id="dlSkip" type="button">下次再說 🙌</button>
+        <button class="dl-skip" id="dlSkip" type="button">繼續瀏覽 🙌</button>
       </div>
     </div>
   </div>
 
   <script>
     (() => {
-      const DL_KEY = "fmo_dl_modal_shown";
       const backdrop = document.getElementById("dlBackdrop");
-      const modal = document.getElementById("dlModal");
       const streamEl = document.getElementById("dlStream");
       const actionsEl = document.getElementById("dlActions");
       if (!backdrop || !streamEl) return;
@@ -2085,7 +2982,6 @@
       function close() {
         clearTimeout(streamTimeout);
         backdrop.classList.remove("is-open");
-        sessionStorage.setItem(DL_KEY, "1");
       }
 
       function streamText() {
@@ -2109,7 +3005,6 @@
       }
 
       function open() {
-        if (sessionStorage.getItem(DL_KEY)) return;
         // Reset state
         charIndex = 0;
         streamEl.textContent = "";
@@ -2122,16 +3017,33 @@
         streamTimeout = setTimeout(streamText, 1300);
       }
 
+      // 關閉 Modal (右上角 X)
       document.getElementById("dlClose").addEventListener("click", close);
-      document.getElementById("dlSkip").addEventListener("click", close);
+
+      // 點擊背景關閉
       backdrop.addEventListener("click", (e) => {
         if (e.target === backdrop) close();
       });
 
+      document.getElementById("dlSkip").addEventListener("click", close);
+
+      function startDownload(url) {
+        const tempLink = document.createElement("a");
+        tempLink.href = url;
+        tempLink.setAttribute("download", "");
+        tempLink.style.display = "none";
+        document.body.appendChild(tempLink);
+        tempLink.click();
+        tempLink.remove();
+      }
+
       // Listen for download clicks
-      document.querySelectorAll('[data-dl]').forEach((link) => {
-        link.addEventListener("click", () => {
-          setTimeout(open, 600);
+      document.querySelectorAll("[data-dl], .entry-actions .button.primary").forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          window.open("https://buymeacoffee.com/scott5497", "_blank", "noopener,noreferrer");
+          startDownload(link.href);
+          open();
         });
       });
     })();
