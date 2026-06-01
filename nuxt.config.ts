@@ -5,9 +5,10 @@ export default defineNuxtConfig({
   modules: ['@nuxtjs/tailwindcss'],
   css: ['~/assets/css/main.css'],
   app: {
+    baseURL: '/forza-music-overlay/',
     head: {
       link: [
-        { rel: 'icon', type: 'image/svg+xml', href: '/brand/gmo-favicon.svg' }
+        { rel: 'icon', type: 'image/svg+xml', href: '/forza-music-overlay/brand/gmo-favicon.svg' }
       ]
     }
   }

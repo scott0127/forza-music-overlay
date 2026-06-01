@@ -9,7 +9,7 @@ useSeoMeta({
   ogTitle: 'GamingMusicOverlay (GMO)',
   ogDescription: 'Display now-playing info and dynamic lyrics in Forza, with hotkey and gamepad controls for app or system volume.',
   ogType: 'website',
-  ogImage: '/brand/gmo-logo.svg'
+  ogImage: '/forza-music-overlay/brand/gmo-logo.svg'
 });
 
 // Modal State
@@ -217,17 +217,8 @@ const handleDownloadClick = (e: MouseEvent, url: string) => {
   // 2. Open Typewriter Modal
   showTypewriterModal.value = true;
 
-  // 3. Trigger download link
-  setTimeout(() => {
-    const dlLink = document.createElement("a");
-    dlLink.href = url;
-    dlLink.target = "_blank";
-    dlLink.rel = "noopener noreferrer";
-    dlLink.style.display = "none";
-    document.body.appendChild(dlLink);
-    dlLink.click();
-    dlLink.remove();
-  }, 150);
+  // 3. Trigger download link directly in current window
+  window.location.href = url;
 };
 
 onMounted(() => {
@@ -278,8 +269,12 @@ onUnmounted(() => {
     <!-- HERO SECTION -->
     <section 
       class="motion-hero relative overflow-hidden min-h-[85vh] py-16 flex items-center bg-cover bg-center" 
-      style="background-image: linear-gradient(to right, #090a0f 0%, rgba(9, 10, 15, 0.97) 38%, rgba(9, 10, 15, 0.6) 72%, rgba(9, 10, 15, 0.97) 100%), url('/downloads/forza-music-overlay/hero-bg.jpg');"
+      style="background-image: linear-gradient(to right, #090a0f 0%, rgba(9, 10, 15, 0.97) 38%, rgba(9, 10, 15, 0.6) 72%, rgba(9, 10, 15, 0.97) 100%), url('/forza-music-overlay/downloads/forza-music-overlay/hero-bg.jpg');"
     >
+      <div class="motion-signal-layer" aria-hidden="true">
+        <svg><path class="motion-signal-path" /></svg>
+        <span class="motion-signal-dot" />
+      </div>
       <div class="wrap grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 items-center w-full z-10">
         <div class="motion-hero-copy">
           <!-- Badges / Header -->
@@ -340,7 +335,7 @@ onUnmounted(() => {
                 @click="selectPlatform('YouTube Music')"
               >
                 <svg class="motion-platform-art" viewBox="0 0 180 48" preserveAspectRatio="none" aria-hidden="true"><ellipse class="motion-platform-morph" cx="24" cy="24" rx="20.5" ry="20.5" /><rect class="motion-platform-morph-target" x="1" y="1" width="178" height="46" rx="12" /></svg>
-                <span class="motion-platform-bpm" aria-hidden="true"><i v-for="bar in 7" :key="bar" /></span>
+                <span class="motion-platform-pulse" aria-hidden="true"><b /><i /><i /><i /></span>
                 <span class="motion-platform-icon text-red-500 w-4 h-4 flex items-center justify-center">
                   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0 2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11C4.483 20.455 12 20.455 12 20.455s7.517 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                 </span>
@@ -355,7 +350,7 @@ onUnmounted(() => {
                 @click="selectPlatform('Spotify')"
               >
                 <svg class="motion-platform-art" viewBox="0 0 180 48" preserveAspectRatio="none" aria-hidden="true"><ellipse class="motion-platform-morph" cx="24" cy="24" rx="20.5" ry="20.5" /><rect class="motion-platform-morph-target" x="1" y="1" width="178" height="46" rx="12" /></svg>
-                <span class="motion-platform-bpm" aria-hidden="true"><i v-for="bar in 7" :key="bar" /></span>
+                <span class="motion-platform-pulse" aria-hidden="true"><b /><i /><i /><i /></span>
                 <span class="motion-platform-icon text-green-500 w-4 h-4 flex items-center justify-center">
                   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.01 0C5.378 0 0 5.378 0 12.01c0 6.63 5.378 12.01 12.01 12.01 6.63 0 12.01-5.38 12.01-12.01C24.02 5.378 18.64 0 12.01 0zm5.512 17.327c-.22.36-.688.48-1.047.26-2.91-1.78-6.575-2.18-10.892-1.196-.41.09-.824-.17-.917-.58-.093-.41.17-.824.58-.918 4.722-1.08 8.765-.623 12.01 1.368.36.22.48.687.26 1.047zm1.47-3.26c-.276.45-.86.59-1.31.32-3.33-2.046-8.406-2.64-12.336-1.448-.5.15-1.033-.13-1.185-.64-.15-.5.13-1.03.64-1.18 4.498-1.366 10.09-.7 13.864 1.62.45.276.6.86.32 1.31zm.126-3.41c-3.993-2.37-10.584-2.59-14.394-1.436-.612.187-1.256-.16-1.44-.775-.186-.613.16-1.257.774-1.44 4.38-1.33 11.64-1.076 16.24 1.655.55.326.733 1.037.407 1.587-.327.55-1.038.733-1.587.407z"/></svg>
                 </span>
@@ -370,7 +365,7 @@ onUnmounted(() => {
                 @click="selectPlatform('Apple Music')"
               >
                 <svg class="motion-platform-art" viewBox="0 0 180 48" preserveAspectRatio="none" aria-hidden="true"><ellipse class="motion-platform-morph" cx="24" cy="24" rx="20.5" ry="20.5" /><rect class="motion-platform-morph-target" x="1" y="1" width="178" height="46" rx="12" /></svg>
-                <span class="motion-platform-bpm" aria-hidden="true"><i v-for="bar in 7" :key="bar" /></span>
+                <span class="motion-platform-pulse" aria-hidden="true"><b /><i /><i /><i /></span>
                 <span class="motion-platform-icon text-pink-500 w-4 h-4 flex items-center justify-center">
                   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.3.03-1.72-.79-3.2-.79-1.49 0-1.95.76-3.18.82-1.28.05-2.25-1.33-3.08-2.57-1.69-2.43-2.98-6.87-1.25-9.88.86-1.49 2.39-2.43 4.06-2.46 1.27-.03 2.47.86 3.2.86.73 0 2.1-1.07 3.54-.91.6.03 2.29.24 3.37 1.83-.09.06-2.02 1.18-2 3.53.03 2.81 2.46 3.74 2.49 3.75-.02.07-.39 1.36-1.29 2.68l.39.67ZM14.88 5.64c.69-.84 1.16-2.01 1.03-3.17-1 .04-2.21.67-2.93 1.51-.65.74-1.21 1.93-1.06 3.07 1.12.09 2.27-.57 2.96-1.41Z"/></svg>
                 </span>
@@ -414,9 +409,10 @@ onUnmounted(() => {
         <!-- RIGHT COLUMN: Gorgeous Dynamic Glowing In-Game Media HUD matching mockup -->
         <div class="hero-visual-stack">
           <div 
-            class="relative w-full max-w-[450px] aspect-[1.7] bg-slate-950/85 border-2 rounded-2xl p-6 flex flex-col justify-between shadow-2xl backdrop-blur-md transition-all duration-300 transform hover:-translate-y-1 select-none"
+            class="motion-radio-card relative w-full max-w-[450px] aspect-[1.7] bg-slate-950/85 border-2 rounded-2xl p-6 flex flex-col justify-between shadow-2xl backdrop-blur-md transition-all duration-300 transform hover:-translate-y-1 select-none"
             :style="{ borderColor: selectedServiceColor, boxShadow: `0 0 28px ${selectedServiceColor}35` }"
           >
+            <span class="motion-radio-receiver" aria-hidden="true" />
             <!-- Glowing neon dynamic waveform graphic on top boundary -->
             <div class="absolute inset-x-6 top-1.5 flex items-end justify-center gap-0.5 h-4 opacity-30 overflow-hidden">
               <span 
@@ -450,7 +446,7 @@ onUnmounted(() => {
             <div class="flex items-center gap-5 my-2">
               <!-- Real square album cover art mockup (matches real mini-artwork HUD) -->
               <div 
-                class="w-20 h-20 rounded-xl border flex items-center justify-center flex-shrink-0 overflow-hidden shadow-lg transition-all duration-500"
+                class="motion-radio-cover w-20 h-20 rounded-xl border flex items-center justify-center flex-shrink-0 overflow-hidden shadow-lg transition-all duration-500"
                 :style="{ borderColor: selectedServiceColor, backgroundColor: 'rgba(15, 23, 42, 0.8)' }"
               >
                 <div v-if="selectedService === 'Spotify'" class="w-full h-full relative group">
@@ -477,7 +473,7 @@ onUnmounted(() => {
               </div>
 
               <!-- Title, artist and service brand badge -->
-              <div class="min-w-0">
+              <div class="motion-radio-copy min-w-0">
                 <div class="flex items-center gap-1.5">
                   <span class="w-3.5 h-3.5 flex-shrink-0" :class="selectedServiceTextClass">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
@@ -499,7 +495,7 @@ onUnmounted(() => {
             <!-- Bottom Row: Glowing progress bar and track elapsed times -->
             <div class="flex items-center justify-between gap-4 mt-2">
               <div class="flex-grow bg-slate-900 h-1.5 rounded-full overflow-hidden border border-slate-850">
-                <div class="h-full rounded-full transition-all duration-300" :class="selectedServiceBgClass" style="width: 32%" />
+                <div class="motion-radio-progress h-full rounded-full transition-all duration-300" :class="selectedServiceBgClass" style="width: 32%" />
               </div>
               <span class="text-[10px] text-slate-400 font-bold font-mono">0:34 / 2:33</span>
             </div>
