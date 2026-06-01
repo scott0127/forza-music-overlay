@@ -434,6 +434,12 @@
       justify-content: center;
     }
 
+    @media (min-width: 1024px) {
+      .hero-visual-stack {
+        align-items: flex-end;
+      }
+    }
+
     .motion-title-stage {
       display: inline-block;
       isolation: isolate;

@@ -270,14 +270,14 @@ onUnmounted(() => {
 
     <!-- HERO SECTION -->
     <section 
-      class="motion-hero relative overflow-hidden min-h-[85vh] py-16 flex items-center bg-cover bg-center" 
-      style="background-image: linear-gradient(to right, #090a0f 0%, rgba(9, 10, 15, 0.97) 38%, rgba(9, 10, 15, 0.6) 72%, rgba(9, 10, 15, 0.97) 100%), url('/forza-music-overlay/downloads/forza-music-overlay/hero-bg.jpg');"
+      class="motion-hero relative overflow-hidden min-h-[85vh] py-16 flex items-center bg-cover" 
+      style="background-image: linear-gradient(to right, #090a0f 0%, rgba(9, 10, 15, 0.97) 38%, rgba(9, 10, 15, 0.6) 72%, rgba(9, 10, 15, 0.97) 100%), url('/forza-music-overlay/downloads/forza-music-overlay/hero-bg.jpg'); background-position: 40% center;"
     >
       <div class="motion-signal-layer" aria-hidden="true">
         <svg><path class="motion-signal-path" /></svg>
         <span class="motion-signal-dot" />
       </div>
-      <div class="wrap grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 items-center w-full z-10">
+      <div class="wrap grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] xl:grid-cols-[1.25fr_0.75fr] gap-8 xl:gap-16 items-center w-full z-10">
         <div class="motion-hero-copy">
           <!-- Badges / Header -->
           <div class="motion-hero-badges flex items-center gap-2 flex-wrap mb-4">
@@ -291,7 +291,7 @@ onUnmounted(() => {
             <div class="motion-title-spectrum" aria-hidden="true">
               <span v-for="i in 17" :key="i" class="motion-spectrum-bar" />
             </div>
-            <h1 class="motion-hero-title text-white text-5xl md:text-7xl font-black tracking-tight leading-[1.08]">
+            <h1 class="motion-hero-title text-white text-4xl sm:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-black tracking-tight leading-[1.08]">
               <span class="motion-title-primary" aria-label="GamingMusic">
                 <span v-for="(letter, index) in 'GamingMusic'" :key="`${letter}-${index}`" class="motion-title-primary-letter" aria-hidden="true">{{ letter }}</span>
               </span><br/>
