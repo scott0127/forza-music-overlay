@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="GMO">
+  <defs>
+    <linearGradient id="steel" x1="0" x2="1">
+      <stop stop-color="#1c2330"/>
+      <stop offset=".55" stop-color="#5d6e82"/>
+      <stop offset="1" stop-color="#1c2330"/>
+    </linearGradient>
+    <linearGradient id="cream" x1="0" x2="1">
+      <stop stop-color="#f2ede5"/>
+      <stop offset=".68" stop-color="#d8b793"/>
+      <stop offset="1" stop-color="#f2ede5"/>
+    </linearGradient>
+  </defs>
+  <rect width="96" height="96" rx="20" fill="#080b10"/>
+  <path fill="url(#steel)" d="M10 20 51 32l-4 11-37-9z"/>
+  <path fill="url(#cream)" d="m8 29 51 14-5 11L8 41z"/>
+  <path fill="url(#steel)" d="m8 71 47-15 9 9L8 82z"/>
+  <path fill="url(#cream)" d="m51 45 38 13-1 7-39 7z"/>
+  <g fill="#f2ede5">
+    <path d="M27 48h3v8h-3z"/>
+    <path d="M36 44h3v16h-3z"/>
+    <path d="M45 47h3v10h-3z"/>
+    <path d="M54 42h3v20h-3z"/>
+    <path d="M63 47h3v10h-3z"/>
+  </g>
+</svg>

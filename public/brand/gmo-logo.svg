@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-labelledby="title desc">
+  <title id="title">GamingMusicOverlay</title>
+  <desc id="desc">GMO layered beam logo with the GamingMusicOverlay wordmark.</desc>
+  <defs>
+    <linearGradient id="cream" x1="0" x2="1">
+      <stop offset="0" stop-color="#f2ede5"/>
+      <stop offset=".62" stop-color="#d8b793"/>
+      <stop offset="1" stop-color="#f2ede5"/>
+    </linearGradient>
+    <linearGradient id="steel" x1="0" x2="1">
+      <stop offset="0" stop-color="#1c2330"/>
+      <stop offset=".52" stop-color="#4e6278"/>
+      <stop offset="1" stop-color="#1c2330"/>
+    </linearGradient>
+    <linearGradient id="rose" x1="0" x2="1">
+      <stop offset="0" stop-color="#d7a9ab" stop-opacity="0"/>
+      <stop offset=".35" stop-color="#d7a9ab"/>
+      <stop offset="1" stop-color="#d7a9ab" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glow" x="-25%" y="-50%" width="150%" height="200%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <g transform="translate(72 25) scale(1.45)">
+    <path fill="url(#steel)" d="M20 29 257 80l-15 31L28 63z"/>
+    <path fill="url(#cream)" d="M0 45 296 111l-14 33L0 78z"/>
+    <path fill="url(#steel)" d="m0 208 258-58 24 28L0 246z"/>
+    <path fill="url(#steel)" d="m103 228 208-47 17 21-225 57z" opacity=".72"/>
+    <path fill="url(#cream)" d="m254 113 266 58-1 17-267 28z"/>
+    <path fill="#f2ede5" d="m247 158 223 25-221 8z" opacity=".88"/>
+    <path fill="url(#rose)" d="m351 119 100 12-87 8z"/>
+    <path fill="url(#rose)" d="m361 222 90-17-75 27z"/>
+    <path fill="#d7a9ab" d="m430 98 58 5-52 7z" opacity=".9"/>
+    <g fill="#f2ede5" filter="url(#glow)">
+      <path d="M94 142h5v12h-5z"/>
+      <path d="M119 136h5v24h-5z"/>
+      <path d="M145 144h5v9h-5z"/>
+      <path d="M171 131h5v34h-5z"/>
+      <path d="M197 141h5v15h-5z"/>
+      <path d="M223 128h5v39h-5z"/>
+      <path d="M249 137h5v24h-5z"/>
+      <path d="M275 124h5v48h-5z"/>
+      <path d="M301 137h5v24h-5z"/>
+      <path d="M327 130h5v36h-5z"/>
+      <path d="M353 141h5v15h-5z"/>
+      <path d="M379 135h5v27h-5z"/>
+      <path d="M405 143h5v11h-5z"/>
+    </g>
+  </g>
+  <text x="480" y="342" fill="#f2ede5" font-family="Inter, Segoe UI, sans-serif" font-size="27" font-weight="500" letter-spacing="14" text-anchor="middle">GamingMusicOverlay</text>
+</svg>
