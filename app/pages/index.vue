@@ -4,6 +4,8 @@ import { usePageMotion } from '../composables/usePageMotion';
 import { useHeroActionsMotion } from '../composables/useHeroActionsMotion';
 import { useSignalHandoff } from '../composables/useSignalHandoff';
 import { useTitleInteraction } from '../composables/useTitleInteraction';
+import { useSupportEnergyMotion } from '../composables/useSupportEnergyMotion';
+import { useSponsorGoalMotion } from '../composables/useSponsorGoalMotion';
 
 // Page SEO Meta
 useSeoMeta({
@@ -22,20 +24,8 @@ usePageMotion(pageRoot);
 useHeroActionsMotion(pageRoot);
 useSignalHandoff(pageRoot);
 useTitleInteraction(pageRoot);
-
-// Sponsor drink picker
-const supportDrinks = [
-  { icon: '☕', name: '咖啡', note: '適合把修正清單逐項完成' },
-  { icon: '🧋', name: '珍珠奶茶', note: '適合補充長時間除錯的耐力' },
-  { icon: '🍵', name: '抹茶拿鐵', note: '適合整理下一版的新功能' },
-  { icon: '🥤', name: '氣泡飲', note: '適合替新點子加一點靈感' }
-];
-const supportDrinkIndex = ref(0);
-const supportDrink = computed(() => supportDrinks[supportDrinkIndex.value]);
-const shuffleSupportDrink = () => {
-  const offset = 1 + Math.floor(Math.random() * (supportDrinks.length - 1));
-  supportDrinkIndex.value = (supportDrinkIndex.value + offset) % supportDrinks.length;
-};
+useSupportEnergyMotion(pageRoot);
+useSponsorGoalMotion(pageRoot);
 
 // Dynamic Hero Player Compute Properties
 const selectedServiceColor = computed(() => {
@@ -509,6 +499,53 @@ onUnmounted(() => {
             </div>
           </div>
 
+          <div class="hero-sponsor-goal motion-sponsor-goal" aria-label="S24 Ultra 手機殼贊助累積目標，目前 810 元，共 1500 元">
+            <div class="sponsor-goal-device" aria-hidden="true">
+              <svg class="motion-case-art" viewBox="0 0 92 116" fill="none">
+                <defs>
+                  <linearGradient id="caseLineZh" x1="14" y1="14" x2="82" y2="105" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#67E8F9"/><stop offset=".48" stop-color="#C084FC"/><stop offset="1" stop-color="#FBBF24"/>
+                  </linearGradient>
+                </defs>
+                <rect class="motion-case-line case-shell" x="10" y="5" width="72" height="106" rx="9" stroke="url(#caseLineZh)"/>
+                <rect class="motion-case-line case-inner" x="15" y="10" width="62" height="96" rx="6" stroke="#94A3B8"/>
+                <path class="motion-case-line case-camera-island" d="M16 14H53Q59 14 59 20V55Q59 63 51 68H24Q16 68 16 60Z" stroke="url(#caseLineZh)"/>
+                <circle class="motion-case-line case-lens" cx="27" cy="25" r="5.4" stroke="#67E8F9"/><circle class="motion-case-line case-lens" cx="45" cy="26" r="4.2" stroke="#C084FC"/>
+                <circle class="motion-case-line case-lens" cx="27" cy="43" r="5.4" stroke="#F472B6"/><circle class="motion-case-line case-lens" cx="45" cy="44" r="3.6" stroke="#FBBF24"/>
+                <circle class="motion-case-line case-lens" cx="27" cy="61" r="4.8" stroke="#67E8F9"/>
+                <path class="motion-case-flow" d="M18 90C34 76 51 88 73 71M22 99C42 81 56 98 74 85M43 104C56 93 65 101 75 94" stroke="url(#caseLineZh)"/>
+                <path class="motion-case-scan" d="M18 18H74" stroke="#F8FAFC"/>
+              </svg>
+            </div>
+            <div class="sponsor-goal-content">
+              <div class="sponsor-goal-head">
+                <div>
+                  <p>S24 ULTRA CASE FUND</p>
+                  <strong>作者的手機殼壞了</strong>
+                </div>
+                <span>LIVE GOAL</span>
+              </div>
+              <div class="sponsor-goal-meter">
+                <i class="motion-goal-fill" style="width: 54%" />
+                <b class="motion-goal-scan" />
+              </div>
+              <div class="sponsor-goal-foot">
+                <span>贊助累積</span>
+                <strong><em>810</em> / 1500</strong>
+              </div>
+            </div>
+            <div class="sponsor-goal-ticker" aria-label="贊助名單">
+              <div class="motion-sponsor-ticker-track">
+                <div class="sponsor-goal-ticker-group">
+                  <span>贊助名單</span><strong>salutman 300元</strong><i>匿名贊助者 150元</i><strong>alex983963 210元</strong><i>nath 150元</i>
+                </div>
+                <div class="sponsor-goal-ticker-group" aria-hidden="true">
+                  <span>贊助名單</span><strong>salutman 300元</strong><i>匿名贊助者 150元</i><strong>alex983963 210元</strong><i>nath 150元</i>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="hero-support-story hidden lg:flex">
             <div class="hero-support-icon">
               <img src="/downloads/forza-music-overlay/bmc_qr.png" alt="Buy Me a Coffee 贊助 QR Code">
@@ -562,22 +599,41 @@ onUnmounted(() => {
             </div>
           </div>
 
-          <div class="support-drink" aria-live="polite">
-            <div class="support-drink-main">
-              <span class="support-drink-icon" aria-hidden="true">{{ supportDrink.icon }}</span>
-              <div>
-                <small>今日開發補給</small>
-                <strong>{{ supportDrink.name }}</strong>
-                <span>{{ supportDrink.note }}</span>
+          <div class="support-energy motion-support-energy">
+            <div class="support-energy-copy">
+              <small>SVG drink lab</small>
+              <strong>今天想替開發補充哪一杯？</strong>
+              <span>選一杯，看看 SVG 線稿如何沖泡成真實飲料。</span>
+              <div class="support-drink-tabs">
+                <button class="motion-drink-tab is-active" type="button" data-drink="pour-over" data-label="手沖咖啡" aria-label="選擇手沖咖啡">
+                  <svg viewBox="0 0 48 48"><path d="M12 15h24l-4 21H16Z"/><path d="M16 15c1-6 15-6 16 0M13 20h22"/><path class="motion-drink-liquid" d="M16 27h16l-2 7H18Z"/></svg><span>咖啡</span>
+                </button>
+                <button class="motion-drink-tab" type="button" data-drink="boba" data-label="珍珠奶茶" aria-label="選擇珍珠奶茶">
+                  <svg viewBox="0 0 48 48"><path d="M14 11h20l-3 27H17Z"/><path d="M18 11 27 4M15 17h18"/><path class="motion-drink-liquid" d="M18 22h13l-2 14H19Z"/><circle cx="22" cy="32" r="1.3"/><circle cx="27" cy="34" r="1.3"/></svg><span>珍奶</span>
+                </button>
+                <button class="motion-drink-tab" type="button" data-drink="lemon-tea" data-label="檸檬冰飲" aria-label="選擇檸檬冰飲">
+                  <svg viewBox="0 0 48 48"><path d="M14 12h20l-3 26H17Z"/><path d="M16 18h16M27 5l-5 12"/><path class="motion-drink-liquid" d="M18 22h13l-2 14H19Z"/><circle cx="25" cy="27" r="4"/></svg><span>檸檬</span>
+                </button>
               </div>
             </div>
-            <button class="support-drink-shuffle" type="button" @click="shuffleSupportDrink">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
-                <path d="M20 7h-4a4 4 0 0 0-4 4v2a4 4 0 0 1-4 4H4"/>
-                <path d="m17 4 3 3-3 3M4 7h4a4 4 0 0 1 3 1.4M17 14l3 3-3 3"/>
+            <div class="support-drink-stage">
+              <span class="motion-drink-orbit" aria-hidden="true" />
+              <svg class="motion-drink-blueprint" viewBox="0 0 160 120" aria-hidden="true">
+                <path class="motion-blueprint-shape" d="M46.15 36.72Q46.08 48.24 45.41 65.16Q44.75 82.08 43.96 84.15Q43.16 86.22 41.13 87.56Q39.1 88.89 33.05 88.53L32 84.57Q38.92 84.78 39.56 83.83Q40.9 81.76 42.19 51.09L42.41 40.47H35.03Q34.6 60.45 32.44 70.56Q30.28 80.68 25.2 89L21.74 86.55Q30.71 72.07 31.1 40.47H25.6V36.72H31.18Q31.46 32.62 31.46 24.3H35.17Q35.28 29.56 35.03 36.72ZM22.43 77.84H18.79V73.8H11.66V79.38H7.81V29.27H22.43ZM18.79 70.1V33.02H11.66V70.1ZM66.71 87.74H62.89V81.98H54.04V87.74H50.29V32.73H66.71ZM62.89 78.3V36.47H54.04V78.3ZM143.08 71.28H128.94V88.67H125.01V24.41H128.94V35.61H141.54V39.28H128.94V50.58H140.71V54.11H128.94V67.54H143.08ZM117.27 49.54Q117.27 60.09 116.21 66.91Q115.15 73.73 111.64 79.33Q108.13 84.93 102.22 88.92L98.91 86.12Q110.11 78.92 112.12 68.12Q105.03 70.92 101.29 72.04L100.03 68.33Q106.4 66.5 112.84 63.62Q113.38 58.65 113.38 54.11H101.72V50.4H113.46V39.28H101V35.61H113.46V24.41H117.27ZM97.65 78.95H93.91V75.28H84.98V80.86H81.24V30.53H97.65ZM93.84 71.36V34.42H84.98V71.36Z"/>
+                <path class="motion-blueprint-target" data-drink="pour-over" d="M38 20 C42 13 104 13 110 20 L98 54 C94 61 55 61 50 54 Z M58 61 C66 57 86 57 94 61 L100 98 C99 105 54 105 53 98 Z M100 70 C120 67 122 91 101 91"/>
+                <path class="motion-blueprint-target" data-drink="boba" d="M52 17 C62 13 97 13 107 17 L98 104 C88 108 69 108 59 104 Z M72 16 L92 4 M65 83 C68 80 72 80 75 83 C72 86 68 86 65 83 M81 91 C84 88 88 88 91 91 C88 94 84 94 81 91"/>
+                <path class="motion-blueprint-target" data-drink="lemon-tea" d="M43 23 C55 18 104 18 116 23 L105 101 C95 106 64 106 54 101 Z M93 5 L78 42 M70 68 C70 54 91 54 91 68 C91 82 70 82 70 68"/>
+                <g class="motion-drink-details motion-detail-coffee"><path d="M60 17 C52 5 68 2 61 -9"/><path d="M78 17 C70 5 86 2 79 -9"/><path d="M98 71 C119 67 122 91 101 91"/></g>
+                <g class="motion-drink-details motion-detail-boba"><circle cx="67" cy="89" r="4"/><circle cx="79" cy="95" r="4"/><circle cx="91" cy="87" r="4"/><path d="M76 17 94 0"/></g>
+                <g class="motion-drink-details motion-detail-lemon"><circle cx="81" cy="70" r="13"/><path d="M81 57V83M68 70H94M72 61 90 79M90 61 72 79"/><path d="M95 5 80 43"/></g>
               </svg>
-              換一杯
-            </button>
+              <strong class="motion-drink-label">手沖咖啡</strong>
+            </div>
+            <div class="motion-drink-cursor-preview" aria-hidden="true">
+              <img class="motion-drink-photo is-active" data-drink="pour-over" src="/downloads/forza-music-overlay/drinks/pour-over.png" alt="">
+              <img class="motion-drink-photo" data-drink="boba" src="/downloads/forza-music-overlay/drinks/boba.png" alt="">
+              <img class="motion-drink-photo" data-drink="lemon-tea" src="/downloads/forza-music-overlay/drinks/lemon-tea.png" alt="">
+            </div>
           </div>
 
           <div class="sponsor-story-footer">
@@ -590,7 +646,7 @@ onUnmounted(() => {
             </div>
             <div class="sponsor-actions">
               <img class="sponsor-qr" src="/downloads/forza-music-overlay/bmc_qr.png" alt="Buy Me a Coffee 贊助 QR Code">
-              <a class="sponsor-button" href="https://buymeacoffee.com/scott5497" target="_blank" rel="noopener noreferrer">請我喝杯{{ supportDrink.name }}</a>
+              <a class="sponsor-button" href="https://buymeacoffee.com/scott5497" target="_blank" rel="noopener noreferrer">請我喝杯咖啡</a>
             </div>
           </div>
         </div>
