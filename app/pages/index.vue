@@ -278,7 +278,7 @@ onUnmounted(() => {
           <!-- Badges / Header -->
           <div class="motion-hero-badges flex items-center gap-2 flex-wrap mb-4">
             <span class="bg-[#090a0f] border border-slate-800 text-slate-400 font-extrabold text-[10px] tracking-widest uppercase px-2.5 py-1 rounded">Windows Utility</span>
-            <span class="bg-slate-900 border border-slate-800 text-cyan-400 font-extrabold text-[10px] tracking-widest px-2.5 py-1 rounded">v3.1.0</span>
+            <span class="bg-slate-900 border border-slate-800 text-cyan-400 font-extrabold text-[10px] tracking-widest px-2.5 py-1 rounded">v3.5.0</span>
             <NuxtLink to="/en" class="bg-amber-400/10 border border-amber-400/20 text-amber-300 font-extrabold text-[10px] tracking-widest px-2.5 py-1 rounded hover:bg-amber-400/20 transition-all">English</NuxtLink>
           </div>
 
@@ -376,14 +376,14 @@ onUnmounted(() => {
           <div class="motion-hero-actions grid grid-cols-1 sm:grid-cols-[1.3fr_1fr] gap-3.5 mt-8 max-w-xl">
             <a
               class="motion-download-cta flex items-center gap-3 bg-cyan-400 hover:bg-cyan-300 text-slate-950 rounded-xl p-4 text-left shadow-lg shadow-cyan-400/15 hover:scale-[1.01] active:scale-[0.98] transition-all cursor-pointer select-none"
-              href="https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.1.0/ForzaMusicOverlay-release3.1.0_portable-test.zip"
-              @click="handleDownloadClick($event, 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.1.0/ForzaMusicOverlay-release3.1.0_portable-test.zip')"
+              href="https://drive.google.com/file/d/141EkTtDf-CgTGV9gjP8vMsl1vVrPwbIw/view?usp=drive_link"
+              @click="handleDownloadClick($event, 'https://drive.google.com/file/d/141EkTtDf-CgTGV9gjP8vMsl1vVrPwbIw/view?usp=drive_link')"
             >
               <span class="motion-download-icon bg-slate-950/10 p-2.5 rounded-lg text-slate-950 flex items-center justify-center">
                 <svg class="w-5 h-5 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 3v12m-5-5l5 5 5-5M5 21h14"/></svg>
               </span>
               <div>
-                <span class="block font-black text-sm md:text-base leading-none">立即下載 v3.1.0</span>
+                <span class="block font-black text-sm md:text-base leading-none">立即下載 v3.5.0</span>
                 <span class="block text-[10px] opacity-75 mt-1 font-bold">Windows / ZIP / MIT License</span>
               </div>
             </a>
@@ -655,7 +655,7 @@ onUnmounted(() => {
           <div class="panel-head">
             <div>
               <p>最新版本快照</p>
-              <h2>v3.1.0</h2>
+              <h2>v3.5.0</h2>
             </div>
             <div class="music-icon">
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
@@ -666,12 +666,13 @@ onUnmounted(() => {
             </div>
           </div>
 
-          <div class="meta-row"><span>檔案</span><strong>ForzaMusicOverlay-release3.1.0_portable-test.zip</strong></div>
+          <div class="meta-row"><span>檔案</span><strong>GamingMusicOverlay v3.5.0 中文版</strong></div>
           <div class="meta-row"><span>平台</span><strong>Windows 10 / 11</strong></div>
-          <div class="meta-row"><span>更新日期</span><strong>2026-06-01</strong></div>
+          <div class="meta-row"><span>更新日期</span><strong>2026-06-02</strong></div>
 
           <div class="snapshot-box">
             <p class="box-label">版本快照</p>
+            <p>3.5.0 更新中文版下載網址，提供最新 Google Drive 安裝包。</p>
             <p>3.1.0 優化程式打包流程，降低 Windows Defender 誤報機率。</p>
             <p>3.0+ 新增 App / System 獨立音量切換與沉浸式閃電 HUD。</p>
             <p>3.0+ 新增即時滾動歌詞與 GPU 加速 SVG 霓虹效果。</p>
@@ -681,15 +682,15 @@ onUnmounted(() => {
             <p class="box-label">最新版下載</p>
             <a
               class="download-link"
-              href="https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.1.0/ForzaMusicOverlay-release3.1.0_portable-test.zip"
-              @click="handleDownloadClick($event, 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.1.0/ForzaMusicOverlay-release3.1.0_portable-test.zip')"
+              href="https://drive.google.com/file/d/141EkTtDf-CgTGV9gjP8vMsl1vVrPwbIw/view?usp=drive_link"
+              @click="handleDownloadClick($event, 'https://drive.google.com/file/d/141EkTtDf-CgTGV9gjP8vMsl1vVrPwbIw/view?usp=drive_link')"
             >
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
                 <path d="M12 3v12" />
                 <path d="m7 10 5 5 5-5" />
                 <path d="M5 21h14" />
               </svg>
-              ForzaMusicOverlay-release3.1.0_portable-test.zip
+              GamingMusicOverlay v3.5.0 中文版
             </a>
           </div>
         </aside>
@@ -1131,7 +1132,7 @@ onUnmounted(() => {
                     <div class="demo-file flex items-center gap-2 mt-2 bg-slate-900 p-2 rounded">
                       <span class="demo-file-icon bg-cyan-950 border border-cyan-800 text-cyan-400 px-1.5 py-0.5 rounded font-black">ZIP</span>
                       <div class="truncate text-slate-300">
-                        <strong class="block text-xs truncate">ForzaMusicOverlay-release3.1.0_portable-test.zip</strong>
+                        <strong class="block text-xs truncate">GamingMusicOverlay v3.5.0 中文版</strong>
                         <small class="block text-slate-500 text-[10px]">GitHub Releases</small>
                       </div>
                     </div>
@@ -1235,12 +1236,36 @@ onUnmounted(() => {
             <p class="eyebrow text-cyan-400 font-bold uppercase text-xs">Changelog</p>
             <h2 class="section-title text-white font-extrabold text-4xl mt-2 leading-tight">專案更新紀錄</h2>
           </div>
-          <span class="text-slate-400 text-sm">最新版本: v3.1.0</span>
+          <span class="text-slate-400 text-sm">最新版本: v3.5.0</span>
         </div>
 
         <div class="update-list border-t border-b border-slate-800">
-          <!-- UPDATE V3.1.0 -->
+          <!-- UPDATE V3.5.0 -->
           <article class="update grid grid-cols-[180px_1fr] gap-6 py-7 hover:bg-slate-900/10 hover:translate-x-1 transition-all duration-200">
+            <div>
+              <p class="update-version text-cyan-300 font-black text-sm">v3.5.0</p>
+              <p class="update-date text-slate-500 text-sm mt-2">2026-06-02</p>
+            </div>
+            <div>
+              <h3 class="text-white font-black text-xl">中文版最新安裝包</h3>
+              <div class="entry-actions flex items-center gap-3 flex-wrap mt-3">
+                <a
+                  class="button primary cursor-pointer"
+                  href="https://drive.google.com/file/d/141EkTtDf-CgTGV9gjP8vMsl1vVrPwbIw/view?usp=drive_link"
+                  @click="handleDownloadClick($event, 'https://drive.google.com/file/d/141EkTtDf-CgTGV9gjP8vMsl1vVrPwbIw/view?usp=drive_link')"
+                >
+                  下載 v3.5.0
+                </a>
+                <p class="entry-file text-slate-500 text-sm">GamingMusicOverlay v3.5.0 中文版</p>
+              </div>
+              <ul class="notes text-slate-300 text-sm list-none pl-0 mt-4 space-y-2">
+                <li class="flex items-center gap-2 hover:text-white hover:translate-x-1 transition-all duration-150"><span class="text-cyan-400 font-black">✓</span> 更新中文版下載網址，提供最新 Google Drive 安裝包。</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- UPDATE V3.1.0 -->
+          <article class="update grid grid-cols-[180px_1fr] gap-6 py-7 border-t border-slate-800 hover:bg-slate-900/10 hover:translate-x-1 transition-all duration-200">
             <div>
               <p class="update-version text-cyan-300 font-black text-sm">v3.1.0</p>
               <p class="update-date text-slate-500 text-sm mt-2">2026-06-01</p>
