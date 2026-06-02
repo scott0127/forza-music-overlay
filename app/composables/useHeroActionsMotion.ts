@@ -45,7 +45,14 @@ export const useHeroActionsMotion = (pageRoot: Ref<HTMLElement | null>) => {
         '--hero-action-divider-alpha': 0
       });
       gsap.set(downloadChoices, {
-        '--download-choice-sheen-x': '-135%'
+        '--download-choice-sheen-x': '-135%',
+        '--download-choice-glass-alpha': 0,
+        '--download-choice-border-alpha': 0,
+        '--download-choice-gradient-alpha': 0,
+        '--download-choice-gradient-x': '0%',
+        '--download-choice-shadow-alpha': 0,
+        '--download-choice-pointer-x': '50%',
+        '--download-choice-pointer-y': '50%'
       });
     }, root);
 
@@ -84,7 +91,9 @@ export const useHeroActionsMotion = (pageRoot: Ref<HTMLElement | null>) => {
             '--hero-action-divider-alpha': 0.72
           });
           gsap.set(downloadChoices, {
-            '--download-choice-sheen-x': '135%'
+            '--download-choice-sheen-x': '135%',
+            '--download-choice-glass-alpha': 0,
+            '--download-choice-border-alpha': 0
           });
           return;
         }
@@ -163,44 +172,110 @@ export const useHeroActionsMotion = (pageRoot: Ref<HTMLElement | null>) => {
 
     downloadChoices.forEach((choice) => {
       const icon = choice.querySelector<HTMLElement>('.motion-download-icon');
+      const otherChoices = downloadChoices.filter((item) => item !== choice);
+      const restingSurfaceAlpha = choice.classList.contains('motion-download-choice-github') ? 0.11 : 0;
+
       bind(choice, 'pointerenter', () => runInContext(() => {
-        gsap.to(choice, {
-          y: -3,
-          scale: 1.025,
-          duration: 0.22,
+        gsap.timeline({ defaults: { overwrite: 'auto' } })
+          .to(choice, {
+            '--download-choice-glass-alpha': 0.94,
+            '--download-choice-border-alpha': 0.86,
+            '--download-choice-surface-alpha': 0.46,
+            '--download-choice-gradient-alpha': 0.24,
+            '--download-choice-gradient-x': '100%',
+            '--download-choice-shadow-alpha': 0.3,
+            y: -5,
+            scale: 1.025,
+            duration: 0.34,
+            ease: 'power3.out'
+          })
+          .fromTo(choice, {
+            '--download-choice-sheen-x': '-135%'
+          }, {
+            '--download-choice-sheen-x': '135%',
+            duration: 0.62,
+            ease: 'power2.inOut'
+          }, '<0.04');
+
+        gsap.to(otherChoices, {
+          '--download-choice-muted-alpha': 0.2,
+          scale: 0.988,
+          duration: 0.28,
           ease: 'power2.out',
           overwrite: 'auto'
         });
-        gsap.fromTo(choice, {
-          '--download-choice-sheen-x': '-135%'
-        }, {
-          '--download-choice-sheen-x': '135%',
-          duration: 0.54,
-          ease: 'power2.inOut',
+        gsap.to(download, {
+          '--hero-action-divider-alpha': 1,
+          duration: 0.32,
+          ease: 'power3.out',
           overwrite: 'auto'
         });
+
         if (icon) {
-          gsap.fromTo(icon, {
-            y: -2
-          }, {
-            y: 4,
-            duration: 0.24,
-            ease: 'power2.in',
-            repeat: 1,
-            yoyo: true,
+          gsap.to(icon, {
+            y: -2,
+            scale: 1.08,
+            rotation: -3,
+            duration: 0.3,
+            ease: 'back.out(1.8)',
             overwrite: 'auto'
           });
         }
       }));
 
-      bind(choice, 'pointerleave', () => runInContext(() => {
+      bind(choice, 'pointermove', ((event: PointerEvent) => runInContext(() => {
+        const bounds = choice.getBoundingClientRect();
+        const x = ((event.clientX - bounds.left) / bounds.width) * 100;
+        const y = ((event.clientY - bounds.top) / bounds.height) * 100;
+
         gsap.to(choice, {
-          y: 0,
-          scale: 1,
-          duration: 0.28,
+          '--download-choice-pointer-x': `${x}%`,
+          '--download-choice-pointer-y': `${y}%`,
+          duration: 0.18,
           ease: 'power2.out',
           overwrite: 'auto'
         });
+      })) as EventListener);
+
+      bind(choice, 'pointerleave', () => runInContext(() => {
+        gsap.to(choice, {
+          '--download-choice-glass-alpha': 0,
+          '--download-choice-border-alpha': 0,
+          '--download-choice-surface-alpha': restingSurfaceAlpha,
+          '--download-choice-gradient-alpha': 0,
+          '--download-choice-gradient-x': '0%',
+          '--download-choice-shadow-alpha': 0,
+          '--download-choice-pointer-x': '50%',
+          '--download-choice-pointer-y': '50%',
+          y: 0,
+          scale: 1,
+          duration: 0.38,
+          ease: 'power3.out',
+          overwrite: 'auto'
+        });
+        gsap.to(otherChoices, {
+          '--download-choice-muted-alpha': 0,
+          scale: 1,
+          duration: 0.32,
+          ease: 'power2.out',
+          overwrite: 'auto'
+        });
+        gsap.to(download, {
+          '--hero-action-divider-alpha': 0.88,
+          duration: 0.38,
+          ease: 'power3.out',
+          overwrite: 'auto'
+        });
+        if (icon) {
+          gsap.to(icon, {
+            y: 0,
+            scale: 1,
+            rotation: 0,
+            duration: 0.34,
+            ease: 'power3.out',
+            overwrite: 'auto'
+          });
+        }
       }));
     });
 

@@ -95,20 +95,43 @@
 .motion-download-split {
   --hero-action-divider-alpha: 0;
   background: linear-gradient(135deg, rgba(34, 211, 238, 0.98), rgba(103, 232, 249, 0.9));
+  border: 1px solid rgba(165, 243, 252, 0.3);
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  min-height: 4.35rem;
 }
 
 .motion-download-choice {
   --download-choice-sheen-x: -135%;
+  --download-choice-glass-alpha: 0;
+  --download-choice-border-alpha: 0;
+  --download-choice-muted-alpha: 0;
+  --download-choice-pointer-x: 50%;
+  --download-choice-pointer-y: 50%;
+  --download-choice-surface-alpha: 0;
+  --download-choice-gradient-alpha: 0;
+  --download-choice-gradient-x: 0%;
+  --download-choice-shadow-alpha: 0;
   align-items: center;
+  background:
+    linear-gradient(
+      112deg,
+      rgba(2, 20, 34, var(--download-choice-surface-alpha)),
+      rgba(34, 211, 238, var(--download-choice-gradient-alpha)) 52%,
+      rgba(125, 211, 252, var(--download-choice-gradient-alpha))
+    );
+  background-position: var(--download-choice-gradient-x) 50%;
+  background-size: 180% 100%;
+  box-shadow: 0 12px 24px rgba(8, 47, 73, var(--download-choice-shadow-alpha));
   color: #082f49;
   cursor: pointer;
   display: flex;
-  gap: 0.55rem;
+  gap: 0.65rem;
+  min-height: 4.35rem;
   min-width: 0;
+  opacity: calc(1 - var(--download-choice-muted-alpha));
   overflow: hidden;
-  padding: 0.9rem 0.7rem;
+  padding: 0.72rem 0.78rem;
   position: relative;
   text-decoration: none;
   transform-origin: center;
@@ -122,11 +145,36 @@
   pointer-events: none;
   position: absolute;
   transform: translateX(var(--download-choice-sheen-x));
+  z-index: 2;
+}
+
+.motion-download-choice::after {
+  backdrop-filter: blur(14px) saturate(1.45);
+  background:
+    radial-gradient(
+      circle at var(--download-choice-pointer-x) var(--download-choice-pointer-y),
+      rgba(255, 255, 255, 0.42) 0,
+      rgba(207, 250, 254, 0.18) 20%,
+      transparent 48%
+    ),
+    linear-gradient(125deg, rgba(255, 255, 255, 0.2), rgba(165, 243, 252, 0.08) 46%, rgba(8, 47, 73, 0.2));
+  border: 1px solid rgba(34, 211, 238, var(--download-choice-border-alpha));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    inset 0 -1px 0 rgba(8, 47, 73, 0.22),
+    0 8px 22px rgba(8, 47, 73, 0.16);
+  content: '';
+  inset: 3px;
+  opacity: var(--download-choice-glass-alpha);
+  pointer-events: none;
+  position: absolute;
+  transform: translateZ(0);
+  z-index: 1;
 }
 
 .motion-download-choice > * {
   position: relative;
-  z-index: 1;
+  z-index: 3;
 }
 
 .motion-download-choice:hover {
@@ -134,16 +182,16 @@
 }
 
 .motion-download-choice-github {
-  background: rgba(8, 47, 73, 0.11);
+  --download-choice-surface-alpha: 0.11;
 }
 
 .motion-download-divider {
-  background: linear-gradient(180deg, transparent, rgba(8, 47, 73, var(--hero-action-divider-alpha)), transparent);
-  bottom: 9px;
+  background: rgba(8, 47, 73, var(--hero-action-divider-alpha));
+  bottom: 10px;
   left: 50%;
   pointer-events: none;
   position: absolute;
-  top: 9px;
+  top: 10px;
   width: 1px;
   z-index: 3;
 }
@@ -151,12 +199,13 @@
 .motion-download-split .motion-download-icon {
   align-items: center;
   background: rgba(8, 47, 73, 0.12);
+  border: 1px solid rgba(8, 47, 73, 0.06);
   border-radius: 0.5rem;
   display: flex;
   flex: 0 0 auto;
-  height: 2rem;
+  height: 2.1rem;
   justify-content: center;
-  width: 2rem;
+  width: 2.1rem;
 }
 
 .motion-download-split .motion-download-icon svg {
@@ -177,7 +226,7 @@
 }
 
 .motion-download-copy strong {
-  font-size: 0.75rem;
+  font-size: 0.79rem;
   font-weight: 900;
 }
 
@@ -192,6 +241,7 @@
   box-shadow:
     inset 0 0 0 1px rgba(148, 163, 184, 0.03),
     0 10px 24px rgba(2, 6, 23, 0.24);
+  min-height: 4.35rem;
 }
 
 .hero-action-snapshot:hover {
