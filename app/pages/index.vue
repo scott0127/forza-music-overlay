@@ -690,10 +690,10 @@ onUnmounted(() => {
 
           <div class="snapshot-box">
             <p class="box-label">版本快照</p>
-            <p>3.5.0 更新中文版下載網址，提供最新 Google Drive 安裝包。</p>
-            <p>3.1.0 優化程式打包流程，降低 Windows Defender 誤報機率。</p>
-            <p>3.0+ 新增 App / System 獨立音量切換與沉浸式閃電 HUD。</p>
-            <p>3.0+ 新增即時滾動歌詞與 GPU 加速 SVG 霓虹效果。</p>
+            <p>手把快捷鍵可逐項自訂，固定使用 L3 加第二鍵。</p>
+            <p>可使用按鈕、D-Pad、LT、RT，以及左右搖桿方向作為自訂輸入。</p>
+            <p>副廠手把無法辨識時，可選擇類 Xbox 或類 PlayStation 配置。</p>
+            <p>新增歌曲動態字幕。</p>
           </div>
 
           <div class="download-box">
@@ -1265,7 +1265,7 @@ onUnmounted(() => {
               <p class="update-date text-slate-500 text-sm mt-2">2026-06-03</p>
             </div>
             <div>
-              <h3 class="text-white font-black text-xl">中文版最新安裝包</h3>
+              <h3 class="text-white font-black text-xl">自訂手把快捷鍵與歌曲動態字幕</h3>
               <div class="entry-actions flex items-center gap-3 flex-wrap mt-3">
                 <a
                   class="button primary cursor-pointer"
@@ -1277,7 +1277,10 @@ onUnmounted(() => {
                 <p class="entry-file text-slate-500 text-sm">GamingMusicOverlay v3.5.0 中文版</p>
               </div>
               <ul class="notes text-slate-300 text-sm list-none pl-0 mt-4 space-y-2">
-                <li class="flex items-center gap-2 hover:text-white hover:translate-x-1 transition-all duration-150"><span class="text-cyan-400 font-black">✓</span> 更新中文版下載網址，提供最新 Google Drive 安裝包。</li>
+                <li class="flex items-center gap-2 hover:text-white hover:translate-x-1 transition-all duration-150"><span class="text-cyan-400 font-black">✓</span> 手把快捷鍵可逐項自訂，固定使用 L3 加第二鍵。</li>
+                <li class="flex items-center gap-2 hover:text-white hover:translate-x-1 transition-all duration-150"><span class="text-cyan-400 font-black">✓</span> 可使用按鈕、D-Pad、LT、RT，以及左右搖桿方向作為自訂輸入。</li>
+                <li class="flex items-center gap-2 hover:text-white hover:translate-x-1 transition-all duration-150"><span class="text-cyan-400 font-black">✓</span> 副廠手把無法辨識時，可選擇類 Xbox 或類 PlayStation 配置。</li>
+                <li class="flex items-center gap-2 hover:text-white hover:translate-x-1 transition-all duration-150"><span class="text-cyan-400 font-black">✓</span> 新增歌曲動態字幕。</li>
               </ul>
             </div>
           </article>
