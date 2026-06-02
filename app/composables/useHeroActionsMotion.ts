@@ -13,18 +13,23 @@ export const useHeroActionsMotion = (pageRoot: Ref<HTMLElement | null>) => {
     const root = pageRoot.value;
     const actions = root.querySelector<HTMLElement>('.motion-hero-actions');
     const download = actions?.querySelector<HTMLElement>('.motion-download-cta');
-    const snapshot = actions?.querySelector<HTMLElement>('a:not(.motion-download-cta)');
-    const downloadIcon = download?.querySelector<HTMLElement>('span:first-child');
+    const snapshot = actions?.querySelector<HTMLElement>('.motion-snapshot-cta');
+    const downloadChoices = download
+      ? gsap.utils.toArray<HTMLElement>('.motion-download-choice', download)
+      : [];
+    const downloadIcons = download
+      ? gsap.utils.toArray<HTMLElement>('.motion-download-icon', download)
+      : [];
     const snapshotLines = snapshot
       ? gsap.utils.toArray<SVGPathElement>('svg path', snapshot)
       : [];
 
-    if (!actions || !download || !snapshot || !downloadIcon) return;
+    if (!actions || !download || !snapshot || downloadIcons.length === 0) return;
 
     actions.classList.add('hero-actions-motion-ready');
     download.classList.add('hero-action-card', 'hero-action-download');
     snapshot.classList.add('hero-action-card', 'hero-action-snapshot');
-    downloadIcon.classList.add('hero-action-download-icon');
+    downloadIcons.forEach((icon) => icon.classList.add('hero-action-download-icon'));
     snapshotLines.forEach((line) => line.classList.add('hero-action-snapshot-line'));
 
     context = gsap.context(() => {
@@ -35,6 +40,12 @@ export const useHeroActionsMotion = (pageRoot: Ref<HTMLElement | null>) => {
       gsap.set([download, snapshot], {
         '--hero-action-corner-alpha': 0,
         '--hero-action-scan-x': '-135%'
+      });
+      gsap.set(download, {
+        '--hero-action-divider-alpha': 0
+      });
+      gsap.set(downloadChoices, {
+        '--download-choice-sheen-x': '-135%'
       });
     }, root);
 
@@ -69,6 +80,12 @@ export const useHeroActionsMotion = (pageRoot: Ref<HTMLElement | null>) => {
             '--hero-action-corner-alpha': 0.72,
             '--hero-action-scan-x': '135%'
           });
+          gsap.set(download, {
+            '--hero-action-divider-alpha': 0.72
+          });
+          gsap.set(downloadChoices, {
+            '--download-choice-sheen-x': '135%'
+          });
           return;
         }
 
@@ -91,9 +108,16 @@ export const useHeroActionsMotion = (pageRoot: Ref<HTMLElement | null>) => {
           }, '<0.12')
           .to(download, {
             '--hero-action-scan-x': '135%',
+            '--hero-action-divider-alpha': 0.88,
             duration: 0.72,
             ease: 'power2.inOut'
           }, '+=0.12')
+          .to(downloadChoices, {
+            '--download-choice-sheen-x': '135%',
+            duration: 0.48,
+            stagger: 0.08,
+            ease: 'power2.inOut'
+          }, '<0.08')
           .fromTo(download, {
             '--hero-action-glow-alpha': 0
           }, {
@@ -115,7 +139,7 @@ export const useHeroActionsMotion = (pageRoot: Ref<HTMLElement | null>) => {
         ease: 'power2.out',
         overwrite: 'auto'
       });
-      gsap.fromTo(downloadIcon, {
+      gsap.fromTo(downloadIcons, {
         y: -2
       }, {
         y: 4,
@@ -136,6 +160,49 @@ export const useHeroActionsMotion = (pageRoot: Ref<HTMLElement | null>) => {
         overwrite: 'auto'
       });
     }));
+
+    downloadChoices.forEach((choice) => {
+      const icon = choice.querySelector<HTMLElement>('.motion-download-icon');
+      bind(choice, 'pointerenter', () => runInContext(() => {
+        gsap.to(choice, {
+          y: -3,
+          scale: 1.025,
+          duration: 0.22,
+          ease: 'power2.out',
+          overwrite: 'auto'
+        });
+        gsap.fromTo(choice, {
+          '--download-choice-sheen-x': '-135%'
+        }, {
+          '--download-choice-sheen-x': '135%',
+          duration: 0.54,
+          ease: 'power2.inOut',
+          overwrite: 'auto'
+        });
+        if (icon) {
+          gsap.fromTo(icon, {
+            y: -2
+          }, {
+            y: 4,
+            duration: 0.24,
+            ease: 'power2.in',
+            repeat: 1,
+            yoyo: true,
+            overwrite: 'auto'
+          });
+        }
+      }));
+
+      bind(choice, 'pointerleave', () => runInContext(() => {
+        gsap.to(choice, {
+          y: 0,
+          scale: 1,
+          duration: 0.28,
+          ease: 'power2.out',
+          overwrite: 'auto'
+        });
+      }));
+    });
 
     bind(snapshot, 'pointerenter', () => runInContext(() => {
       gsap.fromTo(snapshot, {
