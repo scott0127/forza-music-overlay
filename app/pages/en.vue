@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue';
 import { usePageMotion } from '../composables/usePageMotion';
+import { useHeroActionsMotion } from '../composables/useHeroActionsMotion';
+import { useSignalHandoff } from '../composables/useSignalHandoff';
+import { useTitleInteraction } from '../composables/useTitleInteraction';
 
 // Page SEO Meta
 useSeoMeta({
@@ -16,6 +19,9 @@ useSeoMeta({
 const showTypewriterModal = ref(false);
 const pageRoot = ref<HTMLElement | null>(null);
 usePageMotion(pageRoot);
+useHeroActionsMotion(pageRoot);
+useSignalHandoff(pageRoot);
+useTitleInteraction(pageRoot);
 
 // Sponsor drink picker
 const supportDrinks = [
@@ -296,7 +302,7 @@ onUnmounted(() => {
                 <span v-for="(letter, index) in 'GamingMusic'" :key="`${letter}-${index}`" class="motion-title-primary-letter" aria-hidden="true">{{ letter }}</span>
               </span><br/>
               <span class="motion-title-overlay" aria-label="Overlay" data-text="Overlay">
-                <span v-for="(letter, index) in 'Overlay'" :key="`${letter}-${index}`" class="motion-title-overlay-letter" aria-hidden="true">{{ letter }}</span>
+                <span v-for="(letter, index) in 'Overlay'" :key="`${letter}-${index}`" class="motion-title-overlay-letter" :class="{ 'motion-overlay-beacon': index === 0 }" aria-hidden="true">{{ letter }}</span>
               </span>
             </h1>
           </div>
@@ -383,7 +389,7 @@ onUnmounted(() => {
               href="https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.1.0/ForzaMusicOverlay-release3.1.0_portable-test.zip"
               @click="handleDownloadClick($event, 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.1.0/ForzaMusicOverlay-release3.1.0_portable-test.zip')"
             >
-              <span class="bg-slate-950/10 p-2.5 rounded-lg text-slate-950 flex items-center justify-center">
+              <span class="motion-download-icon bg-slate-950/10 p-2.5 rounded-lg text-slate-950 flex items-center justify-center">
                 <svg class="w-5 h-5 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 3v12m-5-5l5 5 5-5M5 21h14"/></svg>
               </span>
               <div>
@@ -392,8 +398,8 @@ onUnmounted(() => {
               </div>
             </a>
 
-            <a class="border border-slate-800 bg-[#090a0f]/65 hover:bg-slate-900/60 text-slate-200 hover:text-white rounded-xl px-5 py-4 text-sm flex items-center justify-center gap-2 transition-all cursor-pointer font-bold select-none" href="#snapshot">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h16"/></svg>
+            <a class="motion-snapshot-cta border border-slate-800 bg-[#090a0f]/65 hover:bg-slate-900/60 text-slate-200 hover:text-white rounded-xl px-5 py-4 text-sm flex items-center justify-center gap-2 transition-all cursor-pointer font-bold select-none" href="#snapshot">
+              <svg class="motion-snapshot-icon w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h16"/></svg>
               Version Snapshot
             </a>
 

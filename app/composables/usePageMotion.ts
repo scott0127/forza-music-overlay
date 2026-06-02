@@ -23,13 +23,10 @@ export const usePageMotion = (pageRoot: Ref<HTMLElement | null>) => {
         const platformButtons = gsap.utils.toArray<HTMLElement>('.motion-platform-button', pageRoot.value);
         const platformIcons = gsap.utils.toArray<HTMLElement>('.motion-platform-icon', pageRoot.value);
         const platformLabels = gsap.utils.toArray<HTMLElement>('.motion-platform-label', pageRoot.value);
-        const platformPulseFields = gsap.utils.toArray<HTMLElement>('.motion-platform-bpm', pageRoot.value);
         const platformMorphs: SVGPathElement[] = [];
         const platformTargets: SVGPathElement[] = [];
         const platformSeedPaths: string[] = [];
         const cleanup: Array<() => void> = [];
-        let activePulse: gsap.core.Timeline | undefined;
-        let pulseReady = false;
 
         platformButtons.forEach((button) => {
           const seed = button.querySelector<SVGElement>('.motion-platform-morph');
@@ -100,61 +97,6 @@ export const usePageMotion = (pageRoot: Ref<HTMLElement | null>) => {
           transformOrigin: 'center center'
         });
         gsap.set(platformLabels, { autoAlpha: 0, x: -12 });
-        gsap.set(platformPulseFields, { autoAlpha: 0 });
-
-        const startActivePulse = () => {
-          activePulse?.kill();
-          gsap.set(platformPulseFields, { autoAlpha: 0 });
-          gsap.set(platformButtons, { '--platform-pulse-alpha': 0 });
-
-          const activeButton = platformButtons.find((button) => button.classList.contains('is-active'));
-          const pulseField = activeButton?.querySelector<HTMLElement>('.motion-platform-bpm');
-          const pulseBars = pulseField ? gsap.utils.toArray<HTMLElement>('i', pulseField) : [];
-          if (!activeButton || !pulseField || !pulseBars.length) return;
-
-          gsap.set(pulseField, { autoAlpha: 1 });
-          activePulse = gsap.timeline({ repeat: -1, repeatDelay: 0.08 })
-            .fromTo(pulseBars, {
-              autoAlpha: 0.24,
-              scaleY: 0.16,
-              transformOrigin: 'bottom center'
-            }, {
-              autoAlpha: 0.9,
-              scaleY: (index) => 0.42 + ((index * 5) % 7) * 0.11,
-              duration: 0.38,
-              ease: 'sine.inOut',
-              repeat: 1,
-              yoyo: true,
-              stagger: {
-                each: 0.045,
-                from: 'random'
-              }
-            }, 0)
-            .fromTo(activeButton, {
-              '--platform-pulse-alpha': 0.1
-            }, {
-              '--platform-pulse-alpha': 0.62,
-              duration: 0.44,
-              ease: 'sine.inOut',
-              repeat: 1,
-              yoyo: true
-            }, 0);
-        };
-
-        const activePlatformObserver = new MutationObserver(() => {
-          if (pulseReady) startActivePulse();
-        });
-        platformButtons.forEach((button) => {
-          activePlatformObserver.observe(button, {
-            attributeFilter: ['class'],
-            attributes: true
-          });
-        });
-        cleanup.push(() => {
-          activePlatformObserver.disconnect();
-          activePulse?.kill();
-        });
-
         const intro = gsap.timeline({
           defaults: { ease: 'power3.out' }
         });
@@ -256,11 +198,7 @@ export const usePageMotion = (pageRoot: Ref<HTMLElement | null>) => {
             autoAlpha: 1,
             x: 0,
             duration: 0.48
-          }, 3.98)
-          .call(() => {
-            pulseReady = true;
-            startActivePulse();
-          }, [], 3.64);
+          }, 3.98);
 
         platformMorphs.forEach((morph, index) => {
           intro.to(morph, {
@@ -294,17 +232,6 @@ export const usePageMotion = (pageRoot: Ref<HTMLElement | null>) => {
           duration: 4.8,
           ease: 'sine.inOut',
           repeat: -1,
-          yoyo: true
-        });
-
-        gsap.fromTo('.motion-download-cta', {
-          filter: 'drop-shadow(0 0 0 rgba(34, 211, 238, 0))'
-        }, {
-          filter: 'drop-shadow(0 0 18px rgba(34, 211, 238, 0.58))',
-          delay: 3.94,
-          duration: 0.56,
-          ease: 'sine.inOut',
-          repeat: 1,
           yoyo: true
         });
 

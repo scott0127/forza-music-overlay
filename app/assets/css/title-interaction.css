@@ -1,0 +1,132 @@
+.motion-title-stage {
+  --title-gradient-x: 50%;
+  --title-o-indicator: 0;
+  --title-o-ring-alpha: 0;
+  --title-o-ring-scale: 0.72;
+  --title-pointer-alpha: 0;
+  --title-spectrum-response: 0;
+  --title-wave-alpha: 0;
+  --title-wave-x: 16%;
+  --title-wave-scale-x: 0.72;
+  --title-wave-scale-y: 1;
+  perspective: 680px;
+}
+
+.motion-title-primary-letter,
+.motion-title-overlay-letter {
+  --title-letter-brightness: 1;
+  --title-letter-saturation: 1;
+  --title-letter-glow: 0px;
+  --title-letter-mirror-color: 0%;
+  --title-flow-x: 50%;
+  backface-visibility: hidden;
+  filter:
+    brightness(var(--title-letter-brightness))
+    saturate(var(--title-letter-saturation))
+    drop-shadow(0 0 var(--title-letter-glow) rgba(125, 211, 252, 0.72));
+  transform-style: preserve-3d;
+}
+
+.motion-title-primary-letter {
+  background:
+    linear-gradient(
+      112deg,
+      #fff 0 36%,
+      color-mix(in srgb, #fff calc(100% - var(--title-letter-mirror-color)), #67e8f9) 48%,
+      color-mix(in srgb, #fff calc(100% - var(--title-letter-mirror-color)), #c084fc) 64%,
+      #fff 100%
+    );
+  background-clip: text;
+  background-position: var(--title-flow-x) 50%;
+  background-size: 240% 100%;
+  color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.motion-title-overlay-letter {
+  background:
+    linear-gradient(
+      104deg,
+      color-mix(in srgb, #ec4899 calc(100% - var(--title-letter-mirror-color)), #fff) 4%,
+      color-mix(in srgb, #c084fc calc(100% - var(--title-letter-mirror-color)), #a5f3fc) 52%,
+      color-mix(in srgb, #22d3ee calc(100% - var(--title-letter-mirror-color)), #fff) 100%
+    );
+  background-clip: text;
+  background-position: var(--title-flow-x) 50%;
+  background-size: 240% 100%;
+  transition: background-position 180ms ease-out;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.motion-title-overlay-letter:first-child {
+  filter:
+    brightness(calc(var(--title-letter-brightness) + var(--title-o-indicator) * 0.34))
+    drop-shadow(0 0 calc(var(--title-o-indicator) * 13px) rgba(236, 72, 153, 0.9));
+  position: relative;
+}
+
+.motion-title-overlay-letter:first-child::after {
+  border: 2px solid rgba(236, 72, 153, calc(var(--title-o-ring-alpha) * 0.88));
+  border-radius: 999px;
+  box-shadow:
+    0 0 15px rgba(236, 72, 153, calc(var(--title-o-ring-alpha) * 0.62)),
+    inset 0 0 12px rgba(34, 211, 238, calc(var(--title-o-ring-alpha) * 0.24));
+  content: "";
+  inset: 7% 5% 3%;
+  opacity: var(--title-o-ring-alpha);
+  pointer-events: none;
+  position: absolute;
+  transform: scale(var(--title-o-ring-scale));
+  transform-origin: center;
+}
+
+.motion-title-stage::before {
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, 0.9), rgba(192, 132, 252, 0.52) 18%, rgba(34, 211, 238, 0.16) 42%, transparent 72%);
+  content: "";
+  height: 132%;
+  left: var(--title-wave-x);
+  opacity: var(--title-wave-alpha);
+  pointer-events: none;
+  position: absolute;
+  top: -16%;
+  transform: translateX(-50%) scale(var(--title-wave-scale-x), var(--title-wave-scale-y));
+  transform-origin: center;
+  width: 22%;
+  z-index: 2;
+}
+
+.motion-title-spectrum {
+  filter:
+    brightness(calc(1 + var(--title-spectrum-response) * 0.34))
+    saturate(calc(1 + var(--title-spectrum-response) * 0.28));
+  opacity: calc(0.28 + var(--title-spectrum-response) * 0.1);
+  transition: filter 220ms ease-out, opacity 220ms ease-out;
+}
+
+.motion-title-stage::after {
+  background: radial-gradient(
+    ellipse at var(--title-gradient-x) 58%,
+    rgba(192, 132, 252, calc(var(--title-pointer-alpha) * 0.24)),
+    rgba(34, 211, 238, calc(var(--title-pointer-alpha) * 0.1)) 34%,
+    transparent 68%
+  );
+  content: "";
+  inset: -20% -9%;
+  opacity: var(--title-pointer-alpha);
+  pointer-events: none;
+  position: absolute;
+  transition: opacity 260ms ease-out;
+  z-index: -1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-title-overlay-letter:first-child,
+  .motion-title-spectrum,
+  .motion-title-stage::before,
+  .motion-title-stage::after {
+    transition: none;
+  }
+}

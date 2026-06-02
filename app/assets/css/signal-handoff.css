@@ -1,0 +1,145 @@
+.motion-platform-button {
+  --platform-glass: rgba(15, 23, 42, 0.56);
+  --platform-refraction: color-mix(in srgb, var(--platform-art-color) 42%, white 58%);
+}
+
+.motion-platform-button.is-signal-active {
+  background:
+    linear-gradient(118deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.025) 42%, rgba(255, 255, 255, 0.075)),
+    var(--platform-glass) !important;
+  border-color: color-mix(in srgb, var(--platform-art-color) 34%, rgba(255, 255, 255, 0.52)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.045),
+    0 0 22px color-mix(in srgb, var(--platform-art-color) 24%, transparent);
+  backdrop-filter: blur(14px) saturate(118%);
+}
+
+.motion-platform-button.is-active.is-signal-active .motion-platform-morph {
+  fill: rgba(255, 255, 255, 0.035);
+  filter:
+    drop-shadow(0 0 7px color-mix(in srgb, var(--platform-art-color) 48%, transparent))
+    drop-shadow(0 0 15px rgba(255, 255, 255, 0.08));
+  stroke: var(--platform-refraction);
+}
+
+.motion-platform-pulse {
+  inset: 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.motion-platform-button.is-signal-active .motion-platform-pulse {
+  opacity: 1;
+}
+
+.motion-platform-pulse b,
+.motion-platform-pulse i {
+  display: block;
+  pointer-events: none;
+  position: absolute;
+  will-change: opacity, transform;
+}
+
+.motion-platform-pulse b {
+  background: linear-gradient(105deg, transparent 5%, color-mix(in srgb, var(--platform-art-color) 44%, transparent) 34%, rgba(255, 255, 255, 0.76) 52%, color-mix(in srgb, var(--platform-art-color) 34%, transparent) 70%, transparent 96%);
+  filter: blur(4px);
+  height: 140%;
+  left: -28%;
+  opacity: 0;
+  top: -20%;
+  transform: skewX(-18deg);
+  width: 56%;
+}
+
+.motion-platform-pulse i {
+  display: none;
+}
+
+.motion-signal-layer {
+  --signal-color: #22d3ee;
+  opacity: 0;
+  overflow: visible;
+  visibility: hidden;
+}
+
+.motion-signal-layer svg {
+  height: 100%;
+  inset: 0;
+  overflow: visible;
+  position: absolute;
+  width: 100%;
+}
+
+.motion-signal-path {
+  fill: none;
+  filter: drop-shadow(0 0 6px var(--signal-color));
+  opacity: 0.72;
+  stroke: var(--signal-color);
+  stroke-linecap: round;
+  stroke-width: 1.6;
+  vector-effect: non-scaling-stroke;
+}
+
+.motion-signal-dot {
+  background: white;
+  border: 2px solid color-mix(in srgb, var(--signal-color) 68%, white 32%);
+  border-radius: 50%;
+  box-shadow:
+    0 0 8px var(--signal-color),
+    0 0 22px var(--signal-color),
+    0 0 36px color-mix(in srgb, var(--signal-color) 68%, transparent);
+  height: 11px;
+  left: -5px;
+  opacity: 0;
+  position: absolute;
+  top: -5px;
+  width: 11px;
+  will-change: opacity, transform;
+}
+
+.motion-radio-card {
+  perspective: 900px;
+  transition: border-color 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+  will-change: filter, transform;
+}
+
+.motion-radio-card.is-radio-pending {
+  border-color: var(--radio-hold-color) !important;
+  box-shadow: 0 0 18px color-mix(in srgb, var(--radio-hold-color) 30%, transparent) !important;
+  filter: grayscale(0.84) brightness(0.78) saturate(0.46) !important;
+}
+
+.motion-radio-receiver {
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  height: 18px;
+  left: -9px;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: calc(50% - 9px);
+  width: 18px;
+  will-change: opacity, transform;
+}
+
+.motion-radio-cover {
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.motion-radio-copy > *,
+.motion-radio-progress {
+  will-change: opacity, transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-platform-pulse,
+  .motion-signal-layer {
+    display: none;
+  }
+}
