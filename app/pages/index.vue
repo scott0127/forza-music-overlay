@@ -20,6 +20,8 @@ useSeoMeta({
 // Modal State
 const showTypewriterModal = ref(false);
 const pageRoot = ref<HTMLElement | null>(null);
+const googleDriveDownloadUrl = 'https://drive.google.com/file/d/1vh4gZDInUy7-p3u_JWWud0QSap_Tf8c1/view?usp=drive_link';
+const githubReleaseDownloadUrl = 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.5.0/ForzaMusicOverlay-release3.5.0_portable-python-test.zip';
 usePageMotion(pageRoot);
 useHeroActionsMotion(pageRoot);
 useSignalHandoff(pageRoot);
@@ -377,8 +379,8 @@ onUnmounted(() => {
             <div class="motion-download-cta motion-download-split rounded-xl shadow-lg shadow-cyan-400/15 select-none">
               <a
                 class="motion-download-choice motion-download-choice-drive"
-                href="https://drive.google.com/file/d/141EkTtDf-CgTGV9gjP8vMsl1vVrPwbIw/view?usp=drive_link"
-                @click="handleDownloadClick($event, 'https://drive.google.com/file/d/141EkTtDf-CgTGV9gjP8vMsl1vVrPwbIw/view?usp=drive_link')"
+                :href="googleDriveDownloadUrl"
+                @click="handleDownloadClick($event, googleDriveDownloadUrl)"
               >
                 <span class="motion-download-icon">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3v10m-4-4 4 4 4-4"/><path d="M5 16v3h14v-3"/></svg>
@@ -390,8 +392,8 @@ onUnmounted(() => {
               </a>
               <a
                 class="motion-download-choice motion-download-choice-github"
-                href="https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.5.0/ForzaMusicOverlay-release3.5.0_zh-from-eng-test.zip"
-                @click="handleDownloadClick($event, 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.5.0/ForzaMusicOverlay-release3.5.0_zh-from-eng-test.zip')"
+                :href="githubReleaseDownloadUrl"
+                @click="handleDownloadClick($event, githubReleaseDownloadUrl)"
               >
                 <span class="motion-download-icon">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3v10m-4-4 4 4 4-4"/><path d="M5 16v3h14v-3"/></svg>
@@ -684,7 +686,7 @@ onUnmounted(() => {
 
           <div class="meta-row"><span>檔案</span><strong>GamingMusicOverlay v3.5.0 中文版</strong></div>
           <div class="meta-row"><span>平台</span><strong>Windows 10 / 11</strong></div>
-          <div class="meta-row"><span>更新日期</span><strong>2026-06-02</strong></div>
+          <div class="meta-row"><span>更新日期</span><strong>2026-06-03</strong></div>
 
           <div class="snapshot-box">
             <p class="box-label">版本快照</p>
@@ -698,8 +700,8 @@ onUnmounted(() => {
             <p class="box-label">最新版下載</p>
             <a
               class="download-link"
-              href="https://drive.google.com/file/d/141EkTtDf-CgTGV9gjP8vMsl1vVrPwbIw/view?usp=drive_link"
-              @click="handleDownloadClick($event, 'https://drive.google.com/file/d/141EkTtDf-CgTGV9gjP8vMsl1vVrPwbIw/view?usp=drive_link')"
+              :href="googleDriveDownloadUrl"
+              @click="handleDownloadClick($event, googleDriveDownloadUrl)"
             >
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
                 <path d="M12 3v12" />
@@ -1260,15 +1262,15 @@ onUnmounted(() => {
           <article class="update grid grid-cols-[180px_1fr] gap-6 py-7 hover:bg-slate-900/10 hover:translate-x-1 transition-all duration-200">
             <div>
               <p class="update-version text-cyan-300 font-black text-sm">v3.5.0</p>
-              <p class="update-date text-slate-500 text-sm mt-2">2026-06-02</p>
+              <p class="update-date text-slate-500 text-sm mt-2">2026-06-03</p>
             </div>
             <div>
               <h3 class="text-white font-black text-xl">中文版最新安裝包</h3>
               <div class="entry-actions flex items-center gap-3 flex-wrap mt-3">
                 <a
                   class="button primary cursor-pointer"
-                  href="https://drive.google.com/file/d/141EkTtDf-CgTGV9gjP8vMsl1vVrPwbIw/view?usp=drive_link"
-                  @click="handleDownloadClick($event, 'https://drive.google.com/file/d/141EkTtDf-CgTGV9gjP8vMsl1vVrPwbIw/view?usp=drive_link')"
+                  :href="googleDriveDownloadUrl"
+                  @click="handleDownloadClick($event, googleDriveDownloadUrl)"
                 >
                   下載 v3.5.0
                 </a>
