@@ -57,6 +57,9 @@ export const usePageMotion = (pageRoot: Ref<HTMLElement | null>) => {
         });
 
         gsap.set('.motion-hero-badges > *', { autoAlpha: 0, y: -12 });
+        gsap.set('.motion-title-stage', {
+          '--title-row-gap': '-0.12em'
+        });
         gsap.set('.motion-spectrum-bar', {
           autoAlpha: 0,
           scaleY: 0.08,
@@ -64,16 +67,21 @@ export const usePageMotion = (pageRoot: Ref<HTMLElement | null>) => {
         });
         gsap.set('.motion-title-primary-letter', {
           autoAlpha: 0,
-          scaleY: 0.12,
-          y: 22,
-          transformOrigin: 'bottom center'
+          filter: 'blur(10px)',
+          scale: 0.92,
+          y: 18,
+          transformOrigin: 'center center'
         });
         gsap.set('.motion-title-overlay-letter', {
           autoAlpha: 0,
-          y: 58,
-          scaleY: 0.14,
-          rotationX: -78,
-          transformOrigin: 'bottom center'
+          filter: 'blur(12px)',
+          y: 30,
+          rotationX: -24,
+          transformOrigin: 'center center'
+        });
+        gsap.set('.motion-title-overlay', {
+          y: 10,
+          transformOrigin: 'top left'
         });
         gsap.set([
           '.motion-hero-description',
@@ -119,35 +127,42 @@ export const usePageMotion = (pageRoot: Ref<HTMLElement | null>) => {
           }, 0.12)
           .to('.motion-title-primary-letter', {
             autoAlpha: 1,
-            scaleY: 1,
+            filter: 'blur(0px)',
+            scale: 1,
             y: 0,
-            duration: 0.54,
+            duration: 0.58,
             stagger: {
-              each: 0.045,
+              each: 0.038,
               from: 'center'
             }
           }, 0.2)
           .to('.motion-title-primary-letter', {
-            scaleY: (index) => 1 + ((index % 4) * 0.055),
-            duration: 0.18,
-            ease: 'power2.inOut',
-            stagger: 0.025
-          }, 0.64)
-          .to('.motion-title-primary-letter', {
-            scaleY: 1,
-            duration: 0.3,
-            ease: 'power2.out',
+            y: (index) => (index % 2 === 0 ? -2 : 2),
+            duration: 0.14,
+            ease: 'sine.inOut',
+            repeat: 1,
+            yoyo: true,
             stagger: 0.018
-          }, 0.82)
+          }, 0.76)
+          .to('.motion-title-stage', {
+            '--title-row-gap': '-0.32em',
+            duration: 0.58,
+            ease: 'power3.out'
+          }, 0.7)
+          .to('.motion-title-overlay', {
+            y: 0,
+            duration: 0.62,
+            ease: 'power3.out'
+          }, 0.72)
           .to('.motion-title-overlay-letter', {
             autoAlpha: 1,
+            filter: 'blur(0px)',
             y: 0,
-            scaleY: 1,
             rotationX: 0,
-            duration: 0.62,
-            ease: 'back.out(1.7)',
-            stagger: 0.06
-          }, 0.76)
+            duration: 0.58,
+            ease: 'power3.out',
+            stagger: 0.052
+          }, 0.78)
           .to('.motion-title-overlay', {
             '--overlay-sheen-alpha': 0.95,
             '--overlay-sheen-x': '128%',

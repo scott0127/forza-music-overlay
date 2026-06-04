@@ -77,6 +77,227 @@
       width: min(46vw, 620px);
     }
 
+    .animated-gmo-logo {
+      display: block;
+      flex: 0 0 auto;
+      height: 36px;
+      overflow: visible;
+      position: relative;
+      transform-origin: center;
+      transition: transform 260ms cubic-bezier(.2, .9, .2, 1), filter 260ms ease;
+      width: 56px;
+      will-change: transform;
+    }
+
+    .animated-gmo-brand {
+      cursor: default;
+      overflow: visible;
+      transform-origin: left center;
+    }
+
+    .animated-gmo-brand:hover .animated-gmo-logo {
+      filter: drop-shadow(0 0 14px rgba(103, 232, 249, 0.28));
+      transform: scale(1.42);
+      z-index: 5;
+    }
+
+    .animated-gmo-word-main,
+    .animated-gmo-word-sub {
+      display: block;
+      transform-origin: left center;
+      will-change: opacity, transform, letter-spacing;
+    }
+
+    .animated-gmo-brand:hover .animated-gmo-word-main {
+      animation: gmoWordReveal 1.35s cubic-bezier(.2, .9, .2, 1) both;
+    }
+
+    .animated-gmo-brand:hover .animated-gmo-word-sub {
+      animation: gmoSubwordReveal 1.35s cubic-bezier(.2, .9, .2, 1) both;
+    }
+
+    .animated-gmo-logo__svg {
+      display: block;
+      filter: drop-shadow(0 0 10px rgba(103, 232, 249, 0.14));
+      height: 100%;
+      overflow: visible;
+      width: 100%;
+    }
+
+    .animated-gmo-logo__mark {
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+
+    .animated-gmo-logo__steel,
+    .animated-gmo-logo__cream,
+    .animated-gmo-logo__beam,
+    .animated-gmo-logo__rose,
+    .animated-gmo-logo__outline path,
+    .animated-gmo-logo__particles circle,
+    .animated-gmo-logo__bars path,
+    .animated-gmo-logo__scan {
+      transform-box: fill-box;
+      will-change: opacity, transform;
+    }
+
+    .animated-gmo-logo__outline path {
+      stroke: rgba(236, 254, 255, 0.92);
+      stroke-dasharray: 720;
+      stroke-dashoffset: 720;
+      stroke-width: 6;
+      opacity: 0;
+      filter: drop-shadow(0 0 8px rgba(103, 232, 249, 0.38));
+    }
+
+    .animated-gmo-logo__particles circle {
+      opacity: 0;
+      transform-origin: center;
+    }
+
+    .animated-gmo-logo__steel--top {
+      animation: gmoTopStream 4.8s ease-in-out infinite;
+      transform-origin: right center;
+    }
+
+    .animated-gmo-logo__cream--top {
+      animation: gmoCreamStream 4.8s ease-in-out infinite;
+      transform-origin: right center;
+    }
+
+    .animated-gmo-logo__steel--bottom {
+      animation: gmoBottomStream 4.8s ease-in-out infinite;
+      transform-origin: right center;
+    }
+
+    .animated-gmo-logo__beam {
+      animation: gmoBeamFocus 4.8s ease-in-out infinite;
+      transform-origin: left center;
+    }
+
+    .animated-gmo-logo__rose {
+      animation: gmoRoseAccent 4.8s ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    .animated-gmo-logo__scan {
+      animation: gmoLogoScan 4.8s cubic-bezier(.65, 0, .35, 1) infinite;
+      mix-blend-mode: screen;
+      opacity: 0;
+    }
+
+    .animated-gmo-logo__bars path {
+      animation: gmoLogoBeat 1.2s ease-in-out infinite;
+      transform-origin: center bottom;
+    }
+
+    .animated-gmo-logo__bars path:nth-child(2n) {
+      animation-delay: .12s;
+    }
+
+    .animated-gmo-logo__bars path:nth-child(3n) {
+      animation-delay: .24s;
+    }
+
+    .animated-gmo-logo__bars path:nth-child(4n) {
+      animation-delay: .36s;
+    }
+
+    .animated-gmo-brand:hover .animated-gmo-logo__mark {
+      animation: gmoLogoHoverKick 1.35s cubic-bezier(.2, .9, .2, 1) both;
+    }
+
+    .animated-gmo-brand:hover .animated-gmo-logo__outline path {
+      animation: gmoOutlineDraw .72s ease-out both;
+    }
+
+    .animated-gmo-brand:hover .animated-gmo-logo__outline path:nth-child(2) {
+      animation-delay: .08s;
+    }
+
+    .animated-gmo-brand:hover .animated-gmo-logo__outline path:nth-child(3) {
+      animation-delay: .16s;
+    }
+
+    .animated-gmo-brand:hover .animated-gmo-logo__outline path:nth-child(4) {
+      animation-delay: .24s;
+    }
+
+    .animated-gmo-brand:hover .animated-gmo-logo__outline path:nth-child(5) {
+      animation-delay: .32s;
+    }
+
+    .animated-gmo-brand:hover .animated-gmo-logo__particles circle {
+      animation: gmoParticlePop .64s cubic-bezier(.2, .9, .2, 1) both;
+    }
+
+    .animated-gmo-brand:hover .animated-gmo-logo__particles circle:nth-child(2) {
+      animation-delay: .1s;
+    }
+
+    .animated-gmo-brand:hover .animated-gmo-logo__particles circle:nth-child(3) {
+      animation-delay: .2s;
+    }
+
+    .animated-gmo-brand:hover .animated-gmo-logo__particles circle:nth-child(4) {
+      animation-delay: .3s;
+    }
+
+    .animated-gmo-brand:hover .animated-gmo-logo__particles circle:nth-child(5) {
+      animation-delay: .4s;
+    }
+
+    .animated-gmo-brand:hover .animated-gmo-logo__steel--top {
+      animation: gmoAssembleTop 1.35s cubic-bezier(.2, .9, .2, 1) both;
+    }
+
+    .animated-gmo-brand:hover .animated-gmo-logo__cream--top {
+      animation: gmoAssembleCream 1.35s cubic-bezier(.2, .9, .2, 1) both;
+    }
+
+    .animated-gmo-brand:hover .animated-gmo-logo__steel--bottom {
+      animation: gmoAssembleBottom 1.35s cubic-bezier(.2, .9, .2, 1) both;
+    }
+
+    .animated-gmo-brand:hover .animated-gmo-logo__beam {
+      animation: gmoAssembleBeam 1.35s cubic-bezier(.2, .9, .2, 1) both;
+    }
+
+    .animated-gmo-brand:hover .animated-gmo-logo__rose {
+      animation: gmoAssembleRose 1.35s cubic-bezier(.2, .9, .2, 1) both;
+    }
+
+    .animated-gmo-brand:hover .animated-gmo-logo__bars path {
+      animation: gmoAssembleBars .78s cubic-bezier(.2, .9, .2, 1) both;
+    }
+
+    .animated-gmo-brand:hover .animated-gmo-logo__bars path:nth-child(2n) {
+      animation-delay: .08s;
+    }
+
+    .animated-gmo-brand:hover .animated-gmo-logo__bars path:nth-child(3n) {
+      animation-delay: .15s;
+    }
+
+    .animated-gmo-brand:hover .animated-gmo-logo__bars path:nth-child(4n) {
+      animation-delay: .22s;
+    }
+
+    .animated-gmo-brand:hover .animated-gmo-logo__scan {
+      animation: gmoAssembleScan 1.35s cubic-bezier(.65, 0, .35, 1) both;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .animated-gmo-logo *,
+      .animated-gmo-logo__scan {
+        animation: none !important;
+      }
+
+      .animated-gmo-logo__scan {
+        opacity: 0;
+      }
+    }
+
     .wrap {
       margin: 0 auto;
       max-width: 1440px;
@@ -441,31 +662,36 @@
     }
 
     .motion-title-stage {
-      display: inline-block;
+      --title-row-gap: -0.32em;
+      display: block;
       isolation: isolate;
+      max-width: min(100%, 760px);
       position: relative;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     .motion-title-spectrum {
       align-items: flex-end;
-      bottom: auto;
+      bottom: 0.01em;
       display: flex;
-      gap: 7px;
-      height: 52%;
-      left: -16px;
-      opacity: 0.28;
+      gap: clamp(5px, 0.8vw, 9px);
+      height: 35%;
+      left: 0.05em;
+      mask-image: linear-gradient(90deg, transparent, #000 10%, #000 78%, transparent);
+      opacity: 0.18;
       overflow: hidden;
       pointer-events: none;
       position: absolute;
-      top: 48%;
-      width: calc(100% + 42px);
-      z-index: -1;
+      width: min(62%, 420px);
+      z-index: 0;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 78%, transparent);
     }
 
     .motion-spectrum-bar {
-      background: linear-gradient(180deg, rgba(34, 211, 238, 0.78), rgba(192, 132, 252, 0.18));
+      background: linear-gradient(180deg, rgba(34, 211, 238, 0.62), rgba(192, 132, 252, 0.12));
       border-radius: 999px 999px 3px 3px;
-      box-shadow: 0 0 12px rgba(34, 211, 238, 0.34);
+      box-shadow: 0 0 10px rgba(34, 211, 238, 0.22);
       display: block;
       flex: 1 1 0;
       height: 64%;
@@ -489,6 +715,8 @@
     }
 
     .motion-hero-title {
+      letter-spacing: -0.075em;
+      line-height: 1 !important;
       overflow: visible;
       position: relative;
       z-index: 1;
@@ -497,20 +725,41 @@
     .motion-title-primary,
     .motion-title-overlay {
       display: block;
-      line-height: 1.08;
+      line-height: 1;
+      margin: -0.1em -0.09em -0.18em;
       overflow: visible;
+      padding: 0.1em 0.09em 0.2em;
+      position: relative;
     }
 
     .motion-title-primary {
-      margin-bottom: -0.08em;
-      padding-bottom: 0.08em;
+      z-index: 10;
+    }
+
+    .motion-title-overlay {
+      font-size: 1em;
+      letter-spacing: -0.075em;
+      margin-top: var(--title-row-gap);
+      z-index: 1;
     }
 
     .motion-title-primary-letter,
     .motion-title-overlay-letter {
       display: inline-block;
-      line-height: 1.08;
+      line-height: 1;
+      margin: -0.12em -0.045em -0.22em;
+      overflow: visible;
+      padding: 0.12em 0.055em 0.24em;
+      position: relative;
       will-change: transform, opacity;
+    }
+
+    .motion-title-primary-letter {
+      z-index: 12;
+    }
+
+    .motion-title-overlay-letter {
+      z-index: 2;
     }
 
     .motion-title-overlay {
@@ -518,7 +767,6 @@
       --overlay-sheen-alpha: 0;
       --overlay-sheen-x: -128%;
       isolation: isolate;
-      position: relative;
       will-change: transform;
     }
 
@@ -546,9 +794,9 @@
       background-image: linear-gradient(100deg, #ec4899, #c084fc 46%, #22d3ee 100%);
       background-position: var(--overlay-flow-x) 50%;
       background-size: 220% 100%;
-      filter: blur(13px);
-      opacity: 0.42;
-      transform: scale(1.025);
+      filter: blur(16px);
+      opacity: 0.32;
+      transform: scale(1.018);
       z-index: -1;
     }
 
@@ -1561,6 +1809,327 @@
 
       50% {
         transform: rotate(-4deg) translate3d(12px, -10px, 0);
+      }
+    }
+
+    @keyframes gmoTopStream {
+      0%,
+      100% {
+        opacity: .9;
+        transform: translate3d(-5px, -2px, 0) scaleX(.94);
+      }
+
+      44%,
+      62% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scaleX(1);
+      }
+    }
+
+    @keyframes gmoCreamStream {
+      0%,
+      100% {
+        opacity: .94;
+        transform: translate3d(-8px, -1px, 0) scaleX(.93);
+      }
+
+      48%,
+      64% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scaleX(1);
+      }
+    }
+
+    @keyframes gmoBottomStream {
+      0%,
+      100% {
+        opacity: .82;
+        transform: translate3d(-7px, 3px, 0) scaleX(.93);
+      }
+
+      46%,
+      64% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scaleX(1);
+      }
+    }
+
+    @keyframes gmoBeamFocus {
+      0%,
+      100% {
+        filter: drop-shadow(0 0 0 rgba(242, 237, 229, 0));
+        transform: translate3d(-2px, 0, 0) scaleX(.97);
+      }
+
+      50% {
+        filter: drop-shadow(0 0 11px rgba(242, 237, 229, .38));
+        transform: translate3d(2px, 0, 0) scaleX(1.035);
+      }
+    }
+
+    @keyframes gmoRoseAccent {
+      0%,
+      100% {
+        opacity: .72;
+        transform: translate3d(-2px, 0, 0);
+      }
+
+      54% {
+        opacity: 1;
+        transform: translate3d(4px, 0, 0);
+      }
+    }
+
+    @keyframes gmoLogoBeat {
+      0%,
+      100% {
+        opacity: .72;
+        transform: scaleY(.62);
+      }
+
+      45% {
+        opacity: 1;
+        transform: scaleY(1.18);
+      }
+    }
+
+    @keyframes gmoLogoScan {
+      0%,
+      28% {
+        opacity: 0;
+        transform: translate3d(0, 0, 0);
+      }
+
+      42% {
+        opacity: .88;
+      }
+
+      62% {
+        opacity: .18;
+        transform: translate3d(610px, 96px, 0);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate3d(610px, 96px, 0);
+      }
+    }
+
+    @keyframes gmoLogoHoverKick {
+      0% {
+        transform: translate3d(-3px, 1px, 0) scale(.88);
+      }
+
+      42% {
+        transform: translate3d(2px, -1px, 0) scale(1.08);
+      }
+
+      100% {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+    }
+
+    @keyframes gmoOutlineDraw {
+      0% {
+        opacity: 0;
+        stroke-dashoffset: 720;
+        transform: translate3d(-8px, 0, 0);
+      }
+
+      24% {
+        opacity: 1;
+      }
+
+      78% {
+        opacity: .92;
+        stroke-dashoffset: 0;
+      }
+
+      100% {
+        opacity: 0;
+        stroke-dashoffset: 0;
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+    @keyframes gmoParticlePop {
+      0%,
+      26% {
+        opacity: 0;
+        transform: translate3d(-8px, 4px, 0) scale(.2);
+      }
+
+      58% {
+        opacity: 1;
+        transform: translate3d(0, -4px, 0) scale(1.2);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate3d(6px, -10px, 0) scale(.35);
+      }
+    }
+
+    @keyframes gmoWordReveal {
+      0%,
+      32% {
+        opacity: 0;
+        letter-spacing: .78em;
+        transform: translate3d(-10px, 2px, 0);
+      }
+
+      62% {
+        opacity: 1;
+        letter-spacing: .42em;
+        transform: translate3d(1px, 0, 0);
+      }
+
+      100% {
+        opacity: 1;
+        letter-spacing: .32em;
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+    @keyframes gmoSubwordReveal {
+      0%,
+      44% {
+        opacity: 0;
+        letter-spacing: .18em;
+        transform: translate3d(-7px, -2px, 0);
+      }
+
+      74% {
+        opacity: 1;
+        letter-spacing: .085em;
+        transform: translate3d(1px, 0, 0);
+      }
+
+      100% {
+        opacity: 1;
+        letter-spacing: .05em;
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+    @keyframes gmoAssembleTop {
+      0% {
+        opacity: 0;
+        transform: translate3d(-120px, -34px, 0) scaleX(.28) skewX(-10deg);
+      }
+
+      58% {
+        opacity: 1;
+        transform: translate3d(7px, 2px, 0) scaleX(1.06) skewX(0deg);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scaleX(1) skewX(0deg);
+      }
+    }
+
+    @keyframes gmoAssembleCream {
+      0% {
+        opacity: 0;
+        transform: translate3d(-145px, -16px, 0) scaleX(.18) skewX(-12deg);
+      }
+
+      60% {
+        opacity: 1;
+        transform: translate3d(8px, 1px, 0) scaleX(1.08) skewX(0deg);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scaleX(1) skewX(0deg);
+      }
+    }
+
+    @keyframes gmoAssembleBottom {
+      0% {
+        opacity: 0;
+        transform: translate3d(-135px, 42px, 0) scaleX(.22) skewX(9deg);
+      }
+
+      62% {
+        opacity: 1;
+        transform: translate3d(8px, -2px, 0) scaleX(1.07) skewX(0deg);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scaleX(1) skewX(0deg);
+      }
+    }
+
+    @keyframes gmoAssembleBeam {
+      0%,
+      20% {
+        opacity: 0;
+        transform: translate3d(90px, 0, 0) scaleX(.08);
+      }
+
+      66% {
+        opacity: 1;
+        transform: translate3d(-6px, 0, 0) scaleX(1.12);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scaleX(1);
+      }
+    }
+
+    @keyframes gmoAssembleRose {
+      0%,
+      36% {
+        opacity: 0;
+        transform: translate3d(54px, -8px, 0) scale(.5);
+      }
+
+      70% {
+        opacity: 1;
+        transform: translate3d(-3px, 1px, 0) scale(1.08);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+    }
+
+    @keyframes gmoAssembleBars {
+      0% {
+        opacity: 0;
+        transform: scaleY(.05);
+      }
+
+      64% {
+        opacity: 1;
+        transform: scaleY(1.32);
+      }
+
+      100% {
+        opacity: .95;
+        transform: scaleY(1);
+      }
+    }
+
+    @keyframes gmoAssembleScan {
+      0%,
+      54% {
+        opacity: 0;
+        transform: translate3d(0, 0, 0);
+      }
+
+      66% {
+        opacity: .95;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate3d(610px, 96px, 0);
       }
     }
 

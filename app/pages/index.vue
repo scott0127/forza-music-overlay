@@ -240,11 +240,11 @@ onUnmounted(() => {
     <!-- HEADER NAVBAR -->
     <header class="motion-header sticky top-0 z-50 bg-[#090a0f]/80 backdrop-blur-xl border-b border-slate-900/80 py-4">
       <div class="wrap w-full flex items-center justify-between">
-        <div class="flex items-center gap-2.5">
-          <img src="/brand/gmo-mark.svg" alt="" class="w-14 h-9 object-contain" aria-hidden="true">
+        <div class="animated-gmo-brand flex items-center gap-2.5">
+          <AnimatedGmoLogo />
           <div class="flex flex-col">
-            <span class="text-white font-black tracking-[0.32em] text-lg uppercase leading-none">GMO</span>
-            <span class="text-[9px] text-slate-400 font-bold tracking-wider mt-0.5">GamingMusicOverlay</span>
+            <span class="animated-gmo-word-main text-white font-black tracking-[0.32em] text-lg uppercase leading-none">GMO</span>
+            <span class="animated-gmo-word-sub text-[9px] text-slate-400 font-bold tracking-wider mt-0.5">GamingMusicOverlay</span>
           </div>
         </div>
 
