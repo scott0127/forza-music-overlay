@@ -489,18 +489,27 @@
     }
 
     .motion-hero-title {
+      overflow: visible;
       position: relative;
       z-index: 1;
     }
 
     .motion-title-primary,
     .motion-title-overlay {
-      display: inline-block;
+      display: block;
+      line-height: 1.08;
+      overflow: visible;
+    }
+
+    .motion-title-primary {
+      margin-bottom: -0.08em;
+      padding-bottom: 0.08em;
     }
 
     .motion-title-primary-letter,
     .motion-title-overlay-letter {
       display: inline-block;
+      line-height: 1.08;
       will-change: transform, opacity;
     }
 

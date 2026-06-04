@@ -40,8 +40,10 @@ export const useTitleInteraction = (pageRoot: Ref<HTMLElement | null>) => {
         const scopedContext = gsap.context(() => {
           const primaryLetters = gsap.utils.toArray<HTMLElement>('.motion-title-primary-letter');
           const overlayLetters = gsap.utils.toArray<HTMLElement>('.motion-title-overlay-letter');
+          const titleSparks = gsap.utils.toArray<HTMLElement>('.motion-title-spark');
           const letters = [...primaryLetters, ...overlayLetters];
           const overlayInitial = overlayLetters[0];
+          const sparkCount = Math.max(titleSparks.length, 1);
 
           gsap.set(stage, {
             '--title-gradient-x': '50%',
@@ -54,6 +56,13 @@ export const useTitleInteraction = (pageRoot: Ref<HTMLElement | null>) => {
             '--title-wave-x': '16%',
             '--title-wave-scale-x': 0.72,
             '--title-wave-scale-y': 1
+          });
+          gsap.set(titleSparks, {
+            autoAlpha: 0,
+            scale: 0.24,
+            x: 0,
+            y: 0,
+            transformOrigin: 'center center'
           });
 
           if (overlayInitial) {
@@ -123,6 +132,34 @@ export const useTitleInteraction = (pageRoot: Ref<HTMLElement | null>) => {
                 duration: 0.4,
                 ease: 'sine.out'
               }, 0.88)
+              .set(titleSparks, {
+                '--spark-hue': (index) => [188, 198, 286, 318, 46][index % 5],
+                autoAlpha: 1,
+                scale: 0.26,
+                x: 0,
+                y: 0
+              }, 0.86)
+              .to(titleSparks, {
+                x: (index) => Math.cos((index / sparkCount) * Math.PI * 2) * (34 + (index % 5) * 8),
+                y: (index) => Math.sin((index / sparkCount) * Math.PI * 2) * (22 + (index % 4) * 6),
+                scale: (index) => 0.58 + (index % 3) * 0.16,
+                duration: 0.46,
+                ease: 'power3.out',
+                stagger: {
+                  amount: 0.06,
+                  from: 'center'
+                }
+              }, 0.88)
+              .to(titleSparks, {
+                autoAlpha: 0,
+                scale: 0.1,
+                duration: 0.36,
+                ease: 'sine.out',
+                stagger: {
+                  amount: 0.08,
+                  from: 'edges'
+                }
+              }, 1.1)
               .to(stage, {
                 '--title-o-indicator': 0.72,
                 duration: 0.08,
