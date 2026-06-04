@@ -448,14 +448,16 @@
 
     .motion-title-spectrum {
       align-items: flex-end;
-      bottom: 6px;
+      bottom: auto;
       display: flex;
       gap: 7px;
-      height: 110px;
+      height: 52%;
       left: -16px;
       opacity: 0.28;
+      overflow: hidden;
       pointer-events: none;
       position: absolute;
+      top: 48%;
       width: calc(100% + 42px);
       z-index: -1;
     }

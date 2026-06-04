@@ -12,6 +12,32 @@
   perspective: 680px;
 }
 
+.motion-title-fireworks {
+  left: 58%;
+  pointer-events: none;
+  position: absolute;
+  top: 47%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+.motion-title-spark {
+  --spark-hue: 188;
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, 0.95), hsla(var(--spark-hue), 96%, 68%, 0.88) 42%, transparent 72%);
+  border-radius: 999px;
+  box-shadow: 0 0 12px hsla(var(--spark-hue), 96%, 68%, 0.56);
+  display: block;
+  height: 6px;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  transform: translate3d(0, 0, 0) scale(0.3);
+  width: 6px;
+  will-change: opacity, transform;
+}
+
 .motion-title-primary-letter,
 .motion-title-overlay-letter {
   --title-letter-brightness: 1;
@@ -125,6 +151,7 @@
 @media (prefers-reduced-motion: reduce) {
   .motion-title-overlay-letter:first-child,
   .motion-title-spectrum,
+  .motion-title-spark,
   .motion-title-stage::before,
   .motion-title-stage::after {
     transition: none;

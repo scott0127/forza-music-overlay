@@ -287,6 +287,9 @@ onUnmounted(() => {
             <div class="motion-title-spectrum" aria-hidden="true">
               <span v-for="i in 17" :key="i" class="motion-spectrum-bar" />
             </div>
+            <div class="motion-title-fireworks" aria-hidden="true">
+              <span v-for="i in 18" :key="i" class="motion-title-spark" />
+            </div>
             <h1 class="motion-hero-title text-white text-4xl sm:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-black tracking-tight leading-[1.08]">
               <span class="motion-title-primary" aria-label="GamingMusic">
                 <span v-for="(letter, index) in 'GamingMusic'" :key="`${letter}-${index}`" class="motion-title-primary-letter" aria-hidden="true">{{ letter }}</span>

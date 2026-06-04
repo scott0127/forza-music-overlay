@@ -23,6 +23,7 @@ export const usePageMotion = (pageRoot: Ref<HTMLElement | null>) => {
         const platformButtons = gsap.utils.toArray<HTMLElement>('.motion-platform-button', pageRoot.value);
         const platformIcons = gsap.utils.toArray<HTMLElement>('.motion-platform-icon', pageRoot.value);
         const platformLabels = gsap.utils.toArray<HTMLElement>('.motion-platform-label', pageRoot.value);
+        const titleSparks = gsap.utils.toArray<HTMLElement>('.motion-title-spark', pageRoot.value);
         const platformMorphs: SVGPathElement[] = [];
         const platformTargets: SVGPathElement[] = [];
         const platformSeedPaths: string[] = [];
@@ -74,6 +75,13 @@ export const usePageMotion = (pageRoot: Ref<HTMLElement | null>) => {
           scaleY: 0.14,
           rotationX: -78,
           transformOrigin: 'bottom center'
+        });
+        gsap.set(titleSparks, {
+          autoAlpha: 0,
+          scale: 0.25,
+          x: 0,
+          y: 0,
+          transformOrigin: 'center center'
         });
         gsap.set([
           '.motion-hero-description',
@@ -159,6 +167,34 @@ export const usePageMotion = (pageRoot: Ref<HTMLElement | null>) => {
             duration: 0.28,
             ease: 'power1.out'
           }, 1.7)
+          .set(titleSparks, {
+            '--spark-hue': (index) => [188, 198, 286, 318, 46][index % 5],
+            autoAlpha: 1,
+            scale: 0.32,
+            x: 0,
+            y: 0
+          }, 1.8)
+          .to(titleSparks, {
+            x: (index) => Math.cos((index / titleSparks.length) * Math.PI * 2) * (42 + (index % 4) * 10),
+            y: (index) => Math.sin((index / titleSparks.length) * Math.PI * 2) * (26 + (index % 5) * 7),
+            scale: (index) => 0.7 + (index % 3) * 0.18,
+            duration: 0.42,
+            ease: 'power3.out',
+            stagger: {
+              amount: 0.08,
+              from: 'center'
+            }
+          }, 1.82)
+          .to(titleSparks, {
+            autoAlpha: 0,
+            scale: 0.12,
+            duration: 0.34,
+            ease: 'sine.out',
+            stagger: {
+              amount: 0.08,
+              from: 'edges'
+            }
+          }, 2.06)
           .to('.motion-hero-description', {
             autoAlpha: 1,
             y: 0,
