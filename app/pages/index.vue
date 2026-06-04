@@ -4,6 +4,7 @@ import { usePageMotion } from '../composables/usePageMotion';
 import { useHeroActionsMotion } from '../composables/useHeroActionsMotion';
 import { useSignalHandoff } from '../composables/useSignalHandoff';
 import { useTitleInteraction } from '../composables/useTitleInteraction';
+import { useDesktopReleaseMotion } from '../composables/useDesktopReleaseMotion';
 import { useSupportEnergyMotion } from '../composables/useSupportEnergyMotion';
 import { useSponsorGoalMotion } from '../composables/useSponsorGoalMotion';
 
@@ -26,6 +27,7 @@ usePageMotion(pageRoot);
 useHeroActionsMotion(pageRoot);
 useSignalHandoff(pageRoot);
 useTitleInteraction(pageRoot);
+useDesktopReleaseMotion(pageRoot);
 useSupportEnergyMotion(pageRoot);
 useSponsorGoalMotion(pageRoot);
 
@@ -590,9 +592,9 @@ onUnmounted(() => {
       <div class="wrap desktop-release-grid">
         <div class="sponsor sponsor-story">
           <div class="sponsor-story-copy">
-            <p class="eyebrow">Built after class, shipped for players</p>
-            <h2>一個碩士生的遊戲音樂工具，<span>靠每杯咖啡繼續前進。</span></h2>
-            <p>GMO 維持免費開放。你的一杯咖啡，會直接變成下一次修正、新功能與更穩定的遊戲體驗。</p>
+            <p class="eyebrow">Drink lab for players</p>
+            <h2>選一杯飲品支持開發，<span>把下一次更新沖泡出來。</span></h2>
+            <p>GMO 維持免費開放。你選的咖啡、珍奶或冰飲，會變成修正、新功能與更穩定的遊戲體驗。</p>
           </div>
 
           <div class="support-route" aria-label="贊助支持開發流程">
@@ -608,7 +610,7 @@ onUnmounted(() => {
               <span class="support-route-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h15v7a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5Z"/><path d="M7 3v2M11 3v2M15 3v2"/></svg>
               </span>
-              <strong>一杯咖啡</strong>
+              <strong>一杯飲品</strong>
               <small>支持設備與開發時間</small>
             </div>
             <div class="support-route-step">
@@ -624,15 +626,15 @@ onUnmounted(() => {
             <div class="support-energy-copy">
               <small>SVG drink lab</small>
               <strong>今天想替開發補充哪一杯？</strong>
-              <span>選一杯，看看 SVG 線稿如何沖泡成真實飲料。</span>
+              <span>咖啡與珍奶是主角，檸檬冰飲負責讓深夜開發醒一下。</span>
               <div class="support-drink-tabs">
-                <button class="motion-drink-tab is-active" type="button" data-drink="pour-over" data-label="手沖咖啡" aria-label="選擇手沖咖啡">
+                <button class="motion-drink-tab is-active" type="button" data-drink="pour-over" data-label="手沖咖啡" aria-label="選擇手沖咖啡" aria-pressed="true">
                   <svg viewBox="0 0 48 48"><path d="M12 15h24l-4 21H16Z"/><path d="M16 15c1-6 15-6 16 0M13 20h22"/><path class="motion-drink-liquid" d="M16 27h16l-2 7H18Z"/></svg><span>咖啡</span>
                 </button>
-                <button class="motion-drink-tab" type="button" data-drink="boba" data-label="珍珠奶茶" aria-label="選擇珍珠奶茶">
+                <button class="motion-drink-tab" type="button" data-drink="boba" data-label="珍珠奶茶" aria-label="選擇珍珠奶茶" aria-pressed="false">
                   <svg viewBox="0 0 48 48"><path d="M14 11h20l-3 27H17Z"/><path d="M18 11 27 4M15 17h18"/><path class="motion-drink-liquid" d="M18 22h13l-2 14H19Z"/><circle cx="22" cy="32" r="1.3"/><circle cx="27" cy="34" r="1.3"/></svg><span>珍奶</span>
                 </button>
-                <button class="motion-drink-tab" type="button" data-drink="lemon-tea" data-label="檸檬冰飲" aria-label="選擇檸檬冰飲">
+                <button class="motion-drink-tab" type="button" data-drink="lemon-tea" data-label="檸檬冰飲" aria-label="選擇檸檬冰飲" aria-pressed="false">
                   <svg viewBox="0 0 48 48"><path d="M14 12h20l-3 26H17Z"/><path d="M16 18h16M27 5l-5 12"/><path class="motion-drink-liquid" d="M18 22h13l-2 14H19Z"/><circle cx="25" cy="27" r="4"/></svg><span>檸檬</span>
                 </button>
               </div>
@@ -667,7 +669,7 @@ onUnmounted(() => {
             </div>
             <div class="sponsor-actions">
               <img class="sponsor-qr" src="/downloads/forza-music-overlay/bmc_qr.png" alt="Buy Me a Coffee 贊助 QR Code">
-              <a class="sponsor-button" href="https://buymeacoffee.com/scott5497" target="_blank" rel="noopener noreferrer">請我喝杯咖啡</a>
+              <a class="sponsor-button" href="https://buymeacoffee.com/scott5497" target="_blank" rel="noopener noreferrer">請我喝杯飲品</a>
             </div>
           </div>
         </div>

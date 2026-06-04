@@ -2,7 +2,8 @@
   align-items: center;
   align-self: center;
   background:
-    radial-gradient(circle at 78% 48%, rgba(34, 211, 238, 0.1), transparent 35%),
+    radial-gradient(circle at 78% 48%, rgba(34, 211, 238, 0.12), transparent 35%),
+    radial-gradient(circle at 14% 18%, rgba(251, 191, 36, 0.1), transparent 32%),
     rgba(9, 10, 15, 0.62);
   border: 1px solid rgba(251, 191, 36, 0.22);
   border-radius: 16px;
@@ -14,6 +15,24 @@
   padding: 14px 16px;
   position: relative;
   width: 100%;
+  z-index: 1;
+}
+
+.support-energy::before {
+  background:
+    linear-gradient(90deg, rgba(251, 191, 36, 0.16), transparent 24%, rgba(34, 211, 238, 0.12), transparent 72%),
+    repeating-linear-gradient(90deg, transparent 0 28px, rgba(255, 255, 255, 0.035) 28px 29px);
+  border-radius: inherit;
+  content: "";
+  inset: 0;
+  opacity: 0.44;
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+}
+
+.support-energy > * {
+  position: relative;
   z-index: 1;
 }
 
@@ -68,6 +87,22 @@
   will-change: transform;
 }
 
+.motion-drink-tab[data-drink="pour-over"],
+.motion-drink-tab[data-drink="boba"] {
+  border-color: rgba(253, 230, 138, 0.26);
+  color: #cbd5e1;
+  min-width: 58px;
+}
+
+.motion-drink-tab[data-drink="boba"] .motion-drink-liquid {
+  fill: rgba(192, 132, 252, 0.18);
+  stroke: #c084fc;
+}
+
+.motion-drink-tab[data-drink="lemon-tea"] {
+  min-width: 52px;
+}
+
 .motion-drink-tab svg {
   fill: none;
   height: 28px;
@@ -95,6 +130,19 @@
   border-color: rgba(251, 191, 36, 0.52);
   box-shadow: 0 0 18px rgba(251, 191, 36, 0.12);
   color: #fde68a;
+}
+
+.motion-drink-tab[data-drink="boba"].is-active {
+  background: rgba(192, 132, 252, 0.12);
+  border-color: rgba(192, 132, 252, 0.5);
+  box-shadow: 0 0 18px rgba(192, 132, 252, 0.14);
+  color: #e9d5ff;
+}
+
+.motion-drink-tab[data-drink="lemon-tea"].is-active {
+  background: rgba(34, 211, 238, 0.1);
+  border-color: rgba(103, 232, 249, 0.42);
+  color: #a5f3fc;
 }
 
 .support-drink-stage {
@@ -130,6 +178,10 @@
   width: 150px;
   will-change: transform;
   z-index: 2;
+}
+
+.motion-blueprint-shape {
+  vector-effect: non-scaling-stroke;
 }
 
 .motion-blueprint-target {
@@ -208,6 +260,10 @@
 @media (prefers-reduced-motion: reduce) {
   .motion-drink-blueprint,
   .motion-drink-orbit {
+    display: none;
+  }
+
+  .motion-drink-cursor-preview {
     display: none;
   }
 }

@@ -37,6 +37,7 @@ export const useSupportEnergyMotion = (pageRoot: Ref<HTMLElement | null>) => {
           const preview = panel.querySelector<HTMLElement>('.motion-drink-cursor-preview');
           const stage = panel.querySelector<HTMLElement>('.support-drink-stage');
           const blueprint = panel.querySelector<SVGSVGElement>('.motion-drink-blueprint');
+          const releaseSection = panel.closest<HTMLElement>('.desktop-release');
           if (!tabs.length || !shape || !orbit || !label || !preview || !stage || !blueprint) return;
 
           let activeDrink = 'pour-over';
@@ -49,6 +50,12 @@ export const useSupportEnergyMotion = (pageRoot: Ref<HTMLElement | null>) => {
           const showPreview = (drink = activeDrink) => {
             photos.forEach((photo) => photo.classList.toggle('is-active', photo.dataset.drink === drink));
             gsap.to(preview, { autoAlpha: 1, scale: 1, duration: 0.28, ease: 'power2.out' });
+          };
+          const triggerReleaseHandoff = (drink: string) => {
+            releaseSection?.dispatchEvent(new CustomEvent('drink-lab:brew', {
+              bubbles: true,
+              detail: { drink }
+            }));
           };
           const hidePreview = () => {
             gsap.to(preview, { autoAlpha: 0, scale: 0.9, duration: 0.24, ease: 'power2.out' });
@@ -101,7 +108,11 @@ export const useSupportEnergyMotion = (pageRoot: Ref<HTMLElement | null>) => {
 
               activeDrink = nextDrink;
               morph?.kill();
-              tabs.forEach((item) => item.classList.toggle('is-active', item === tab));
+              tabs.forEach((item) => {
+                const isActive = item === tab;
+                item.classList.toggle('is-active', isActive);
+                item.setAttribute('aria-pressed', String(isActive));
+              });
               label.textContent = tab.dataset.label ?? '';
               showPreview(nextDrink);
               detailIdle?.kill();
@@ -158,7 +169,8 @@ export const useSupportEnergyMotion = (pageRoot: Ref<HTMLElement | null>) => {
                   autoAlpha: 1,
                   y: 0,
                   duration: 0.34,
-                  ease: 'power2.out'
+                  ease: 'power2.out',
+                  onComplete: () => triggerReleaseHandoff(nextDrink)
                 }, 1.14);
             };
 

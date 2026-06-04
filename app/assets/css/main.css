@@ -1016,12 +1016,28 @@
 
     .sponsor-story {
       align-content: space-between;
+      background:
+        radial-gradient(circle at 22% 16%, rgba(251, 191, 36, 0.1), transparent 34%),
+        radial-gradient(circle at 84% 42%, rgba(34, 211, 238, 0.08), transparent 32%),
+        linear-gradient(135deg, rgba(15, 23, 42, 0.82), rgba(9, 10, 15, 0.94));
       display: flex;
       flex-direction: column;
       gap: 22px;
       overflow: hidden;
       padding: 28px;
       position: relative;
+    }
+
+    .sponsor-story::before {
+      background:
+        linear-gradient(90deg, transparent, rgba(253, 230, 138, 0.16), transparent),
+        linear-gradient(180deg, transparent, rgba(34, 211, 238, 0.08), transparent);
+      content: "";
+      inset: 1px;
+      opacity: 0.48;
+      pointer-events: none;
+      position: absolute;
+      z-index: 0;
     }
 
     .sponsor-story::after {
@@ -1074,6 +1090,7 @@
       position: absolute;
       right: 8%;
       top: 23px;
+      will-change: transform;
     }
 
     .support-route-step {
@@ -1084,6 +1101,7 @@
       gap: 6px;
       position: relative;
       text-align: center;
+      will-change: opacity, transform;
     }
 
     .support-route-icon {
@@ -1096,6 +1114,7 @@
       height: 48px;
       justify-content: center;
       width: 48px;
+      will-change: box-shadow, transform;
     }
 
     .support-route-icon svg {
@@ -1213,13 +1232,34 @@
     }
 
     .download-panel {
-      animation: panelEnter 0.85s 0.22s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      --handoff-alpha: 0;
+      --handoff-x: -18%;
+      animation: none;
       background: var(--panel);
       border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 8px;
       box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+      overflow: hidden;
       padding: 24px;
+      position: relative;
       transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+    }
+
+    .download-panel::before {
+      background: linear-gradient(90deg, transparent, rgba(253, 230, 138, 0.16), rgba(103, 232, 249, 0.2), transparent);
+      content: "";
+      inset: 0;
+      opacity: var(--handoff-alpha);
+      pointer-events: none;
+      position: absolute;
+      transform: translateX(var(--handoff-x));
+      width: 58%;
+      z-index: 0;
+    }
+
+    .download-panel > * {
+      position: relative;
+      z-index: 1;
     }
 
     .download-panel:hover {
@@ -1251,7 +1291,7 @@
 
     .music-icon {
       align-items: center;
-      animation: musicBeat 2.8s ease-in-out infinite;
+      animation: none;
       background: var(--cyan);
       border-radius: 8px;
       color: #020617;
@@ -1263,7 +1303,7 @@
 
     .meta-row {
       align-items: center;
-      animation: lineIn 0.55s ease both;
+      animation: none;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       color: #cbd5e1;
       display: flex;
@@ -1301,12 +1341,12 @@
     }
 
     .download-box {
-      animation: riseIn 0.62s 0.54s ease both;
+      animation: none;
       background: rgba(0, 0, 0, 0.2);
     }
 
     .snapshot-box {
-      animation: riseIn 0.62s 0.62s ease both;
+      animation: none;
       background: rgba(255, 255, 255, 0.05);
     }
 
@@ -1324,6 +1364,7 @@
     }
 
     .download-link {
+      align-items: center;
       color: #a5f3fc;
       display: inline-flex;
       font-size: 14px;

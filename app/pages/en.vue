@@ -4,6 +4,7 @@ import { usePageMotion } from '../composables/usePageMotion';
 import { useHeroActionsMotion } from '../composables/useHeroActionsMotion';
 import { useSignalHandoff } from '../composables/useSignalHandoff';
 import { useTitleInteraction } from '../composables/useTitleInteraction';
+import { useDesktopReleaseMotion } from '../composables/useDesktopReleaseMotion';
 import { useSupportEnergyMotion } from '../composables/useSupportEnergyMotion';
 import { useSponsorGoalMotion } from '../composables/useSponsorGoalMotion';
 
@@ -24,6 +25,7 @@ usePageMotion(pageRoot);
 useHeroActionsMotion(pageRoot);
 useSignalHandoff(pageRoot);
 useTitleInteraction(pageRoot);
+useDesktopReleaseMotion(pageRoot);
 useSupportEnergyMotion(pageRoot);
 useSponsorGoalMotion(pageRoot);
 
@@ -572,9 +574,9 @@ onUnmounted(() => {
       <div class="wrap desktop-release-grid">
         <div class="sponsor sponsor-story">
           <div class="sponsor-story-copy">
-            <p class="eyebrow">Built after class, shipped for players</p>
-            <h2>A grad student's gaming music tool, <span>powered by every coffee.</span></h2>
-            <p>GMO stays free and open. Your coffee goes directly into the next fix, feature, and a more stable gaming experience.</p>
+            <p class="eyebrow">Drink lab for players</p>
+            <h2>Pick a drink for development, <span>and brew the next update.</span></h2>
+            <p>GMO stays free and open. Coffee, boba, or an iced drink turns into fixes, features, and a more stable gaming experience.</p>
           </div>
 
           <div class="support-route" aria-label="How sponsorship supports development">
@@ -590,7 +592,7 @@ onUnmounted(() => {
               <span class="support-route-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h15v7a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5Z"/><path d="M7 3v2M11 3v2M15 3v2"/></svg>
               </span>
-              <strong>One coffee</strong>
+              <strong>One drink</strong>
               <small>Time and equipment</small>
             </div>
             <div class="support-route-step">
@@ -606,15 +608,15 @@ onUnmounted(() => {
             <div class="support-energy-copy">
               <small>SVG drink lab</small>
               <strong>Pick today's development fuel.</strong>
-              <span>Choose a drink and watch its SVG blueprint brew into a real photo.</span>
+              <span>Coffee and boba take the lead, with lemon tea ready for late-night focus.</span>
               <div class="support-drink-tabs">
-                <button class="motion-drink-tab is-active" type="button" data-drink="pour-over" data-label="Pour-over coffee" aria-label="Choose pour-over coffee">
+                <button class="motion-drink-tab is-active" type="button" data-drink="pour-over" data-label="Pour-over coffee" aria-label="Choose pour-over coffee" aria-pressed="true">
                   <svg viewBox="0 0 48 48"><path d="M12 15h24l-4 21H16Z"/><path d="M16 15c1-6 15-6 16 0M13 20h22"/><path class="motion-drink-liquid" d="M16 27h16l-2 7H18Z"/></svg><span>Coffee</span>
                 </button>
-                <button class="motion-drink-tab" type="button" data-drink="boba" data-label="Bubble tea" aria-label="Choose bubble tea">
+                <button class="motion-drink-tab" type="button" data-drink="boba" data-label="Bubble tea" aria-label="Choose bubble tea" aria-pressed="false">
                   <svg viewBox="0 0 48 48"><path d="M14 11h20l-3 27H17Z"/><path d="M18 11 27 4M15 17h18"/><path class="motion-drink-liquid" d="M18 22h13l-2 14H19Z"/><circle cx="22" cy="32" r="1.3"/><circle cx="27" cy="34" r="1.3"/></svg><span>Boba</span>
                 </button>
-                <button class="motion-drink-tab" type="button" data-drink="lemon-tea" data-label="Iced lemon tea" aria-label="Choose iced lemon tea">
+                <button class="motion-drink-tab" type="button" data-drink="lemon-tea" data-label="Iced lemon tea" aria-label="Choose iced lemon tea" aria-pressed="false">
                   <svg viewBox="0 0 48 48"><path d="M14 12h20l-3 26H17Z"/><path d="M16 18h16M27 5l-5 12"/><path class="motion-drink-liquid" d="M18 22h13l-2 14H19Z"/><circle cx="25" cy="27" r="4"/></svg><span>Lemon</span>
                 </button>
               </div>
@@ -649,7 +651,7 @@ onUnmounted(() => {
             </div>
             <div class="sponsor-actions">
               <img class="sponsor-qr" src="/downloads/forza-music-overlay/bmc_qr.png" alt="Buy Me a Coffee QR Code">
-              <a class="sponsor-button" href="https://buymeacoffee.com/scott5497" target="_blank" rel="noopener noreferrer">Buy me a coffee</a>
+              <a class="sponsor-button" href="https://buymeacoffee.com/scott5497" target="_blank" rel="noopener noreferrer">Buy me a drink</a>
             </div>
           </div>
         </div>
