@@ -23,8 +23,8 @@ const showTypewriterModal = ref(false);
 const pageRoot = ref<HTMLElement | null>(null);
 const googleDriveDownloadUrl = 'https://drive.google.com/file/d/1vh4gZDInUy7-p3u_JWWud0QSap_Tf8c1/view?usp=drive_link';
 const githubReleaseDownloadUrl = 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.5.0/ForzaMusicOverlay-release3.5.0_portable-python-test.zip';
-const heroGithubReleaseDownloadUrl = 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.1.0/ForzaMusicOverlay-release3.1.0_portable-test.zip';
-const heroGoogleDriveDownloadUrl = heroGithubReleaseDownloadUrl;
+const heroPrimaryDownloadUrl = 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.5.0/ForzaMusicOverlay-release3.5.0_portable-test.zip';
+const heroFallbackDownloadUrl = 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.1.0/ForzaMusicOverlay-release3.1.0_portable-test.zip';
 usePageMotion(pageRoot);
 useHeroActionsMotion(pageRoot);
 useSignalHandoff(pageRoot);
@@ -386,27 +386,27 @@ onUnmounted(() => {
             <div class="motion-download-cta motion-download-split rounded-xl shadow-lg shadow-cyan-400/15 select-none">
               <a
                 class="motion-download-choice motion-download-choice-drive"
-                :href="heroGoogleDriveDownloadUrl"
-                @click="handleDownloadClick($event, heroGoogleDriveDownloadUrl)"
+                :href="heroPrimaryDownloadUrl"
+                @click="handleDownloadClick($event, heroPrimaryDownloadUrl)"
               >
                 <span class="motion-download-icon">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3v10m-4-4 4 4 4-4"/><path d="M5 16v3h14v-3"/></svg>
                 </span>
                 <span class="motion-download-copy">
-                  <strong>Google Drive</strong>
-                  <small>雲端載點</small>
+                  <strong>v3.5.0</strong>
+                  <small>新版載點</small>
                 </span>
               </a>
               <a
                 class="motion-download-choice motion-download-choice-github"
-                :href="heroGithubReleaseDownloadUrl"
-                @click="handleDownloadClick($event, heroGithubReleaseDownloadUrl)"
+                :href="heroFallbackDownloadUrl"
+                @click="handleDownloadClick($event, heroFallbackDownloadUrl)"
               >
                 <span class="motion-download-icon">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3v10m-4-4 4 4 4-4"/><path d="M5 16v3h14v-3"/></svg>
                 </span>
                 <span class="motion-download-copy">
-                  <strong>GitHub ZIP</strong>
+                  <strong>v3.1.0</strong>
                   <small>備用載點</small>
                 </span>
               </a>
