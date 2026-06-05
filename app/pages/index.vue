@@ -23,6 +23,7 @@ const showTypewriterModal = ref(false);
 const pageRoot = ref<HTMLElement | null>(null);
 const googleDriveDownloadUrl = 'https://drive.google.com/file/d/1vh4gZDInUy7-p3u_JWWud0QSap_Tf8c1/view?usp=drive_link';
 const githubReleaseDownloadUrl = 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.5.0/ForzaMusicOverlay-release3.5.0_portable-python-test.zip';
+const heroGithubReleaseDownloadUrl = 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.1.0/ForzaMusicOverlay-release3.1.0_portable-test.zip';
 usePageMotion(pageRoot);
 useHeroActionsMotion(pageRoot);
 useSignalHandoff(pageRoot);
@@ -397,8 +398,8 @@ onUnmounted(() => {
               </a>
               <a
                 class="motion-download-choice motion-download-choice-github"
-                :href="githubReleaseDownloadUrl"
-                @click="handleDownloadClick($event, githubReleaseDownloadUrl)"
+                :href="heroGithubReleaseDownloadUrl"
+                @click="handleDownloadClick($event, heroGithubReleaseDownloadUrl)"
               >
                 <span class="motion-download-icon">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3v10m-4-4 4 4 4-4"/><path d="M5 16v3h14v-3"/></svg>
