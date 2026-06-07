@@ -21,9 +21,9 @@ useSeoMeta({
 // Modal State
 const showTypewriterModal = ref(false);
 const pageRoot = ref<HTMLElement | null>(null);
-const googleDriveDownloadUrl = 'https://drive.google.com/file/d/1vh4gZDInUy7-p3u_JWWud0QSap_Tf8c1/view?usp=drive_link';
-const githubReleaseDownloadUrl = 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.5.0/ForzaMusicOverlay-release3.5.0_portable-python-test.zip';
-const heroPrimaryDownloadUrl = 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.5.0/ForzaMusicOverlay-release3.5.0_portable-test.zip';
+const googleDriveDownloadUrl = 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.1.0/ForzaMusicOverlay-release3.1.0_portable-test.zip';
+const githubReleaseDownloadUrl = 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.1.0/ForzaMusicOverlay-release3.1.0_portable-test.zip';
+const heroPrimaryDownloadUrl = 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.1.0/ForzaMusicOverlay-release3.1.0_portable-test.zip';
 const heroFallbackDownloadUrl = 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.1.0/ForzaMusicOverlay-release3.1.0_portable-test.zip';
 usePageMotion(pageRoot);
 useHeroActionsMotion(pageRoot);
@@ -284,7 +284,7 @@ onUnmounted(() => {
           <!-- Badges / Header -->
           <div class="motion-hero-badges flex items-center gap-2 flex-wrap mb-4">
             <span class="bg-[#090a0f] border border-slate-800 text-slate-400 font-extrabold text-[10px] tracking-widest uppercase px-2.5 py-1 rounded">Windows Utility</span>
-            <span class="bg-slate-900 border border-slate-800 text-cyan-400 font-extrabold text-[10px] tracking-widest px-2.5 py-1 rounded">v3.5.0</span>
+            <span class="bg-slate-900 border border-slate-800 text-cyan-400 font-extrabold text-[10px] tracking-widest px-2.5 py-1 rounded">v3.1.0</span>
             <NuxtLink to="/en" class="bg-amber-400/10 border border-amber-400/20 text-amber-300 font-extrabold text-[10px] tracking-widest px-2.5 py-1 rounded hover:bg-amber-400/20 transition-all">English</NuxtLink>
           </div>
 
@@ -393,8 +393,8 @@ onUnmounted(() => {
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3v10m-4-4 4 4 4-4"/><path d="M5 16v3h14v-3"/></svg>
                 </span>
                 <span class="motion-download-copy">
-                  <strong>v3.5.0</strong>
-                  <small>新版載點</small>
+                  <strong>v3.1.0</strong>
+                  <small>穩定載點</small>
                 </span>
               </a>
               <a
@@ -680,7 +680,7 @@ onUnmounted(() => {
           <div class="panel-head">
             <div>
               <p>最新版本快照</p>
-              <h2>v3.5.0</h2>
+              <h2>v3.1.0</h2>
             </div>
             <div class="music-icon">
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
@@ -691,16 +691,15 @@ onUnmounted(() => {
             </div>
           </div>
 
-          <div class="meta-row"><span>檔案</span><strong>GamingMusicOverlay v3.5.0 中文版</strong></div>
+          <div class="meta-row"><span>檔案</span><strong>ForzaMusicOverlay-release3.1.0_portable-test.zip</strong></div>
           <div class="meta-row"><span>平台</span><strong>Windows 10 / 11</strong></div>
-          <div class="meta-row"><span>更新日期</span><strong>2026-06-03</strong></div>
+          <div class="meta-row"><span>更新日期</span><strong>2026-06-01</strong></div>
 
           <div class="snapshot-box">
             <p class="box-label">版本快照</p>
-            <p>手把快捷鍵可逐項自訂，固定使用 L3 加第二鍵。</p>
-            <p>可使用按鈕、D-Pad、LT、RT，以及左右搖桿方向作為自訂輸入。</p>
-            <p>副廠手把無法辨識時，可選擇類 Xbox 或類 PlayStation 配置。</p>
-            <p>新增歌曲動態字幕。</p>
+            <p>3.1.0 優化程式打包流程，降低 Windows Defender 誤報機率。</p>
+            <p>3.0+ 新增 App / System 獨立音量切換與沉浸式閃電 HUD。</p>
+            <p>3.0+ 新增即時滾動歌詞與 GPU 加速 SVG 霓虹效果。</p>
           </div>
 
           <div class="download-box">
@@ -715,7 +714,7 @@ onUnmounted(() => {
                 <path d="m7 10 5 5 5-5" />
                 <path d="M5 21h14" />
               </svg>
-              GamingMusicOverlay v3.5.0 中文版
+              ForzaMusicOverlay-release3.1.0_portable-test.zip
             </a>
           </div>
         </aside>
@@ -1157,7 +1156,7 @@ onUnmounted(() => {
                     <div class="demo-file flex items-center gap-2 mt-2 bg-slate-900 p-2 rounded">
                       <span class="demo-file-icon bg-cyan-950 border border-cyan-800 text-cyan-400 px-1.5 py-0.5 rounded font-black">ZIP</span>
                       <div class="truncate text-slate-300">
-                        <strong class="block text-xs truncate">GamingMusicOverlay v3.5.0 中文版</strong>
+                        <strong class="block text-xs truncate">ForzaMusicOverlay-release3.1.0_portable-test.zip</strong>
                         <small class="block text-slate-500 text-[10px]">GitHub Releases</small>
                       </div>
                     </div>
@@ -1261,39 +1260,12 @@ onUnmounted(() => {
             <p class="eyebrow text-cyan-400 font-bold uppercase text-xs">Changelog</p>
             <h2 class="section-title text-white font-extrabold text-4xl mt-2 leading-tight">專案更新紀錄</h2>
           </div>
-          <span class="text-slate-400 text-sm">最新版本: v3.5.0</span>
+          <span class="text-slate-400 text-sm">最新版本: v3.1.0</span>
         </div>
 
         <div class="update-list border-t border-b border-slate-800">
-          <!-- UPDATE V3.5.0 -->
-          <article class="update grid grid-cols-[180px_1fr] gap-6 py-7 hover:bg-slate-900/10 hover:translate-x-1 transition-all duration-200">
-            <div>
-              <p class="update-version text-cyan-300 font-black text-sm">v3.5.0</p>
-              <p class="update-date text-slate-500 text-sm mt-2">2026-06-03</p>
-            </div>
-            <div>
-              <h3 class="text-white font-black text-xl">自訂手把快捷鍵與歌曲動態字幕</h3>
-              <div class="entry-actions flex items-center gap-3 flex-wrap mt-3">
-                <a
-                  class="button primary cursor-pointer"
-                  :href="googleDriveDownloadUrl"
-                  @click="handleDownloadClick($event, googleDriveDownloadUrl)"
-                >
-                  下載 v3.5.0
-                </a>
-                <p class="entry-file text-slate-500 text-sm">GamingMusicOverlay v3.5.0 中文版</p>
-              </div>
-              <ul class="notes text-slate-300 text-sm list-none pl-0 mt-4 space-y-2">
-                <li class="flex items-center gap-2 hover:text-white hover:translate-x-1 transition-all duration-150"><span class="text-cyan-400 font-black">✓</span> 手把快捷鍵可逐項自訂，固定使用 L3 加第二鍵。</li>
-                <li class="flex items-center gap-2 hover:text-white hover:translate-x-1 transition-all duration-150"><span class="text-cyan-400 font-black">✓</span> 可使用按鈕、D-Pad、LT、RT，以及左右搖桿方向作為自訂輸入。</li>
-                <li class="flex items-center gap-2 hover:text-white hover:translate-x-1 transition-all duration-150"><span class="text-cyan-400 font-black">✓</span> 副廠手把無法辨識時，可選擇類 Xbox 或類 PlayStation 配置。</li>
-                <li class="flex items-center gap-2 hover:text-white hover:translate-x-1 transition-all duration-150"><span class="text-cyan-400 font-black">✓</span> 新增歌曲動態字幕。</li>
-              </ul>
-            </div>
-          </article>
-
           <!-- UPDATE V3.1.0 -->
-          <article class="update grid grid-cols-[180px_1fr] gap-6 py-7 border-t border-slate-800 hover:bg-slate-900/10 hover:translate-x-1 transition-all duration-200">
+          <article class="update grid grid-cols-[180px_1fr] gap-6 py-7 hover:bg-slate-900/10 hover:translate-x-1 transition-all duration-200">
             <div>
               <p class="update-version text-cyan-300 font-black text-sm">v3.1.0</p>
               <p class="update-date text-slate-500 text-sm mt-2">2026-06-01</p>
