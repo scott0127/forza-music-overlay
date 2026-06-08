@@ -7,6 +7,7 @@ export const usePageMotion = (pageRoot: Ref<HTMLElement | null>) => {
   onMounted(async () => {
     await nextTick();
     if (!pageRoot.value) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const { MorphSVGPlugin } = await import('gsap/MorphSVGPlugin');
     gsap.registerPlugin(MorphSVGPlugin);

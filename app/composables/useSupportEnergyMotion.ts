@@ -8,6 +8,7 @@ export const useSupportEnergyMotion = (pageRoot: Ref<HTMLElement | null>) => {
     await nextTick();
     const root = pageRoot.value;
     if (!root) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const { MorphSVGPlugin } = await import('gsap/MorphSVGPlugin');
     gsap.registerPlugin(MorphSVGPlugin);

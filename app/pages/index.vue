@@ -22,7 +22,6 @@ useSeoMeta({
 const showTypewriterModal = ref(false);
 const pageRoot = ref<HTMLElement | null>(null);
 const googleDriveDownloadUrl = 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.5.0/GamingMusicOverlay-release3.5.0_nuitka-standalone-safe.rar';
-const githubReleaseDownloadUrl = 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.5.0/GamingMusicOverlay-release3.5.0_nuitka-standalone-safe.rar';
 const heroPrimaryDownloadUrl = 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.5.0/GamingMusicOverlay-release3.5.0_nuitka-standalone-safe.rar';
 const heroFallbackDownloadUrl = 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.0.0/ForzaMusicOverlay-release3.0.0_final.zip';
 usePageMotion(pageRoot);
