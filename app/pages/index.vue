@@ -23,8 +23,8 @@ useSeoMeta({
 // Modal State
 const showTypewriterModal = ref(false);
 const pageRoot = ref<HTMLElement | null>(null);
-const googleDriveDownloadUrl = 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.5.0/GamingMusicOverlay-release3.5.0_nuitka-standalone-safe.rar';
-const heroPrimaryDownloadUrl = 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.5.0/GamingMusicOverlay-release3.5.0_nuitka-standalone-safe.rar';
+const googleDriveDownloadUrl = 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v4.1.0/GamingMusicOverlay-release4.1.0_portable-test.zip';
+const heroPrimaryDownloadUrl = 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v4.1.0/GamingMusicOverlay-release4.1.0_portable-test.zip';
 const heroFallbackDownloadUrl = 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.0.0/ForzaMusicOverlay-release3.0.0_final.zip';
 usePageMotion(pageRoot);
 useHeroActionsMotion(pageRoot);
@@ -1198,7 +1198,7 @@ onUnmounted(() => {
           <!-- Badges / Header -->
           <div class="motion-hero-badges flex items-center gap-2 flex-wrap mb-4">
             <span class="bg-[#090a0f] border border-slate-800 text-slate-400 font-extrabold text-[10px] tracking-widest uppercase px-2.5 py-1 rounded">Windows Utility</span>
-            <span class="bg-slate-900 border border-slate-800 text-cyan-400 font-extrabold text-[10px] tracking-widest px-2.5 py-1 rounded">v3.5.0</span>
+            <span class="bg-slate-900 border border-slate-800 text-cyan-400 font-extrabold text-[10px] tracking-widest px-2.5 py-1 rounded">v4.1.0</span>
             <NuxtLink to="/en" class="bg-amber-400/10 border border-amber-400/20 text-amber-300 font-extrabold text-[10px] tracking-widest px-2.5 py-1 rounded hover:bg-amber-400/20 transition-all">English</NuxtLink>
           </div>
 
@@ -1307,7 +1307,7 @@ onUnmounted(() => {
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3v10m-4-4 4 4 4-4"/><path d="M5 16v3h14v-3"/></svg>
                 </span>
                 <span class="motion-download-copy">
-                  <strong>v3.5.0</strong>
+                  <strong>v4.1.0</strong>
                   <small>穩定載點</small>
                 </span>
               </a>
@@ -1651,7 +1651,7 @@ onUnmounted(() => {
           <div class="panel-head">
             <div>
               <p>最新版本快照</p>
-              <h2>v3.5.0</h2>
+              <h2>v4.1.0</h2>
             </div>
             <div class="music-icon">
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
@@ -1662,12 +1662,13 @@ onUnmounted(() => {
             </div>
           </div>
 
-          <div class="meta-row"><span>檔案</span><strong>GamingMusicOverlay-release3.5.0_nuitka-standalone-safe.rar</strong></div>
+          <div class="meta-row"><span>檔案</span><strong>GamingMusicOverlay-release4.1.0_portable-test.zip</strong></div>
           <div class="meta-row"><span>平台</span><strong>Windows 10 / 11</strong></div>
-          <div class="meta-row"><span>更新日期</span><strong>2026-06-08</strong></div>
+          <div class="meta-row"><span>更新日期</span><strong>2026-06-16</strong></div>
 
           <div class="snapshot-box">
             <p class="box-label">版本快照</p>
+            <p>4.1.0 支援 KKBOX、自訂字體大小調整，並進行 UI 與效能優化。</p>
             <p>3.5.0 提供 Nuitka standalone safe 版本，作為目前穩定載點。</p>
             <p>3.1.0 優化程式打包流程，降低 Windows Defender 誤報機率。</p>
             <p>3.0+ 新增 App / System 獨立音量切換與沉浸式閃電 HUD。</p>
@@ -1686,7 +1687,7 @@ onUnmounted(() => {
                 <path d="m7 10 5 5 5-5" />
                 <path d="M5 21h14" />
               </svg>
-              GamingMusicOverlay-release3.5.0_nuitka-standalone-safe.rar
+              GamingMusicOverlay-release4.1.0_portable-test.zip
             </a>
           </div>
         </aside>
@@ -3320,12 +3321,38 @@ onUnmounted(() => {
             <p class="eyebrow text-cyan-400 font-bold uppercase text-xs">Changelog</p>
             <h2 class="section-title text-white font-extrabold text-4xl mt-2 leading-tight">專案更新紀錄</h2>
           </div>
-          <span class="text-slate-400 text-sm">最新版本: v3.5.0</span>
+          <span class="text-slate-400 text-sm">最新版本: v4.1.0</span>
         </div>
 
         <div class="update-list border-t border-b border-slate-800">
-          <!-- UPDATE V3.5.0 -->
+          <!-- UPDATE V4.1.0 -->
           <article class="update grid grid-cols-[180px_1fr] gap-6 py-7 hover:bg-slate-900/10 hover:translate-x-1 transition-all duration-200">
+            <div>
+              <p class="update-version text-cyan-300 font-black text-sm">v4.1.0</p>
+              <p class="update-date text-slate-500 text-sm mt-2">2026-06-16</p>
+            </div>
+            <div>
+              <h3 class="text-white font-black text-xl">KKBOX 支援與字體/效能優化</h3>
+              <div class="entry-actions flex items-center gap-3 flex-wrap mt-3">
+                <a
+                  class="button primary cursor-pointer"
+                  :href="googleDriveDownloadUrl"
+                  @click="handleDownloadClick($event, googleDriveDownloadUrl)"
+                >
+                  下載 v4.1.0
+                </a>
+                <p class="entry-file text-slate-500 text-sm">GamingMusicOverlay-release4.1.0_portable-test.zip</p>
+              </div>
+              <ul class="notes text-slate-300 text-sm list-none pl-0 mt-4 space-y-2">
+                <li class="flex items-center gap-2 hover:text-white hover:translate-x-1 transition-all duration-150"><span class="text-cyan-400 font-black">✓</span> 更新KKBOX支援：現在支援讀取 KKBOX 播放狀態與歌曲資訊。</li>
+                <li class="flex items-center gap-2 hover:text-white hover:translate-x-1 transition-all duration-150"><span class="text-cyan-400 font-black">✓</span> 更新字體大小調整：提供字體大小自訂功能，滿足不同螢幕需求。</li>
+                <li class="flex items-center gap-2 hover:text-white hover:translate-x-1 transition-all duration-150"><span class="text-cyan-400 font-black">✓</span> UI優化與效能最佳化：改善介面流暢度並減少系統資源佔用。</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- UPDATE V3.5.0 -->
+          <article class="update grid grid-cols-[180px_1fr] gap-6 py-7 border-t border-slate-800">
             <div>
               <p class="update-version text-cyan-300 font-black text-sm">v3.5.0</p>
               <p class="update-date text-slate-500 text-sm mt-2">2026-06-08</p>
