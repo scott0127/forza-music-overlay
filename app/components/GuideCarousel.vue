@@ -27,22 +27,31 @@ const handleKeyDown = (event: KeyboardEvent) => {
   }
 };
 
-// Touch/Swipe support
-let pointerStart: number | null = null;
+// Touch/Swipe support. Desktop mouse drags are intentionally ignored so card
+// interactions do not accidentally flip the carousel.
+type PointerStart = {
+  x: number;
+  y: number;
+};
+
+let pointerStart: PointerStart | null = null;
 let pointerInput = false;
+const interactiveSelector = 'button, input, label, a, textarea, select, .demo-panel, [data-carousel-no-swipe]';
 
 const handlePointerDown = (event: PointerEvent) => {
-  if ((event.target as HTMLElement).closest('button, input, label')) return;
+  if (event.pointerType === 'mouse') return;
+  if ((event.target as HTMLElement).closest(interactiveSelector)) return;
   pointerInput = true;
-  pointerStart = event.clientX;
+  pointerStart = { x: event.clientX, y: event.clientY };
 };
 
 const handlePointerUp = (event: PointerEvent) => {
   if (pointerStart === null) return;
-  const distance = event.clientX - pointerStart;
+  const distanceX = event.clientX - pointerStart.x;
+  const distanceY = event.clientY - pointerStart.y;
   pointerStart = null;
-  if (Math.abs(distance) > 48) {
-    show(current.value + (distance < 0 ? 1 : -1));
+  if (Math.abs(distanceX) > 96 && Math.abs(distanceX) > Math.abs(distanceY) * 1.35) {
+    show(current.value + (distanceX < 0 ? 1 : -1));
   }
   setTimeout(() => {
     pointerInput = false;
@@ -54,18 +63,12 @@ const handlePointerCancel = () => {
   pointerInput = false;
 };
 
-const handleMouseDown = (event: MouseEvent) => {
-  if ((event.target as HTMLElement).closest('button, input, label')) return;
-  if (!pointerInput) pointerStart = event.clientX;
+const handleMouseDown = () => {
+  pointerStart = null;
 };
 
-const handleMouseUp = (event: MouseEvent) => {
-  if (pointerInput || pointerStart === null) return;
-  const distance = event.clientX - pointerStart;
+const handleMouseUp = () => {
   pointerStart = null;
-  if (Math.abs(distance) > 48) {
-    show(current.value + (distance < 0 ? 1 : -1));
-  }
 };
 </script>
 

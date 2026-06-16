@@ -219,6 +219,22 @@ const handleDownloadClick = (e: MouseEvent, url: string) => {
   window.location.href = url;
 };
 
+const scrollToSection = (target: 'top' | 'sponsor' | 'overview' | 'updates') => {
+  if (target === 'top') {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return;
+  }
+
+  const section = document.getElementById(target);
+  if (!section) return;
+
+  const header = document.querySelector<HTMLElement>('.motion-header');
+  const headerHeight = header?.getBoundingClientRect().height ?? 0;
+  const top = section.getBoundingClientRect().top + window.scrollY - headerHeight;
+
+  window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+};
+
 onMounted(() => {
   // Autoplay Showcase trigger after brief initial delay
   setTimeout(() => {
@@ -250,10 +266,10 @@ onUnmounted(() => {
 
         <!-- Navigation Menu -->
         <nav class="hidden lg:flex items-center gap-8">
-          <a href="#features" class="text-slate-300 hover:text-cyan-400 font-bold text-sm tracking-wide transition-colors">Features</a>
-          <a href="#updates" class="text-slate-300 hover:text-cyan-400 font-bold text-sm tracking-wide transition-colors">Changelog</a>
-          <a href="#faq" class="text-slate-300 hover:text-cyan-400 font-bold text-sm tracking-wide transition-colors">FAQ</a>
-          <a href="#sponsor" class="text-slate-300 hover:text-cyan-400 font-bold text-sm tracking-wide transition-colors">Sponsor</a>
+          <a href="#top" class="text-slate-300 hover:text-cyan-400 font-bold text-sm tracking-wide transition-colors" @click.prevent="scrollToSection('top')">Hero</a>
+          <a href="#sponsor" class="text-slate-300 hover:text-cyan-400 font-bold text-sm tracking-wide transition-colors" @click.prevent="scrollToSection('sponsor')">Sponsor</a>
+          <a href="#overview" class="text-slate-300 hover:text-cyan-400 font-bold text-sm tracking-wide transition-colors" @click.prevent="scrollToSection('overview')">Overview</a>
+          <a href="#updates" class="text-slate-300 hover:text-cyan-400 font-bold text-sm tracking-wide transition-colors" @click.prevent="scrollToSection('updates')">Changelog</a>
         </nav>
 
         <!-- CTA Controls -->
@@ -268,6 +284,7 @@ onUnmounted(() => {
 
     <!-- HERO SECTION -->
     <section 
+      id="top"
       class="motion-hero relative overflow-hidden min-h-[85vh] py-16 flex items-center bg-cover" 
       style="background-image: linear-gradient(to right, #090a0f 0%, rgba(9, 10, 15, 0.97) 38%, rgba(9, 10, 15, 0.6) 72%, rgba(9, 10, 15, 0.97) 100%), url('/forza-music-overlay/downloads/forza-music-overlay/hero-bg.jpg'); background-position: 40% center;"
     >
@@ -718,7 +735,7 @@ onUnmounted(() => {
     </section>
 
     <!-- BAND SECTION -->
-    <section class="band bg-slate-950 py-16">
+    <section class="band bg-slate-950 py-16" id="overview">
       <div class="wrap overview-grid">
         <div>
           <p class="eyebrow text-cyan-400 font-bold uppercase text-xs">Overview</p>
@@ -728,45 +745,79 @@ onUnmounted(() => {
           </p>
         </div>
 
-        <div class="feature-grid grid grid-cols-2 gap-4">
-          <article class="feature">
-            <svg class="icon text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
-              <circle cx="12" cy="12" r="9" />
-              <path d="M12 8h.01" />
-              <path d="M11 12h1v4h1" />
-            </svg>
-            <h3 class="text-white font-black text-base mt-3">Now Playing and Lyrics</h3>
-            <p class="text-slate-300 text-sm mt-2">Displays the song, thumbnail, progress, music service source, and real-time scrolling lyrics in-game.</p>
+        <div class="feature-collage">
+          <!-- Card 1: Now Playing Overlay -->
+          <article class="feature-card feature-card--1">
+            <div class="scene-bar">
+              <span class="scene-dot"></span>
+              <span class="scene-dot"></span>
+              <span class="scene-dot"></span>
+              <span class="scene-badge">YouTube Music</span>
+            </div>
+            <div class="scene-player-body">
+              <img class="scene-player-art" src="/overview/album-art.png" alt="Album Art" />
+              <div class="scene-player-info">
+                <div class="scene-player-title">Horizon Chase</div>
+                <div class="scene-player-artist">Electric Waves</div>
+                <div class="scene-player-progress">
+                  <div class="scene-player-fill"></div>
+                </div>
+                <div class="scene-player-time">
+                  <span>1:42</span><span>3:28</span>
+                </div>
+              </div>
+            </div>
+            <div class="scene-player-lyrics">
+              <p class="lyrics-prev">Chasing the horizon light</p>
+              <p class="lyrics-active">Feel the freedom in speed</p>
+              <p class="lyrics-next">Let the music take me higher</p>
+            </div>
           </article>
 
-          <article class="feature">
-            <svg class="icon text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
-              <rect x="3" y="5" width="18" height="14" rx="2" />
-              <path d="M7 9h.01M11 9h.01M15 9h.01M7 13h10" />
-            </svg>
-            <h3 class="text-white font-black text-base mt-3">App / System Volume</h3>
-            <p class="text-slate-300 text-sm mt-2">Choose whether volume controls affect only the music app or the Windows system master volume.</p>
+          <!-- Card 2: Volume Control -->
+          <article class="feature-card feature-card--2">
+            <div class="scene-bar">
+              <span class="scene-dot"></span>
+              <span class="scene-dot"></span>
+              <span class="scene-dot"></span>
+              <span class="scene-badge-light">Volume</span>
+            </div>
+            <div class="scene-mixer-row">
+              <span class="scene-mixer-icon">♫</span>
+              <span class="scene-mixer-label">App</span>
+              <div class="scene-mixer-track">
+                <div class="scene-mixer-fill" style="width: 72%"></div>
+              </div>
+              <span class="scene-mixer-val">72</span>
+            </div>
+            <div class="scene-mixer-row">
+              <span class="scene-mixer-icon">🔊</span>
+              <span class="scene-mixer-label">System</span>
+              <div class="scene-mixer-track">
+                <div class="scene-mixer-fill scene-mixer-fill--sys" style="width: 45%"></div>
+              </div>
+              <span class="scene-mixer-val">45</span>
+            </div>
+            <div class="scene-mixer-toggle">
+              <span class="toggle-active">App</span>
+              <span>System</span>
+            </div>
           </article>
 
-          <article class="feature">
-            <svg class="icon text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
-              <path d="M6 12h4" />
-              <path d="M8 10v4" />
-              <path d="M15 13h.01" />
-              <path d="M18 11h.01" />
-              <path d="M7 19c-2 0-4-1.5-4-4.2S5 7 7.8 7h8.4C19 7 21 12 21 14.8S19 19 17 19c-1.5 0-2.4-1-3-2H10c-.6 1-1.5 2-3 2Z" />
-            </svg>
-            <h3 class="text-white font-black text-base mt-3">Gamepad Combos</h3>
-            <p class="text-slate-300 text-sm mt-2">Supports L3 (left stick press) + A / B / X / Left / Right to control playback, skip tracks, and volume.</p>
+          <!-- Card 3: Controller Combos -->
+          <article class="feature-card feature-card--3">
+            <img class="scene-pad-img" src="/overview/controller-neon.svg" alt="Xbox Controller" />
+            <div class="scene-pad-combos">
+              <div class="scene-pad-combo"><kbd>L3</kbd><span>+</span><kbd class="kbd-a">A</kbd><span class="combo-label">Play</span></div>
+              <div class="scene-pad-combo"><kbd>L3</kbd><span>+</span><kbd class="kbd-b">B</kbd><span class="combo-label">Skip</span></div>
+              <div class="scene-pad-combo"><kbd>L3</kbd><span>+</span><kbd class="kbd-x">X</kbd><span class="combo-label">Vol</span></div>
+            </div>
           </article>
 
-          <article class="feature">
-            <svg class="icon text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
-              <path d="M12 3l1.8 4.2L18 9l-4.2 1.8L12 15l-1.8-4.2L6 9l4.2-1.8L12 3Z" />
-              <path d="M19 14l.8 1.8L22 17l-2.2.8L19 20l-.8-2.2L16 17l2.2-1.2L19 14Z" />
-            </svg>
-            <h3 class="text-white font-black text-base mt-3">Three Overlay Themes</h3>
-            <p class="text-slate-300 text-sm mt-2">Choose Dark, Liquid Glass, or Borderless Radio, then adjust the overlay size and position.</p>
+          <!-- Card 4: Three Themes -->
+          <article class="feature-card feature-card--4">
+            <div class="scene-themes-header">Overlay Themes</div>
+            <img class="scene-themes-img" src="/overview/themes.png" alt="Dark / Glass / Radio theme previews" />
           </article>
         </div>
       </div>
