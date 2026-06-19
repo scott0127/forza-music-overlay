@@ -25,6 +25,7 @@ const showTypewriterModal = ref(false);
 const pageRoot = ref<HTMLElement | null>(null);
 const googleDriveDownloadUrl = 'https://mega.nz/file/NYwHAKgD#Gy29tE6POLzvoJtXJtDTKBHQNntgXzd-hXesBCFB-0o';
 const heroPrimaryDownloadUrl = 'https://mega.nz/file/NYwHAKgD#Gy29tE6POLzvoJtXJtDTKBHQNntgXzd-hXesBCFB-0o';
+const heroHighSpeedDownloadUrl = 'https://mega.nz/file/QMhHkSKQ#8uLabTxyBFi0E8NgE3M0LisnTKlK90MZcKDtIKWEIDE';
 const heroFallbackDownloadUrl = 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.0.0/ForzaMusicOverlay-release3.0.0_final.zip';
 usePageMotion(pageRoot);
 useHeroActionsMotion(pageRoot);
@@ -1296,7 +1297,22 @@ onUnmounted(() => {
           </div>
 
           <!-- Buttons layout matching mockup card elements -->
-          <div class="motion-hero-actions grid grid-cols-1 sm:grid-cols-[1.3fr_1fr] gap-3.5 mt-8 max-w-xl">
+          <div class="motion-hero-actions grid grid-cols-1 sm:grid-cols-[1fr_2fr_1fr] gap-3.5 mt-8 max-w-3xl">
+            <a
+              class="motion-download-choice motion-download-choice-metal motion-download-metal-standalone rounded-xl select-none"
+              :href="heroHighSpeedDownloadUrl"
+              @click="handleDownloadClick($event, heroHighSpeedDownloadUrl)"
+            >
+              <span class="motion-download-corner" aria-hidden="true" />
+              <span class="motion-download-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3v10m-4-4 4 4 4-4"/><path d="M5 16v3h14v-3"/></svg>
+              </span>
+              <span class="motion-download-copy">
+                <strong>v4.0.0</strong>
+                <small>穩定高速載點</small>
+              </span>
+            </a>
+
             <div class="motion-download-cta motion-download-split rounded-xl shadow-lg shadow-cyan-400/15 select-none">
               <a
                 class="motion-download-choice motion-download-choice-drive"
@@ -1308,7 +1324,7 @@ onUnmounted(() => {
                 </span>
                 <span class="motion-download-copy">
                   <strong>v4.1.0</strong>
-                  <small>穩定載點</small>
+                  <small>不穩定高速載點</small>
                 </span>
               </a>
               <a
@@ -3339,7 +3355,14 @@ onUnmounted(() => {
                   :href="googleDriveDownloadUrl"
                   @click="handleDownloadClick($event, googleDriveDownloadUrl)"
                 >
-                  下載 v4.1.0
+                  v4.1.0 不穩定高速載點
+                </a>
+                <a
+                  class="button button-metal cursor-pointer"
+                  :href="heroHighSpeedDownloadUrl"
+                  @click="handleDownloadClick($event, heroHighSpeedDownloadUrl)"
+                >
+                  v4.0.0 穩定高速載點
                 </a>
                 <p class="entry-file text-slate-500 text-sm">GamingMusicOverlay-release4.1.0_portable-test.zip</p>
               </div>

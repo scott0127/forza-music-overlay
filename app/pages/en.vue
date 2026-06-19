@@ -395,20 +395,51 @@ onUnmounted(() => {
           </div>
 
           <!-- Buttons layout matching mockup card elements -->
-          <div class="motion-hero-actions grid grid-cols-1 sm:grid-cols-[1.3fr_1fr] gap-3.5 mt-8 max-w-xl">
+          <div class="motion-hero-actions grid grid-cols-1 sm:grid-cols-[1fr_2fr_1fr] gap-3.5 mt-8 max-w-3xl">
             <a
-              class="motion-download-cta flex items-center gap-3 bg-cyan-400 hover:bg-cyan-300 text-slate-950 rounded-xl p-4 text-left shadow-lg shadow-cyan-400/15 hover:scale-[1.01] active:scale-[0.98] transition-all cursor-pointer select-none"
-              href="https://mega.nz/file/NYwHAKgD#Gy29tE6POLzvoJtXJtDTKBHQNntgXzd-hXesBCFB-0o"
-              @click="handleDownloadClick($event, 'https://mega.nz/file/NYwHAKgD#Gy29tE6POLzvoJtXJtDTKBHQNntgXzd-hXesBCFB-0o')"
+              class="motion-download-choice motion-download-choice-metal motion-download-metal-standalone rounded-xl select-none"
+              href="https://mega.nz/file/QMhHkSKQ#8uLabTxyBFi0E8NgE3M0LisnTKlK90MZcKDtIKWEIDE"
+              @click="handleDownloadClick($event, 'https://mega.nz/file/QMhHkSKQ#8uLabTxyBFi0E8NgE3M0LisnTKlK90MZcKDtIKWEIDE')"
             >
-              <span class="motion-download-icon bg-slate-950/10 p-2.5 rounded-lg text-slate-950 flex items-center justify-center">
-                <svg class="w-5 h-5 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 3v12m-5-5l5 5 5-5M5 21h14"/></svg>
+              <span class="motion-download-corner" aria-hidden="true" />
+              <span class="motion-download-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3v10m-4-4 4 4 4-4"/><path d="M5 16v3h14v-3"/></svg>
               </span>
-              <div>
-                <span class="block font-black text-sm md:text-base leading-none">Download v4.1.0</span>
-                <span class="block text-[10px] opacity-75 mt-1 font-bold">Windows / ZIP / MIT License</span>
-              </div>
+              <span class="motion-download-copy">
+                <strong>v4.0.0</strong>
+                <small>Stable high-speed mirror</small>
+              </span>
             </a>
+
+            <div class="motion-download-cta motion-download-split rounded-xl shadow-lg shadow-cyan-400/15 select-none">
+              <a
+                class="motion-download-choice motion-download-choice-drive"
+                href="https://mega.nz/file/NYwHAKgD#Gy29tE6POLzvoJtXJtDTKBHQNntgXzd-hXesBCFB-0o"
+                @click="handleDownloadClick($event, 'https://mega.nz/file/NYwHAKgD#Gy29tE6POLzvoJtXJtDTKBHQNntgXzd-hXesBCFB-0o')"
+              >
+                <span class="motion-download-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3v10m-4-4 4 4 4-4"/><path d="M5 16v3h14v-3"/></svg>
+                </span>
+                <span class="motion-download-copy">
+                  <strong>v4.1.0</strong>
+                  <small>Unstable high-speed mirror</small>
+                </span>
+              </a>
+              <a
+                class="motion-download-choice motion-download-choice-github"
+                href="https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.0.0/ForzaMusicOverlay-release3.0.0_final.zip"
+                @click="handleDownloadClick($event, 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.0.0/ForzaMusicOverlay-release3.0.0_final.zip')"
+              >
+                <span class="motion-download-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3v10m-4-4 4 4 4-4"/><path d="M5 16v3h14v-3"/></svg>
+                </span>
+                <span class="motion-download-copy">
+                  <strong>v3.0.0</strong>
+                  <small>Backup mirror</small>
+                </span>
+              </a>
+              <span class="motion-download-divider" aria-hidden="true" />
+            </div>
 
             <a class="motion-snapshot-cta border border-slate-800 bg-[#090a0f]/65 hover:bg-slate-900/60 text-slate-200 hover:text-white rounded-xl px-5 py-4 text-sm flex items-center justify-center gap-2 transition-all cursor-pointer font-bold select-none" href="#snapshot">
               <svg class="motion-snapshot-icon w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h16"/></svg>
@@ -1310,7 +1341,14 @@ onUnmounted(() => {
                   href="https://mega.nz/file/NYwHAKgD#Gy29tE6POLzvoJtXJtDTKBHQNntgXzd-hXesBCFB-0o"
                   @click="handleDownloadClick($event, 'https://mega.nz/file/NYwHAKgD#Gy29tE6POLzvoJtXJtDTKBHQNntgXzd-hXesBCFB-0o')"
                 >
-                  Download v4.1.0
+                  v4.1.0 Unstable high-speed mirror
+                </a>
+                <a
+                  class="button button-metal cursor-pointer"
+                  href="https://mega.nz/file/QMhHkSKQ#8uLabTxyBFi0E8NgE3M0LisnTKlK90MZcKDtIKWEIDE"
+                  @click="handleDownloadClick($event, 'https://mega.nz/file/QMhHkSKQ#8uLabTxyBFi0E8NgE3M0LisnTKlK90MZcKDtIKWEIDE')"
+                >
+                  v4.0.0 Stable high-speed mirror
                 </a>
                 <p class="entry-file text-slate-500 text-sm">GamingMusicOverlay-release4.1.0_portable-test.zip</p>
               </div>

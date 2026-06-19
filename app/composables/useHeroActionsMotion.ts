@@ -14,8 +14,8 @@ export const useHeroActionsMotion = (pageRoot: Ref<HTMLElement | null>) => {
     const actions = root.querySelector<HTMLElement>('.motion-hero-actions');
     const download = actions?.querySelector<HTMLElement>('.motion-download-cta');
     const snapshot = actions?.querySelector<HTMLElement>('.motion-snapshot-cta');
-    const downloadChoices = download
-      ? gsap.utils.toArray<HTMLElement>('.motion-download-choice', download)
+    const downloadChoices = actions
+      ? gsap.utils.toArray<HTMLElement>('.motion-download-choice', actions)
       : [];
     const downloadIcons = download
       ? gsap.utils.toArray<HTMLElement>('.motion-download-icon', download)
@@ -173,7 +173,11 @@ export const useHeroActionsMotion = (pageRoot: Ref<HTMLElement | null>) => {
     downloadChoices.forEach((choice) => {
       const icon = choice.querySelector<HTMLElement>('.motion-download-icon');
       const otherChoices = downloadChoices.filter((item) => item !== choice);
-      const restingSurfaceAlpha = choice.classList.contains('motion-download-choice-github') ? 0.11 : 0;
+      const restingSurfaceAlpha = choice.classList.contains('motion-download-choice-github')
+        ? 0.11
+        : choice.classList.contains('motion-download-choice-metal')
+          ? 0.08
+          : 0;
 
       bind(choice, 'pointerenter', () => runInContext(() => {
         gsap.timeline({ defaults: { overwrite: 'auto' } })
