@@ -23,8 +23,8 @@ useSeoMeta({
 // Modal State
 const showTypewriterModal = ref(false);
 const pageRoot = ref<HTMLElement | null>(null);
-const googleDriveDownloadUrl = 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v4.1.0/GamingMusicOverlay-release4.1.0_portable-test.zip';
-const heroPrimaryDownloadUrl = 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v4.1.0/GamingMusicOverlay-release4.1.0_portable-test.zip';
+const googleDriveDownloadUrl = 'https://mega.nz/file/NYwHAKgD#Gy29tE6POLzvoJtXJtDTKBHQNntgXzd-hXesBCFB-0o';
+const heroPrimaryDownloadUrl = 'https://mega.nz/file/NYwHAKgD#Gy29tE6POLzvoJtXJtDTKBHQNntgXzd-hXesBCFB-0o';
 const heroFallbackDownloadUrl = 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.0.0/ForzaMusicOverlay-release3.0.0_final.zip';
 usePageMotion(pageRoot);
 useHeroActionsMotion(pageRoot);

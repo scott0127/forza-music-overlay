@@ -398,8 +398,8 @@ onUnmounted(() => {
           <div class="motion-hero-actions grid grid-cols-1 sm:grid-cols-[1.3fr_1fr] gap-3.5 mt-8 max-w-xl">
             <a
               class="motion-download-cta flex items-center gap-3 bg-cyan-400 hover:bg-cyan-300 text-slate-950 rounded-xl p-4 text-left shadow-lg shadow-cyan-400/15 hover:scale-[1.01] active:scale-[0.98] transition-all cursor-pointer select-none"
-              href="https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v4.1.0/GamingMusicOverlay-release4.1.0_portable-test.zip"
-              @click="handleDownloadClick($event, 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v4.1.0/GamingMusicOverlay-release4.1.0_portable-test.zip')"
+              href="https://mega.nz/file/NYwHAKgD#Gy29tE6POLzvoJtXJtDTKBHQNntgXzd-hXesBCFB-0o"
+              @click="handleDownloadClick($event, 'https://mega.nz/file/NYwHAKgD#Gy29tE6POLzvoJtXJtDTKBHQNntgXzd-hXesBCFB-0o')"
             >
               <span class="motion-download-icon bg-slate-950/10 p-2.5 rounded-lg text-slate-950 flex items-center justify-center">
                 <svg class="w-5 h-5 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 3v12m-5-5l5 5 5-5M5 21h14"/></svg>
@@ -704,8 +704,8 @@ onUnmounted(() => {
             <p class="box-label">Latest Download</p>
             <a
               class="download-link"
-              href="https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v4.1.0/GamingMusicOverlay-release4.1.0_portable-test.zip"
-              @click="handleDownloadClick($event, 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v4.1.0/GamingMusicOverlay-release4.1.0_portable-test.zip')"
+              href="https://mega.nz/file/NYwHAKgD#Gy29tE6POLzvoJtXJtDTKBHQNntgXzd-hXesBCFB-0o"
+              @click="handleDownloadClick($event, 'https://mega.nz/file/NYwHAKgD#Gy29tE6POLzvoJtXJtDTKBHQNntgXzd-hXesBCFB-0o')"
             >
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
                 <path d="M12 3v12" />
@@ -1307,8 +1307,8 @@ onUnmounted(() => {
               <div class="entry-actions flex items-center gap-3 flex-wrap mt-3">
                 <a
                   class="button primary cursor-pointer"
-                  href="https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v4.1.0/GamingMusicOverlay-release4.1.0_portable-test.zip"
-                  @click="handleDownloadClick($event, 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v4.1.0/GamingMusicOverlay-release4.1.0_portable-test.zip')"
+                  href="https://mega.nz/file/NYwHAKgD#Gy29tE6POLzvoJtXJtDTKBHQNntgXzd-hXesBCFB-0o"
+                  @click="handleDownloadClick($event, 'https://mega.nz/file/NYwHAKgD#Gy29tE6POLzvoJtXJtDTKBHQNntgXzd-hXesBCFB-0o')"
                 >
                   Download v4.1.0
                 </a>
@@ -1333,8 +1333,8 @@ onUnmounted(() => {
               <div class="entry-actions flex items-center gap-3 flex-wrap mt-3">
                 <a
                   class="button primary cursor-pointer"
-                  href="https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v4.1.0/GamingMusicOverlay-release4.1.0_portable-test.zip"
-                  @click="handleDownloadClick($event, 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v4.1.0/GamingMusicOverlay-release4.1.0_portable-test.zip')"
+                  href="https://mega.nz/file/NYwHAKgD#Gy29tE6POLzvoJtXJtDTKBHQNntgXzd-hXesBCFB-0o"
+                  @click="handleDownloadClick($event, 'https://mega.nz/file/NYwHAKgD#Gy29tE6POLzvoJtXJtDTKBHQNntgXzd-hXesBCFB-0o')"
                 >
                   Download v4.1.0
                 </a>
