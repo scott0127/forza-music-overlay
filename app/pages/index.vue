@@ -23,8 +23,8 @@ useSeoMeta({
 // Modal State
 const showTypewriterModal = ref(false);
 const pageRoot = ref<HTMLElement | null>(null);
-const googleDriveDownloadUrl = 'https://mega.nz/file/sQZFGARB#Ri90VD7Kcmnom6ZTv435RUhlmJLFEpbo9tXuBO7cVZY';
-const heroPrimaryDownloadUrl = 'https://mega.nz/file/sQZFGARB#Ri90VD7Kcmnom6ZTv435RUhlmJLFEpbo9tXuBO7cVZY';
+const googleDriveDownloadUrl = 'https://mega.nz/file/tFhhBKBR#WKRcJs72lrJuNsdi-2VXg3DifznX2X0Jz3gaKp7Gp8Y';
+const heroPrimaryDownloadUrl = 'https://mega.nz/file/tFhhBKBR#WKRcJs72lrJuNsdi-2VXg3DifznX2X0Jz3gaKp7Gp8Y';
 const heroHighSpeedDownloadUrl = 'https://mega.nz/file/QMhHkSKQ#8uLabTxyBFi0E8NgE3M0LisnTKlK90MZcKDtIKWEIDE';
 const heroFallbackDownloadUrl = 'https://github.com/scott0127/forza-horizon-6-youtube-muisc-player/releases/download/v3.0.0/ForzaMusicOverlay-release3.0.0_final.zip';
 usePageMotion(pageRoot);
@@ -1324,7 +1324,7 @@ onUnmounted(() => {
                 </span>
                 <span class="motion-download-copy">
                   <strong>v4.1.0</strong>
-                  <small>不穩定高速載點</small>
+                  <small>高速載點</small>
                 </span>
               </a>
               <a
@@ -3355,7 +3355,7 @@ onUnmounted(() => {
                   :href="googleDriveDownloadUrl"
                   @click="handleDownloadClick($event, googleDriveDownloadUrl)"
                 >
-                  v4.1.0 不穩定高速載點
+                  v4.1.0 高速載點
                 </a>
                 <a
                   class="button button-metal cursor-pointer"

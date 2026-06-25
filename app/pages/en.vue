@@ -414,15 +414,15 @@ onUnmounted(() => {
             <div class="motion-download-cta motion-download-split rounded-xl shadow-lg shadow-cyan-400/15 select-none">
               <a
                 class="motion-download-choice motion-download-choice-drive"
-                href="https://mega.nz/file/sQZFGARB#Ri90VD7Kcmnom6ZTv435RUhlmJLFEpbo9tXuBO7cVZY"
-                @click="handleDownloadClick($event, 'https://mega.nz/file/sQZFGARB#Ri90VD7Kcmnom6ZTv435RUhlmJLFEpbo9tXuBO7cVZY')"
+                href="https://mega.nz/file/tFhhBKBR#WKRcJs72lrJuNsdi-2VXg3DifznX2X0Jz3gaKp7Gp8Y"
+                @click="handleDownloadClick($event, 'https://mega.nz/file/tFhhBKBR#WKRcJs72lrJuNsdi-2VXg3DifznX2X0Jz3gaKp7Gp8Y')"
               >
                 <span class="motion-download-icon">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3v10m-4-4 4 4 4-4"/><path d="M5 16v3h14v-3"/></svg>
                 </span>
                 <span class="motion-download-copy">
                   <strong>v4.1.0</strong>
-                  <small>Unstable high-speed mirror</small>
+                  <small>High-speed mirror</small>
                 </span>
               </a>
               <a
@@ -735,8 +735,8 @@ onUnmounted(() => {
             <p class="box-label">Latest Download</p>
             <a
               class="download-link"
-              href="https://mega.nz/file/sQZFGARB#Ri90VD7Kcmnom6ZTv435RUhlmJLFEpbo9tXuBO7cVZY"
-              @click="handleDownloadClick($event, 'https://mega.nz/file/sQZFGARB#Ri90VD7Kcmnom6ZTv435RUhlmJLFEpbo9tXuBO7cVZY')"
+              href="https://mega.nz/file/tFhhBKBR#WKRcJs72lrJuNsdi-2VXg3DifznX2X0Jz3gaKp7Gp8Y"
+              @click="handleDownloadClick($event, 'https://mega.nz/file/tFhhBKBR#WKRcJs72lrJuNsdi-2VXg3DifznX2X0Jz3gaKp7Gp8Y')"
             >
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
                 <path d="M12 3v12" />
@@ -1338,10 +1338,10 @@ onUnmounted(() => {
               <div class="entry-actions flex items-center gap-3 flex-wrap mt-3">
                 <a
                   class="button primary cursor-pointer"
-                  href="https://mega.nz/file/sQZFGARB#Ri90VD7Kcmnom6ZTv435RUhlmJLFEpbo9tXuBO7cVZY"
-                  @click="handleDownloadClick($event, 'https://mega.nz/file/sQZFGARB#Ri90VD7Kcmnom6ZTv435RUhlmJLFEpbo9tXuBO7cVZY')"
+                  href="https://mega.nz/file/tFhhBKBR#WKRcJs72lrJuNsdi-2VXg3DifznX2X0Jz3gaKp7Gp8Y"
+                  @click="handleDownloadClick($event, 'https://mega.nz/file/tFhhBKBR#WKRcJs72lrJuNsdi-2VXg3DifznX2X0Jz3gaKp7Gp8Y')"
                 >
-                  v4.1.0 Unstable high-speed mirror
+                  v4.1.0 High-speed mirror
                 </a>
                 <a
                   class="button button-metal cursor-pointer"
@@ -1371,8 +1371,8 @@ onUnmounted(() => {
               <div class="entry-actions flex items-center gap-3 flex-wrap mt-3">
                 <a
                   class="button primary cursor-pointer"
-                  href="https://mega.nz/file/sQZFGARB#Ri90VD7Kcmnom6ZTv435RUhlmJLFEpbo9tXuBO7cVZY"
-                  @click="handleDownloadClick($event, 'https://mega.nz/file/sQZFGARB#Ri90VD7Kcmnom6ZTv435RUhlmJLFEpbo9tXuBO7cVZY')"
+                  href="https://mega.nz/file/tFhhBKBR#WKRcJs72lrJuNsdi-2VXg3DifznX2X0Jz3gaKp7Gp8Y"
+                  @click="handleDownloadClick($event, 'https://mega.nz/file/tFhhBKBR#WKRcJs72lrJuNsdi-2VXg3DifznX2X0Jz3gaKp7Gp8Y')"
                 >
                   Download v4.1.0
                 </a>
